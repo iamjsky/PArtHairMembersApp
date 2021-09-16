@@ -1,10 +1,13 @@
-package kr.co.parthair.android.members;
+package kr.co.parthair.android.members.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.ui.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

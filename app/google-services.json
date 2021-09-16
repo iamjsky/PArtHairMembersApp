@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "925745355562",
+    "project_id": "hoding",
+    "storage_bucket": "hoding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925745355562:android:f57f5e1e13c7e826799c53",
+        "android_client_info": {
+          "package_name": "com.devjsky.android.hoding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925745355562-kkgfuqujjh8kdmbun3h4fce3f2r0204d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devjsky.android.hoding",
+            "certificate_hash": "227b9e56c90a1795384192978c22ff1d6cba7e9d"
+          }
+        },
+        {
+          "client_id": "925745355562-u3lbffnd3rblo6sscp3ui2v0bglnechg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devjsky.android.hoding",
+            "certificate_hash": "043bce2f0091f3b68c36e3213f3c0cc2bda96af0"
+          }
+        },
+        {
+          "client_id": "925745355562-k63o7krlee7o1ni5jns9gurr15098q72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLNRZ8tGsmE2XUDvj3mLoR2uFjuTHuopI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925745355562-k63o7krlee7o1ni5jns9gurr15098q72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
