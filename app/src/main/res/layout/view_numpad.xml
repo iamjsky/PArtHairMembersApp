@@ -7,9 +7,10 @@
 
 
     <TextView
+        android:visibility="gone"
         android:padding="@dimen/_10sdp"
         android:id="@+id/tv_numPadNumber"
-        android:text="0109103333333333320836"
+        android:text="0123456789"
         android:textStyle="bold"
         android:textSize="@dimen/_30sdp"
         android:textColor="@color/white"
@@ -18,6 +19,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <LinearLayout
+        android:id="@+id/layout_numPadPassword"
+        android:gravity="center"
+        android:layout_above="@id/tv_desc"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_desc"
@@ -206,6 +218,30 @@
             android:layout_height="@dimen/_40sdp"/>
 
     </LinearLayout>
+<LinearLayout
+    android:id="@+id/layout_numPadBack"
+    android:padding="@dimen/_10sdp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginRight="@dimen/_6sdp"
+
+        android:src="@drawable/ico_back_01"
+        android:adjustViewBounds="true"
+        android:layout_width="@dimen/_10sdp"
+        android:layout_height="@dimen/_10sdp"/>
+    <TextView
+
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="닫기"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
 
 
 </RelativeLayout>

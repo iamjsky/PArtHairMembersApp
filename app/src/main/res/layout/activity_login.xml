@@ -24,10 +24,10 @@
             android:hint="휴대폰 번호"
             android:inputType="number" />
         <Button
-            android:id="@+id/btn_visibleNumPad"
+            android:id="@+id/btn_numPadPhoneLoginNumber"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:text="btn_visibleNumPad" />
+            android:text="btn_numPadPhoneLoginNumber" />
 
 
         <EditText
@@ -35,6 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="비밀번호" />
+        <Button
+            android:id="@+id/btn_numPadPhoneLoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:text="btn_numPadPhoneLoginPassword" />
 
         <EditText
             android:id="@+id/edtxt_inputPhoneLoginName"
@@ -59,7 +64,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="btn_phoneLogin" />
-
+        <Button
+            android:textColor="@color/black"
+            android:background="@drawable/selector_button_kakao_rounded_01"
+            android:id="@+id/btn_kakaoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="btn_kakaoLogin" />
+        <Button
+            android:textColor="@color/black"
+            android:background="@drawable/selector_button_kakao_rounded_01"
+            android:id="@+id/btn_kakaoLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="btn_kakaoLogout" />
 
     </LinearLayout>
     <include layout="@layout/view_numpad"

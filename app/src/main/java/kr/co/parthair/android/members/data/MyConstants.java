@@ -17,6 +17,9 @@ public interface MyConstants {
     int LOGIN_TYPE_KAKAO = 1;
     int LOGIN_TYPE_LINKED = 9;
 
+    int NUMPAD_PHONE_lOGIN_NUMBER = 0;
+    int NUMPAD_PHONE_LOGIN_PASSWORD = 1;
+
     default void LOG_D(String msg){
         if(DEBUG_MODE){
             Log.d(TAG, msg);

@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:hardwareAccelerated="true"
+        android:name=".social.kakao.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,7 +37,28 @@
             android:windowSoftInputMode="adjustNothing">
 
         </activity>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaoeb98ac0118f296e66e0db7a2682b8b57" />
+                <!-- <data -->
+                <!-- android:host="oauth" -->
+                <!-- android:scheme="kakaoa8f28b7a0cfc72cd47ee929d140a1928" /> -->
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="eb98ac0118f296e66e0db7a2682b8b57" />
 
 
     </application>

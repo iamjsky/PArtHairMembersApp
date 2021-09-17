@@ -558,6 +558,7 @@
 
     <!-- Logo colors -->
     <color name="kakao">#FFCD00</color>
+    <color name="kakao_bold">#F1C200</color>
     <color name="naver">#03c75a</color>
     <color name="facebook">#3b5998</color>
     <color name="youtube">#cd201f</color>
