@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_80">
+
+
+    <TextView
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/tv_numPadNumber"
+        android:text="0109103333333333320836"
+        android:textStyle="bold"
+        android:textSize="@dimen/_30sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_above="@id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_inputNumPad"
+        android:gravity="center"
+        android:text="휴대폰 번호를 입력해 주세요"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+
+    <LinearLayout
+        android:id="@+id/layout_inputNumPad"
+        android:padding="@dimen/_10sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_numpad_rounded_01"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_numPad_1"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="1"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_2"
+                android:layout_weight="1"
+
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="2"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_3"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="3"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_numPad_4"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="4"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_5"
+                android:layout_weight="1"
+
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="5"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_6"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="6"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_numPad_7"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="7"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_8"
+                android:layout_weight="1"
+
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="8"
+                android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_9"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="9"
+                 android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btn_numPad_cancel"
+                android:scaleType="fitCenter"
+                android:background="@drawable/selector_numpad_number_01"
+                android:padding="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:src="@drawable/ico_cancel_02"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:id="@+id/btn_numPad_0"
+                android:layout_weight="1"
+                android:textColor="@color/ph_main_color"
+                android:textSize="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="0"
+                android:background="@drawable/selector_numpad_number_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <ImageButton
+                android:id="@+id/btn_numPad_delete"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:padding="@dimen/_6sdp"
+                android:background="@drawable/selector_numpad_number_01"
+
+                android:layout_weight="1"         
+                android:src="@drawable/ico_delete_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_numPadInputFinish"
+            android:textColor="@color/white"
+            android:text="확인"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/selector_button_rounded_01"
+            android:layout_width="@dimen/_260sdp"
+            android:layout_height="@dimen/_40sdp"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
