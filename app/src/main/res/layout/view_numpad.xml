@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/layout_numPad"
     android:clickable="true"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,10 +8,11 @@
 
 
     <TextView
+
         android:visibility="gone"
         android:padding="@dimen/_10sdp"
-        android:id="@+id/tv_numPadNumber"
-        android:text="0123456789"
+        android:id="@+id/tv_numPadPhone"
+        android:text=""
         android:textStyle="bold"
         android:textSize="@dimen/_30sdp"
         android:textColor="@color/white"
@@ -20,6 +22,7 @@
         android:layout_height="match_parent"/>
 
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/layout_numPadPassword"
         android:gravity="center"
         android:layout_above="@id/tv_desc"
@@ -27,6 +30,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:letterSpacing="0.1"
+                android:inputType="numberPassword"
+                android:padding="@dimen/_10sdp"
+                android:text="0000"
+                android:textStyle="bold"
+                android:textSize="@dimen/_80sdp"
+                android:textColor="@color/DimGray"
+                android:gravity="left|center"
+                android:layout_width="@dimen/_160sdp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:letterSpacing="0.1"
+                android:inputType="numberPassword"
+                android:padding="@dimen/_10sdp"
+                android:id="@+id/tv_numPadPassword"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="@dimen/_80sdp"
+                android:textColor="@color/white"
+                android:gravity="left|center"
+                android:layout_width="@dimen/_160sdp"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
 
 
     </LinearLayout>
@@ -38,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/layout_inputNumPad"
         android:gravity="center"
-        android:text="휴대폰 번호를 입력해 주세요"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/_12sdp" />
 

@@ -10,6 +10,7 @@
     <color name="ph_light_gray_color_02">#D6D6D6</color>
     <color name="ph_light_gray_color_03">#F3F3F3</color>
 
+    <color name="black_20">#33000000</color>
     <color name="black_50">#80000000</color>
     <color name="black_80">#CC000000</color>
     <color name="black_95">#F2000000</color>

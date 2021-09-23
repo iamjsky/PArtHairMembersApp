@@ -1,11 +1,8 @@
-package kr.co.parthair.android.members.ui.login;
+package kr.co.parthair.android.members.ui.page.login;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,7 +24,8 @@ import kr.co.parthair.android.members.social.kakao.KakaoUserLogout;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLogoutCallback;
-import kr.co.parthair.android.members.ui.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.base.BaseActivity;
+import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
 
 import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 
@@ -44,140 +42,34 @@ public class LoginActivity extends BaseActivity {
 
     //region NUMPAD
 
-    @BindView(R.id.layout_numPad)
-    RelativeLayout layout_numPad;
-    @BindView(R.id.tv_numPadNumber)
-    TextView tv_numPadNumber;
-    @BindView(R.id.layout_numPadPassword)
-    LinearLayout layout_numPadPassword;
-
-    @OnClick(R.id.btn_numPadInputFinish)
-    public void btn_numPadInputFinishClicked() {
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                String numPadNumber = tv_numPadNumber.getText().toString() + "";
-                layout_numPad.setVisibility(View.GONE);
-                Toast.makeText(mContext, numPadNumber, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
-
-    void setNumPadLayout(int value) {
-
-        tv_numPadNumber.setText("");
-        tv_numPadNumber.setVisibility(View.GONE);
-        layout_numPadPassword.setVisibility(View.GONE);
-        switch (value) {
-            case NUMPAD_PHONE_lOGIN_NUMBER:
-                tv_numPadNumber.setVisibility(View.VISIBLE);
-                break;
-            case NUMPAD_PHONE_LOGIN_PASSWORD:
-                layout_numPadPassword.setVisibility(View.VISIBLE);
-                break;
-            default:
-                tv_numPadNumber.setVisibility(View.VISIBLE);
-                break;
-        }
-
-        layout_numPad.setVisibility(View.VISIBLE);
-
-
-    }
+    @BindView(R.id.view_numPad)
+    NumPadView view_numPad;
 
     @OnClick(R.id.btn_numPadPhoneLoginNumber)
-    public void btn_numPadPhoneLoginNumberClicked() {
-        runOnUiThread(new Runnable() {
+    public void btn_numPadPhoneLoginNumberClicked(){
+        NumPadView.NumPadFinishOnClickListener numPadFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
             @Override
-            public void run() {
-                setNumPadLayout(NUMPAD_PHONE_lOGIN_NUMBER);
-
-
+            public void onClick(View view, String data) {
+                Toast.makeText(mContext, data, Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+        view_numPad.setVisible(NUMPAD_PHONE_lOGIN_PHONE, numPadFinishOnClickListener);
 
     }
+
     @OnClick(R.id.btn_numPadPhoneLoginPassword)
-    public void btn_numPadPhoneLoginPasswordClicked() {
-        runOnUiThread(new Runnable() {
+    public void btn_numPadPhoneLoginPasswordClicked(){
+        NumPadView.NumPadFinishOnClickListener numPadFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
             @Override
-            public void run() {
-                setNumPadLayout(NUMPAD_PHONE_LOGIN_PASSWORD);
-
+            public void onClick(View view, String data) {
+                Toast.makeText(mContext, data, Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+        view_numPad.setVisible(NUMPAD_PHONE_LOGIN_PASSWORD, numPadFinishOnClickListener);
 
     }
-    @OnClick(R.id.layout_numPadBack)
-    public void layout_numPadBackClicked() {
-        layout_numPad.setVisibility(View.GONE);
-    }
-
-    @OnClick({R.id.btn_numPad_0, R.id.btn_numPad_1, R.id.btn_numPad_2,
-            R.id.btn_numPad_3, R.id.btn_numPad_4, R.id.btn_numPad_5,
-            R.id.btn_numPad_6, R.id.btn_numPad_7, R.id.btn_numPad_8,
-            R.id.btn_numPad_9, R.id.btn_numPad_cancel, R.id.btn_numPad_delete})
-    public void btn_numPadClicked(View view) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                String numPadNumber = tv_numPadNumber.getText().toString() + "";
-                switch (view.getId()) {
-                    case R.id.btn_numPad_0:
-                        numPadNumber += "0";
-                        break;
-                    case R.id.btn_numPad_1:
-                        numPadNumber += "1";
-                        break;
-                    case R.id.btn_numPad_2:
-                        numPadNumber += "2";
-                        break;
-                    case R.id.btn_numPad_3:
-                        numPadNumber += "3";
-                        break;
-                    case R.id.btn_numPad_4:
-                        numPadNumber += "4";
-                        break;
-                    case R.id.btn_numPad_5:
-                        numPadNumber += "5";
-                        break;
-                    case R.id.btn_numPad_6:
-                        numPadNumber += "6";
-                        break;
-                    case R.id.btn_numPad_7:
-                        numPadNumber += "7";
-                        break;
-                    case R.id.btn_numPad_8:
-                        numPadNumber += "8";
-                        break;
-                    case R.id.btn_numPad_9:
-                        numPadNumber += "9";
-                        break;
-                    case R.id.btn_numPad_cancel:
-                        numPadNumber = "";
-                        break;
-                    case R.id.btn_numPad_delete:
-                        // LOG_D("numPadNumber.length()>>" + numPadNumber.length());
-                        if (numPadNumber.length() > 0) {
-                            numPadNumber = numPadNumber.substring(0, numPadNumber.length() - 1);
-                        } else {
-                            numPadNumber = "";
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-
-                tv_numPadNumber.setText(numPadNumber + "");
-            }
-        });
 
 
-    }
 
     //endregion
 
@@ -198,14 +90,13 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (layout_numPad.getVisibility() == View.VISIBLE) {
-            layout_numPad.setVisibility(View.GONE);
-            return;
-        }
+
         super.onBackPressed();
     }
 
     void init() {
+
+
         kakaoUserLogin = new KakaoUserLogin(this, kakaoLoginCallback);
         kakaoGetUserInfo = new KakaoGetUserInfo(this, kakaoGetUserInfoCallback);
         kakaoUserLogout = new KakaoUserLogout(this, kakaoLogoutCallback);
@@ -428,6 +319,8 @@ public class LoginActivity extends BaseActivity {
 
         }
     };
+
+
 
 
     //endregion

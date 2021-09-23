@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity"
+    tools:context=".ui.page.login.LoginActivity"
     android:background="@color/white">
 
 
@@ -80,7 +80,13 @@
             android:text="btn_kakaoLogout" />
 
     </LinearLayout>
-    <include layout="@layout/view_numpad"
-        android:id="@+id/layout_numPad"
-        android:visibility="gone"></include>
+
+    <kr.co.parthair.android.members.ui.widget.numpad.NumPadView
+        android:visibility="gone"
+        android:id="@+id/view_numPad"
+        app:type="phone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
 </RelativeLayout>

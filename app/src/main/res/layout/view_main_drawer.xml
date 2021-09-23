@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black_80"
+    android:id="@+id/layout_drawer"
+    android:visibility="gone"
+    android:clickable="true">
+
+<LinearLayout
+    android:clickable="true"
+    android:id="@+id/layout_body"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="@dimen/_200sdp"
+    android:layout_height="match_parent">
+
+
+</LinearLayout>
+
+
+</RelativeLayout>

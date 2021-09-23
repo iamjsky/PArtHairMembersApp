@@ -1,6 +1,4 @@
-package kr.co.parthair.android.members.ui.splash;
-
-import androidx.appcompat.app.AppCompatActivity;
+package kr.co.parthair.android.members.ui.page.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +9,8 @@ import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.ui.base.BaseActivity;
-import kr.co.parthair.android.members.ui.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 
 public class SplashActivity extends BaseActivity {
 
