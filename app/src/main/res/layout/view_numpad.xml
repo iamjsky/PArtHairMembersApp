@@ -30,36 +30,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:letterSpacing="0.1"
-                android:inputType="numberPassword"
-                android:padding="@dimen/_10sdp"
-                android:text="0000"
-                android:textStyle="bold"
-                android:textSize="@dimen/_80sdp"
-                android:textColor="@color/DimGray"
-                android:gravity="left|center"
-                android:layout_width="@dimen/_160sdp"
-                android:layout_height="match_parent"/>
-            <TextView
-                android:letterSpacing="0.1"
-                android:inputType="numberPassword"
-                android:padding="@dimen/_10sdp"
-                android:id="@+id/tv_numPadPassword"
-                android:text=""
-                android:textStyle="bold"
-                android:textSize="@dimen/_80sdp"
-                android:textColor="@color/white"
-                android:gravity="left|center"
-                android:layout_width="@dimen/_160sdp"
-                android:layout_height="match_parent"/>
-
-        </RelativeLayout>
-
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/iv_password_01"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:src="@drawable/bg_password_round_default_01"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"/>
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/iv_password_02"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:src="@drawable/bg_password_round_default_01"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"/>
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/iv_password_03"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:src="@drawable/bg_password_round_default_01"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"/>
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/iv_password_04"
+            android:src="@drawable/bg_password_round_default_01"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"/>
 
     </LinearLayout>
 

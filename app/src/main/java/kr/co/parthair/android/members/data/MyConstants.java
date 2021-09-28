@@ -20,6 +20,8 @@ public interface MyConstants {
     String NUMPAD_PHONE_lOGIN_PHONE = "phone";
     String NUMPAD_PHONE_LOGIN_PASSWORD = "password";
 
+
+
     default void LOG_D(String msg){
         if(DEBUG_MODE){
             Log.d(TAG, msg);

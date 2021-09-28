@@ -5,88 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.page.login.LoginActivity"
-    android:background="@color/white">
+    android:background="@color/ph_page_bg_color">
 
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <EditText
-            android:id="@+id/edtxt_inputPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="휴대폰 번호"
-            android:inputType="number" />
-        <Button
-            android:id="@+id/btn_numPadPhoneLoginNumber"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:text="btn_numPadPhoneLoginNumber" />
-
-
-        <EditText
-            android:id="@+id/edtxt_inputPhoneLoginPw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="비밀번호" />
-        <Button
-            android:id="@+id/btn_numPadPhoneLoginPassword"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:text="btn_numPadPhoneLoginPassword" />
-
-        <EditText
-            android:id="@+id/edtxt_inputPhoneLoginName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="이름" />
-
-        <Button
-            android:id="@+id/btn_checkSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="btn_checkSignUp" />
-
-        <Button
-            android:id="@+id/btn_phoneSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="btn_phoneSignUp" />
-
-        <Button
-            android:id="@+id/btn_phoneLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="btn_phoneLogin" />
-        <Button
-            android:textColor="@color/black"
-            android:background="@drawable/selector_button_kakao_rounded_01"
-            android:id="@+id/btn_kakaoLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="btn_kakaoLogin" />
-        <Button
-            android:textColor="@color/black"
-            android:background="@drawable/selector_button_kakao_rounded_01"
-            android:id="@+id/btn_kakaoLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="btn_kakaoLogout" />
-
-    </LinearLayout>
-
-    <kr.co.parthair.android.members.ui.widget.numpad.NumPadView
-        android:visibility="gone"
-        android:id="@+id/view_numPad"
-        app:type="phone"
+    <FrameLayout
+        android:id="@+id/layout_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 
 </RelativeLayout>
