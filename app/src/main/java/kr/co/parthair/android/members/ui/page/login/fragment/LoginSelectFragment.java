@@ -36,7 +36,7 @@ import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
 import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 
 /**
- * ClassName            LoginMainFragment
+ * ClassName            LoginSelectFragment
  * Created by JSky on   2021-09-28
  * <p>
  * Description

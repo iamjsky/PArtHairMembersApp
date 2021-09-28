@@ -13,7 +13,7 @@ import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.ui.page.base.BaseFragment;
 
 /**
- * ClassName            LoginMainFragment
+ * ClassName            LoginSignUpInfoFragment
  * Created by JSky on   2021-09-28
  * <p>
  * Description

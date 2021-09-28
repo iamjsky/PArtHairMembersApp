@@ -131,7 +131,7 @@
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:text="피아트헤어 로그인" />
+                    android:text="로그인" />
                 <Button
                     android:textColor="@color/ph_main_color"
                     android:background="@drawable/selector_button_rounded_02"
@@ -139,7 +139,7 @@
                     android:id="@+id/btn_signUp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:text="가입하기" />
+                    android:text="피아트헤어 멤버스 가입하기" />
             </LinearLayout>
 
 

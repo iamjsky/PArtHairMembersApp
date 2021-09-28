@@ -1,6 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_marginLeft="@dimen/_16sdp"
+
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ico_back_02"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:gravity="center|left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    />
+            </LinearLayout>
+
+            <View
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line_elevation_01" />
+
+        </LinearLayout>
+
+
+
+
+
+
+            <TextView
+                android:paddingLeft="@dimen/_20sdp"
+                android:paddingTop="@dimen/_14sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="피아트헤어"
+                android:textSize="@dimen/_30sdp" />
+
+
+        <TextView
+            android:paddingLeft="@dimen/_20sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="멤버스 가입하기"
+            android:textSize="@dimen/_30sdp" />
+        <TextView
+            android:paddingLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="피아트헤어 멤버스에 가입하고 다양한 혜택을 누리세요!"
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginBottom="@dimen/_60sdp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:text=""
+            android:textSize="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.cardview.widget.CardView
+            app:cardElevation="@dimen/_10sdp"
+            android:outlineSpotShadowColor="@color/ph_light_gray_color_01"
+            android:outlineAmbientShadowColor="@color/ph_light_gray_color_01"
+            android:layout_margin="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:padding="@dimen/_20sdp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+
+                    android:id="@+id/btn_phoneSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:text="휴대폰 번호로 가입하기" />
+                <Button
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/selector_button_kakao_rounded_01"
+                    android:id="@+id/btn_kakaoSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:text="카카오 계정으로 가입하기" />
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+
+
+
+    <kr.co.parthair.android.members.ui.widget.numpad.NumPadView
+        android:visibility="gone"
+        android:id="@+id/view_numPad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</RelativeLayout>
