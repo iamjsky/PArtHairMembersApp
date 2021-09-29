@@ -1,4 +1,4 @@
-package kr.co.parthair.android.members.data;
+package kr.co.parthair.android.members.common;
 
 /**
  * ClassName            CommonInfo

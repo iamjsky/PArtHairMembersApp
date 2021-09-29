@@ -4,17 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.data.FragmentPageCode;
 import kr.co.parthair.android.members.ui.page.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 

@@ -23,6 +23,7 @@
         <item name="android:textColor">@color/ph_main_color</item>
         <item name="android:textSize">@dimen/_12sdp</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <style name="customRadioButtonFontStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">

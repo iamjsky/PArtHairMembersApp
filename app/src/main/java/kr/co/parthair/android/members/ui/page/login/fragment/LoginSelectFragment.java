@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.kakao.sdk.user.model.User;
 
@@ -17,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.data.MyInfo;
+import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.net.api.callback.CheckSignUpCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneLoginCallback;
@@ -30,6 +29,7 @@ import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLogoutCallback;
 import kr.co.parthair.android.members.ui.page.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.page.main.MainActivity;
 import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
 
@@ -48,13 +48,16 @@ public class LoginSelectFragment extends BaseFragment {
     KakaoGetUserInfo kakaoGetUserInfo;
     KakaoUserLogout kakaoUserLogout;
 
-    private String userPhoneId = "";
-    private String userPhoneIdPw = "";
-    //private String userPhoneIdPwChk = "";
+
+
 
 
 
     //region NUMPAD
+
+    private String userPhoneId = "";
+    private String userPhoneIdPw = "";
+    //private String userPhoneIdPwChk = "";
 
     @BindView(R.id.view_numPad)
     NumPadView view_numPad;
@@ -65,7 +68,13 @@ public class LoginSelectFragment extends BaseFragment {
         public void onClick(View view, String data) {
             Toast.makeText(mParent, data, Toast.LENGTH_SHORT).show();
             userPhoneId = data;
+            userPhoneIdPw = "";
             view_numPad.setVisible(NUMPAD_PHONE_LOGIN_PASSWORD, numPadPasswordFinishOnClickListener);
+        }
+
+        @Override
+        public void onCancel(String type) {
+
         }
     };
 
@@ -73,8 +82,14 @@ public class LoginSelectFragment extends BaseFragment {
         @Override
         public void onClick(View view, String data) {
             userPhoneIdPw = data;
-            Toast.makeText(mParent, data, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(mParent, data, Toast.LENGTH_SHORT).show();
             phoneLogin(userPhoneId, userPhoneIdPw);
+        }
+        @Override
+        public void onCancel(String type) {
+            userPhoneId = "";
+            userPhoneIdPw = "";
+            view_numPad.setVisible(NUMPAD_PHONE_lOGIN_PHONE, numPadPhoneNumberFinishOnClickListener);
         }
     };
 //    NumPadView.NumPadFinishOnClickListener numPadPasswordCheckFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
@@ -116,18 +131,22 @@ public class LoginSelectFragment extends BaseFragment {
 
     public void phoneLogin(String userPhoneId, String userPhoneIdPw) {
 
+
+        ((LoginActivity)mParent).setLoading(true);
         String inputPhoneNumber = userPhoneId + "";
         String inputPhoneLoginPw = userPhoneIdPw + "";
 
         if (!String_IsNotNull(inputPhoneNumber)) {
-
-            Toast.makeText(mParent, "휴대폰 번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "휴대폰 번호를 입력해 주세요.");
+            loginMessageDialog.show();
+           // Toast.makeText(mParent, "휴대폰 번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
 
         }
         if (!String_IsNotNull(inputPhoneLoginPw)) {
-
-            Toast.makeText(mParent, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "비밀번호를 입력해 주세요.");
+            loginMessageDialog.show();
+           // Toast.makeText(mParent, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
 
         }
@@ -148,6 +167,8 @@ public class LoginSelectFragment extends BaseFragment {
     @OnClick(R.id.btn_phoneLogin)
     public void btn_phoneLoginClicked(){
         LOG_I("???");
+        userPhoneId = "";
+        userPhoneIdPw = "";
         view_numPad.setVisible(NUMPAD_PHONE_lOGIN_PHONE, numPadPhoneNumberFinishOnClickListener);
 
     }
@@ -162,44 +183,47 @@ public class LoginSelectFragment extends BaseFragment {
     private CheckSignUpCallback checkSignUpCallback = new CheckSignUpCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
         }
     };
 
     private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
         }
     };
 
     private PhoneLoginCallback phoneLoginCallback = new PhoneLoginCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+            ((LoginActivity)mParent).setLoading(false);
             userApi.getUserInfo(getUserInfoCallback);
         }
 
         @Override
         public void onError(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
+            loginMessageDialog.show();
+
         }
     };
 
     private GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+            ((LoginActivity)mParent).setLoading(false);
             LOG_I(MyInfo.instance.getUserInfo().toString());
             Intent intent = new Intent(mParent, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -208,7 +232,8 @@ public class LoginSelectFragment extends BaseFragment {
 
         @Override
         public void onError(int code, String msg) {
-            Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
+            loginMessageDialog.show();
         }
     };
 

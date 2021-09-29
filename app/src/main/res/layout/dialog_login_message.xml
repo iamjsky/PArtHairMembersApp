@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_200sdp"
+    android:background="@drawable/bg_rounded_01"
+    android:padding="@dimen/_20sdp">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:textColor="@color/ph_main_color"
+            android:fontFamily="@font/pretendard_bold"
+            android:gravity="center"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+
+            android:layout_weight="1"
+            android:textColor="@color/ph_main_color"
+            android:gravity="left|center"
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"/>
+
+        <Button
+            android:layout_marginTop="@dimen/_20sdp"
+            android:id="@+id/btn_confirm"
+            android:text="확인"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"/>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

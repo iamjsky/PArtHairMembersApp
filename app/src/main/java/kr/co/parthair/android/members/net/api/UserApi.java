@@ -1,8 +1,8 @@
 package kr.co.parthair.android.members.net.api;
 
-import kr.co.parthair.android.members.data.HttpResponseCode;
-import kr.co.parthair.android.members.data.MyConstants;
-import kr.co.parthair.android.members.data.MyInfo;
+import kr.co.parthair.android.members.common.HttpResponseCode;
+import kr.co.parthair.android.members.common.MyConstants;
+import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.model.CheckSignUp;
 import kr.co.parthair.android.members.model.PhoneLogin;
 import kr.co.parthair.android.members.model.PhoneSignUp;
@@ -28,9 +28,9 @@ public class UserApi implements MyConstants, HttpResponseCode {
     private RetrofitGenerator retrofitGenerator = new RetrofitGenerator();
     private ApiService apiService = retrofitGenerator.getApiService();
 
-    public void checkSignUp(int type, String value, CheckSignUpCallback callback) {
+    public void checkSignUp(String phoneNum, CheckSignUpCallback callback) {
 
-        apiService.checkSignUp(type, value).enqueue(new Callback<CheckSignUp>() {
+        apiService.checkSignUp(phoneNum).enqueue(new Callback<CheckSignUp>() {
             @Override
             public void onResponse(Call<CheckSignUp> call, Response<CheckSignUp> response) {
                 if (response.isSuccessful()) {

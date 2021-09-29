@@ -2,40 +2,27 @@ package kr.co.parthair.android.members.ui.page.login;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.kakao.sdk.user.model.User;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.data.CommonInfo;
-import kr.co.parthair.android.members.data.MyInfo;
-import kr.co.parthair.android.members.net.api.callback.CheckSignUpCallback;
-import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
-import kr.co.parthair.android.members.net.api.callback.PhoneLoginCallback;
-import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
-import kr.co.parthair.android.members.social.kakao.KakaoGetUserInfo;
-import kr.co.parthair.android.members.social.kakao.KakaoUserLogin;
-import kr.co.parthair.android.members.social.kakao.KakaoUserLogout;
-import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCallback;
-import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
-import kr.co.parthair.android.members.social.kakao.callback.KakaoLogoutCallback;
+import kr.co.parthair.android.members.common.CommonInfo;
+import kr.co.parthair.android.members.common.callback.AgreeCallback;
 import kr.co.parthair.android.members.ui.page.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginMainFragment;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginSelectFragment;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginSignUpFragment;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginSignUpInfoFragment;
-import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
-
-import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 
 
 public class LoginActivity extends BaseActivity {
@@ -46,45 +33,44 @@ public class LoginActivity extends BaseActivity {
 
     public int nowFragmentPage = -1;
 
+    @BindView(R.id.layout_loading)
+    LinearLayout layout_loading;
 
-//    @BindView(R.id.edtxt_inputPhoneNumber)
-//    EditText edtxt_inputPhoneNumber;
-//    @BindView(R.id.edtxt_inputPhoneLoginPw)
-//    EditText edtxt_inputPhoneLoginPw;
-//    @BindView(R.id.edtxt_inputPhoneLoginName)
-//    EditText edtxt_inputPhoneLoginName;
+    //이용약관
+    @BindView(R.id.layout_policy)
+    RelativeLayout layout_policy;
+    //개인정보처리방침
+    @BindView(R.id.layout_privacy)
+    RelativeLayout layout_privacy;
 
-    //region NUMPAD
+    //region 최종 가입 단계 정보
+    private String phoneSignUpPhoneNumber = "";
+    private String phoneSignUpPassword = "";
+    private String phoneSignUpUserName = "";
+    private String phoneSignUpUserEmail = "";
 
-//    @BindView(R.id.view_numPad)
-//    NumPadView view_numPad;
-//
-//    @OnClick(R.id.btn_numPadPhoneLoginNumber)
-//    public void btn_numPadPhoneLoginNumberClicked(){
-//        NumPadView.NumPadFinishOnClickListener numPadFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
-//            @Override
-//            public void onClick(View view, String data) {
-//                Toast.makeText(mContext, data, Toast.LENGTH_SHORT).show();
-//            }
-//        };
-//        view_numPad.setVisible(NUMPAD_PHONE_lOGIN_PHONE, numPadFinishOnClickListener);
-//
-//    }
-//
-//    @OnClick(R.id.btn_numPadPhoneLoginPassword)
-//    public void btn_numPadPhoneLoginPasswordClicked(){
-//        NumPadView.NumPadFinishOnClickListener numPadFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
-//            @Override
-//            public void onClick(View view, String data) {
-//                Toast.makeText(mContext, data, Toast.LENGTH_SHORT).show();
-//            }
-//        };
-//        view_numPad.setVisible(NUMPAD_PHONE_LOGIN_PASSWORD, numPadFinishOnClickListener);
-//
-//    }
+    public ArrayList<String> getPhoneSignUpData(){
+        ArrayList<String> phoneLoginDataList = new ArrayList<>();
+        phoneLoginDataList.add(phoneSignUpPhoneNumber);
+        phoneLoginDataList.add(phoneSignUpPassword);
+        phoneLoginDataList.add(phoneSignUpUserName);
+        phoneLoginDataList.add(phoneSignUpUserEmail);
+        return phoneLoginDataList;
+    }
+    public void setPhoneSignUpData_01(String value1, String value2){
 
+        phoneSignUpPhoneNumber = value1;
+        phoneSignUpPassword = value2;
+    }
+    public void setPhoneSignUpData_02(String value1, String value2){
+
+        phoneSignUpUserName = value1;
+        phoneSignUpUserEmail = value2;
+    }
 
     //endregion
+
+
 
 
 //    KakaoUserLogin kakaoUserLogin;
@@ -106,6 +92,14 @@ public class LoginActivity extends BaseActivity {
         if(CommonInfo.instance.isNumPadVisible){
             return;
         }
+        if(layout_policy.getVisibility() == View.VISIBLE){
+            iv_policyBackClicked();
+            return;
+        }
+        if(layout_privacy.getVisibility() == View.VISIBLE){
+            iv_privacyBackClicked();
+            return;
+        }
         switch (nowFragmentPage) {
             case FRAGMENT_LOGIN_MAIN:
                 //super.onBackPressed();
@@ -118,7 +112,7 @@ public class LoginActivity extends BaseActivity {
                 setFragmentPage(FRAGMENT_LOGIN_MAIN);
                 break;
             case FRAGMENT_LOGIN_SIGNUP_INFO:
-                setFragmentPage(FRAGMENT_LOGIN_MAIN);
+                //setFragmentPage(FRAGMENT_LOGIN_MAIN);
                 break;
 
 
@@ -171,9 +165,62 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    public void setLoading(boolean value){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(value){
+                    layout_loading.setVisibility(View.VISIBLE);
+                }else{
+                    layout_loading.setVisibility(View.GONE);
+                }
+            }
+        });
 
+
+    }
+
+    public AgreeCallback policyAgreeCallback;
+    public AgreeCallback privacyAgreeCallback;
+
+    public void visiblePolicy(AgreeCallback callback){
+        policyAgreeCallback = callback;
+        layout_policy.setVisibility(View.VISIBLE);
+    }
+    public void visiblePrivacy(AgreeCallback callback){
+        privacyAgreeCallback = callback;
+        layout_privacy.setVisibility(View.VISIBLE);
+    }
     //region OnClick
 
+    @OnClick(R.id.iv_policyBack)
+    public void iv_policyBackClicked(){
+
+        layout_policy.setVisibility(View.GONE);
+        policyAgreeCallback.cancel();
+
+    }
+    @OnClick(R.id.iv_privacyBack)
+    public void iv_privacyBackClicked(){
+
+        layout_privacy.setVisibility(View.GONE);
+        privacyAgreeCallback.cancel();
+
+    }
+    @OnClick(R.id.btn_policyAgree)
+    public void btn_policyAgreeClicked(){
+
+        layout_policy.setVisibility(View.GONE);
+        policyAgreeCallback.agree();
+
+    }
+    @OnClick(R.id.btn_privacyAgree)
+    public void btn_privacyAgreeClicked(){
+
+        layout_privacy.setVisibility(View.GONE);
+        privacyAgreeCallback.agree();
+
+    }
 //    @OnClick(R.id.btn_checkSignUp)
 //    public void btn_checkSignUpClicked() {
 //

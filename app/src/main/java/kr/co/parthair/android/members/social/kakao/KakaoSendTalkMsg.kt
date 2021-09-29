@@ -2,8 +2,8 @@ package kr.co.parthair.android.members.social.kakao
 
 import android.content.Context
 import android.util.Log
-import kr.co.parthair.android.members.data.MyConstants.DEBUG_MODE
-import kr.co.parthair.android.members.data.MyConstants.TAG
+import kr.co.parthair.android.members.common.MyConstants.DEBUG_MODE
+import kr.co.parthair.android.members.common.MyConstants.TAG
 import kr.co.parthair.android.members.social.kakao.callback.KakaoSendTalkMsgCallback
 import kr.co.parthair.android.members.social.kakao.model.MyLocationTemplate
 import com.kakao.sdk.talk.TalkApiClient

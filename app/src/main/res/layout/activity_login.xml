@@ -11,5 +11,18 @@
         android:id="@+id/layout_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/layout_loading"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+
+    </LinearLayout>
+
+    <include layout="@layout/view_policy" android:visibility="gone" />
+    <include layout="@layout/view_privacy" android:visibility="gone" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package kr.co.parthair.android.members.data;
+package kr.co.parthair.android.members.common;
 
 import android.util.Log;
 
@@ -17,8 +17,11 @@ public interface MyConstants {
     int LOGIN_TYPE_KAKAO = 1;
     int LOGIN_TYPE_LINKED = 9;
 
-    String NUMPAD_PHONE_lOGIN_PHONE = "phone";
-    String NUMPAD_PHONE_LOGIN_PASSWORD = "password";
+    String NUMPAD_PHONE_lOGIN_PHONE = "login_phone";
+    String NUMPAD_PHONE_LOGIN_PASSWORD = "login_password";
+    String NUMPAD_PHONE_SIGNUP_PHONE = "signup_phone";
+    String NUMPAD_PHONE_SIGNUP_PASSWORD = "signup_password";
+    String NUMPAD_PHONE_LOGIN_PASSWORD_CHECK = "signup_passwordChk";
 
 
 

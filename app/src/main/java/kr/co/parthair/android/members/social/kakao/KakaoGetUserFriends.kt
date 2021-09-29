@@ -2,10 +2,9 @@ package kr.co.parthair.android.members.social.kakao
 
 import android.content.Context
 import android.util.Log
-import kr.co.parthair.android.members.data.MyConstants
 import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserFriendsCallback
 import com.kakao.sdk.talk.TalkApiClient
-import kr.co.parthair.android.members.data.MyConstants.TAG
+import kr.co.parthair.android.members.common.MyConstants.TAG
 
 
 /**

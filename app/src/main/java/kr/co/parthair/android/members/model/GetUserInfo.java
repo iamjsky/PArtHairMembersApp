@@ -69,12 +69,7 @@ public class GetUserInfo {
         @SerializedName("last_visit_date")
         @Expose
         public Object lastVisitDate;
-        @SerializedName("link_state")
-        @Expose
-        public String linkState;
-        @SerializedName("linked_idx")
-        @Expose
-        public String linkedIdx;
+
 
     }
 }

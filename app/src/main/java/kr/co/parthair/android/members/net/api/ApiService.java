@@ -23,8 +23,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("checkSignUp.php")
     Call<CheckSignUp> checkSignUp(
-            @Field("type") int type,
-            @Field("value") String value
+            @Field("phoneNum") String phoneNum
 
 
 

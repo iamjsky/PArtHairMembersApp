@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 
-import kr.co.parthair.android.members.data.FragmentPageCode;
-import kr.co.parthair.android.members.data.HttpResponseCode;
-import kr.co.parthair.android.members.data.MyConstants;
+import kr.co.parthair.android.members.common.FragmentPageCode;
+import kr.co.parthair.android.members.common.HttpResponseCode;
+import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.net.api.UserApi;
 
 
