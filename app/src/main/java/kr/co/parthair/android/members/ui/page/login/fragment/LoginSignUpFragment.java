@@ -9,12 +9,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.kakao.sdk.user.model.User;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.callback.AgreeCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
+import kr.co.parthair.android.members.social.kakao.KakaoGetUserInfo;
+import kr.co.parthair.android.members.social.kakao.KakaoUserLogin;
+import kr.co.parthair.android.members.social.kakao.KakaoUserLogout;
+import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCallback;
+import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
 import kr.co.parthair.android.members.ui.page.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
@@ -30,6 +37,10 @@ import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNul
  */
 public class LoginSignUpFragment extends BaseFragment {
 
+        KakaoUserLogin kakaoUserLogin;
+    KakaoGetUserInfo kakaoGetUserInfo;
+    KakaoUserLogout kakaoUserLogout;
+
 
     //region NUMPAD
 
@@ -40,7 +51,7 @@ public class LoginSignUpFragment extends BaseFragment {
     @BindView(R.id.view_numPad)
     NumPadView view_numPad;
 
-    private int login_type = -1;
+    private int signUp_type = -1;
 
 
     NumPadView.NumPadFinishOnClickListener numPadPhoneNumberFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
@@ -80,7 +91,8 @@ public class LoginSignUpFragment extends BaseFragment {
         @Override
         public void onClick(View view, String data) {
             userPhoneIdPwChk = data;
-            btn_phoneSignUpInfoMove();
+
+            phoneSignUpInfoMove();
             //Toast.makeText(mParent, userPhoneId + "," + userPhoneIdPw + "," + userPhoneIdPwChk, Toast.LENGTH_SHORT).show();
         }
         @Override
@@ -113,37 +125,29 @@ public class LoginSignUpFragment extends BaseFragment {
     }
 
     void init(){
-
+        kakaoUserLogin = new KakaoUserLogin(mParent, kakaoLoginCallback);
+        kakaoGetUserInfo = new KakaoGetUserInfo(mParent, kakaoGetUserInfoCallback);
+      //  kakaoUserLogout = new KakaoUserLogout(this, kakaoLogoutCallback);
     }
 
-    public void btn_phoneSignUpInfoMove() {
+    public void phoneSignUpInfoMove() {
 
 
 
-        if (!String_IsNotNull(userPhoneId)) {
-
-
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "휴대폰 번호를 입력해 주세요.");
-            loginMessageDialog.show();
-            return;
-
-        }
-        if (!String_IsNotNull(userPhoneIdPw)) {
-
-
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "비밀번호를 입력해 주세요.");
-            loginMessageDialog.show();
-            return;
-
-        }
-
-
-        ((LoginActivity)mParent).setPhoneSignUpData_01(userPhoneId, userPhoneIdPw);
+        ((LoginActivity)mParent).setLoading(true);
+        ((LoginActivity)mParent).setPhoneSignUpData_01(signUp_type, userPhoneId, userPhoneIdPw);
         ((LoginActivity)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP_INFO);
+        ((LoginActivity)mParent).setLoading(false);
+
+    }
+    public void kakaoSignUpInfoMove() {
+
+        ((LoginActivity)mParent).setLoading(true);
+        kakaoUserLogin.login();
+
 
 
     }
-
 
     //region onClick
 
@@ -156,13 +160,13 @@ public class LoginSignUpFragment extends BaseFragment {
 
     @OnClick(R.id.btn_phoneSignUp)
     public void btn_phoneSignUpClicked(){
-        login_type = 0;
+        signUp_type = 0;
         ((LoginActivity)mParent).visiblePolicy(policyAgreeCallback);
     }
 
     @OnClick(R.id.btn_kakaoSignUp)
     public void btn_kakaoSignUpClicked(){
-        login_type = 1;
+        signUp_type = 1;
         ((LoginActivity)mParent).visiblePolicy(policyAgreeCallback);
     }
 
@@ -183,19 +187,22 @@ public class LoginSignUpFragment extends BaseFragment {
 
         @Override
         public void cancel() {
-            login_type = -1;
+            signUp_type = -1;
         }
     };
 
     public AgreeCallback privacyAgreeCallback = new AgreeCallback() {
         @Override
         public void agree() {
-            if(login_type == 0){
+            if(signUp_type == 0){
                 userPhoneId = "";
                 userPhoneIdPw = "";
                 userPhoneIdPwChk = "";
                 view_numPad.setVisible(NUMPAD_PHONE_SIGNUP_PHONE, numPadPhoneNumberFinishOnClickListener);
-            }else if(login_type == 1){
+            }else if(signUp_type == 1){
+
+                kakaoSignUpInfoMove();
+
 
             }
 
@@ -208,16 +215,84 @@ public class LoginSignUpFragment extends BaseFragment {
         }
     };
 
-    private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
+    public KakaoLoginCallback kakaoLoginCallback = new KakaoLoginCallback() {
         @Override
-        public void onSuccess(int code, String msg) {
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
-            loginMessageDialog.show();
+        public void onSuccess(String kakaoUserToken) {
+            if (kakaoUserToken != null) {
+                kakaoGetUserInfo.getUserInfo();
+            }else{
+                ((LoginActivity)mParent).setLoading(false);
+                LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.");
+                loginMessageDialog.show();
+            }
+
         }
 
         @Override
-        public void onError(int code, String msg) {
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
+        public void onError(@NonNull Throwable throwable) {
+            LOG_E("kakaoLoginCallback : " + throwable.toString());
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.");
+            loginMessageDialog.show();
+        }
+    };
+
+    public KakaoGetUserInfoCallback kakaoGetUserInfoCallback = new KakaoGetUserInfoCallback() {
+        @Override
+        public void onSuccess(User user) {
+            ((LoginActivity)mParent).setLoading(false);
+            String kakaoId = "";
+            String kakaoNickName = "";
+            String kakaoProfileImg = "";
+            String kakaoEmail = "";
+
+            if (user.getId() != 0 && user.getId() != -1) {
+                kakaoId = user.getId() + "";
+            } else {
+                kakaoId = "";
+            }
+
+            if (user.getKakaoAccount().getProfile().getNickname() != null) {
+                kakaoNickName = user.getKakaoAccount().getProfile().getNickname() + "";
+            } else {
+                kakaoNickName = "이름없음";
+            }
+
+
+            if (user.getKakaoAccount().getProfile().getThumbnailImageUrl() != null) {
+                kakaoProfileImg = user.getKakaoAccount().getProfile().getThumbnailImageUrl() + "";
+            } else {
+                kakaoProfileImg = "";
+            }
+
+            if (user.getKakaoAccount().getEmail() != null &&
+                    user.getKakaoAccount().getEmail().contains("@")) {
+                kakaoEmail = user.getKakaoAccount().getEmail() + "";
+            } else {
+                kakaoEmail = "";
+            }
+
+
+//            userApi.socialLogin(
+//                    1,
+//                    kakaoNickName,
+//                    kakaoEmail,
+//                    kakaoId,
+//                    kakaoProfileImg,
+//                    loginCallback);
+
+
+            ((LoginActivity)mParent).setKakaoSignUpData_01(signUp_type, kakaoId, kakaoNickName, kakaoProfileImg, kakaoEmail);
+            ((LoginActivity)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP_INFO);
+            ((LoginActivity)mParent).setLoading(false);
+
+
+        }
+
+        @Override
+        public void onError(@NonNull Throwable throwable) {
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 정보가 없습니다.");
             loginMessageDialog.show();
         }
     };

@@ -44,11 +44,24 @@ public class LoginActivity extends BaseActivity {
     RelativeLayout layout_privacy;
 
     //region 최종 가입 단계 정보
+    private int signUp_type = -1;
     private String phoneSignUpPhoneNumber = "";
     private String phoneSignUpPassword = "";
     private String phoneSignUpUserName = "";
     private String phoneSignUpUserEmail = "";
 
+    private String kakaoSignUpKakaoId = "";
+    private String kakaoSignUpKakaoNickName = "";
+    private String kakaoSignUpKakaoProfileImg = "";
+
+    private String kakaoSignUpPhoneNumber = "";
+    private String kakaoSignUpUserName = "";
+    private String kakaoSignUpUserEmail = "";
+
+    public int getSignUpType(){
+
+        return signUp_type;
+    }
     public ArrayList<String> getPhoneSignUpData(){
         ArrayList<String> phoneLoginDataList = new ArrayList<>();
         phoneLoginDataList.add(phoneSignUpPhoneNumber);
@@ -57,17 +70,41 @@ public class LoginActivity extends BaseActivity {
         phoneLoginDataList.add(phoneSignUpUserEmail);
         return phoneLoginDataList;
     }
-    public void setPhoneSignUpData_01(String value1, String value2){
-
+    public void setPhoneSignUpData_01(int signUp_type, String value1, String value2){
+        this.signUp_type = signUp_type;
         phoneSignUpPhoneNumber = value1;
         phoneSignUpPassword = value2;
     }
-    public void setPhoneSignUpData_02(String value1, String value2){
+    public void setPhoneSignUpData_02(String value1, String value2, String value3){
 
-        phoneSignUpUserName = value1;
-        phoneSignUpUserEmail = value2;
+        phoneSignUpPhoneNumber = value1;
+        phoneSignUpUserName = value2;
+        phoneSignUpUserEmail = value3;
     }
 
+    public ArrayList<String> getKakaoSignUpData(){
+        ArrayList<String> kakaoLoginDataList = new ArrayList<>();
+        kakaoLoginDataList.add(kakaoSignUpKakaoId);
+        kakaoLoginDataList.add(kakaoSignUpKakaoNickName);
+        kakaoLoginDataList.add(kakaoSignUpKakaoProfileImg);
+        kakaoLoginDataList.add(kakaoSignUpPhoneNumber);
+        kakaoLoginDataList.add(kakaoSignUpUserName);
+        kakaoLoginDataList.add(kakaoSignUpUserEmail);
+        return kakaoLoginDataList;
+    }
+    public void setKakaoSignUpData_01(int signUp_type, String value1, String value2, String value3, String value4){
+        this.signUp_type = signUp_type;
+        kakaoSignUpKakaoId = value1;
+        kakaoSignUpKakaoNickName = value2;
+        kakaoSignUpKakaoProfileImg = value3;
+        kakaoSignUpUserEmail = value4;
+    }
+    public void setKakaoSignUpData_02(String value1, String value2, String value3){
+
+        kakaoSignUpPhoneNumber = value1;
+        kakaoSignUpUserName = value2;
+        kakaoSignUpUserEmail = value3;
+    }
     //endregion
 
 
@@ -112,7 +149,7 @@ public class LoginActivity extends BaseActivity {
                 setFragmentPage(FRAGMENT_LOGIN_MAIN);
                 break;
             case FRAGMENT_LOGIN_SIGNUP_INFO:
-                //setFragmentPage(FRAGMENT_LOGIN_MAIN);
+                setFragmentPage(FRAGMENT_LOGIN_MAIN);
                 break;
 
 

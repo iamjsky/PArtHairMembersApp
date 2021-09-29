@@ -102,7 +102,7 @@
             android:id="@+id/btn_privacyAgree"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:text="개인정보처리방침에 동의 합니다" />
+            android:text="개인정보처리방침에 동의 합니다." />
     </LinearLayout>
 
 

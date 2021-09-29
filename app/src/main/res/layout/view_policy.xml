@@ -102,7 +102,7 @@
             android:id="@+id/btn_policyAgree"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:text="이용약관에 동의 합니다" />
+            android:text="이용약관에 동의 합니다." />
     </LinearLayout>
 
 

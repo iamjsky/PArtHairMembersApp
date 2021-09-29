@@ -66,7 +66,7 @@ public class LoginSelectFragment extends BaseFragment {
     NumPadView.NumPadFinishOnClickListener numPadPhoneNumberFinishOnClickListener = new NumPadView.NumPadFinishOnClickListener() {
         @Override
         public void onClick(View view, String data) {
-            Toast.makeText(mParent, data, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(mParent, data, Toast.LENGTH_SHORT).show();
             userPhoneId = data;
             userPhoneIdPw = "";
             view_numPad.setVisible(NUMPAD_PHONE_LOGIN_PASSWORD, numPadPasswordFinishOnClickListener);
@@ -166,53 +166,62 @@ public class LoginSelectFragment extends BaseFragment {
 
     @OnClick(R.id.btn_phoneLogin)
     public void btn_phoneLoginClicked(){
-        LOG_I("???");
+
         userPhoneId = "";
         userPhoneIdPw = "";
         view_numPad.setVisible(NUMPAD_PHONE_lOGIN_PHONE, numPadPhoneNumberFinishOnClickListener);
 
     }
 
+    @OnClick(R.id.btn_kakaoLogin)
+    public void btn_kakaoLoginClicked(){
 
+        userPhoneId = "";
+        userPhoneIdPw = "";
+        ((LoginActivity)mParent).setLoading(true);
+        kakaoUserLogin.login();
+
+    }
     //endregion
 
 
 
     //region callback
 
-    private CheckSignUpCallback checkSignUpCallback = new CheckSignUpCallback() {
-        @Override
-        public void onSuccess(int code, String msg) {
-            //Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onError(int code, String msg) {
-           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
-        @Override
-        public void onSuccess(int code, String msg) {
-           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onError(int code, String msg) {
-           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-        }
-    };
+//    private CheckSignUpCallback checkSignUpCallback = new CheckSignUpCallback() {
+//        @Override
+//        public void onSuccess(int code, String msg) {
+//            //Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+//        }
+//
+//        @Override
+//        public void onError(int code, String msg) {
+//           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+//        }
+//    };
+//
+//    private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
+//        @Override
+//        public void onSuccess(int code, String msg) {
+//           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+//        }
+//
+//        @Override
+//        public void onError(int code, String msg) {
+//           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+//        }
+//    };
 
     private PhoneLoginCallback phoneLoginCallback = new PhoneLoginCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+
             userApi.getUserInfo(getUserInfoCallback);
         }
 
         @Override
         public void onError(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
 
@@ -232,6 +241,7 @@ public class LoginSelectFragment extends BaseFragment {
 
         @Override
         public void onError(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
         }
@@ -244,6 +254,10 @@ public class LoginSelectFragment extends BaseFragment {
         public void onSuccess(String kakaoUserToken) {
             if (kakaoUserToken != null) {
                 kakaoGetUserInfo.getUserInfo();
+            }else{
+                ((LoginActivity)mParent).setLoading(false);
+                LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.(1)");
+                loginMessageDialog.show();
             }
 
         }
@@ -251,12 +265,16 @@ public class LoginSelectFragment extends BaseFragment {
         @Override
         public void onError(@NonNull Throwable throwable) {
             LOG_E("kakaoLoginCallback : " + throwable.toString());
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.(2)");
+            loginMessageDialog.show();
         }
     };
 
     public KakaoGetUserInfoCallback kakaoGetUserInfoCallback = new KakaoGetUserInfoCallback() {
         @Override
         public void onSuccess(User user) {
+            ((LoginActivity)mParent).setLoading(false);
             String kakaoId = "";
             String kakaoNickName = "";
             String kakaoProfileImg = "";
@@ -296,11 +314,19 @@ public class LoginSelectFragment extends BaseFragment {
 //                    kakaoId,
 //                    kakaoProfileImg,
 //                    loginCallback);
+
+            Toast.makeText(mParent, "카카오 계정 로그인 준비 완료>>"
+                    + kakaoId + ","
+                    + kakaoNickName + ","
+                    + kakaoProfileImg + ","
+                    + kakaoEmail , Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onError(@NonNull Throwable throwable) {
-
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 정보가 없습니다.");
+            loginMessageDialog.show();
         }
     };
 
