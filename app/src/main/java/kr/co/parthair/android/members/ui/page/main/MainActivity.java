@@ -84,6 +84,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.nsv_scrollView)
     NestedScrollView nsv_scrollView;
+    @BindView(R.id.layout_topMenu)
+    LinearLayout layout_topMenu;
 
     private long closeAppTime = 0;
 
@@ -93,17 +95,19 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color_02));
         nsv_scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 LOG_D(scrollY+"");
-                if(scrollY >= 90){
-
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+                if(scrollY >= 45){
+                    layout_topMenu.setVisibility(View.VISIBLE);
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
                 }else{
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
+                    layout_topMenu.setVisibility(View.GONE);
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color_02));
                 }
+
             }
         });
     }

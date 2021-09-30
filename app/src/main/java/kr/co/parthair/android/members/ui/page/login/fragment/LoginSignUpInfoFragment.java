@@ -71,7 +71,7 @@ public class LoginSignUpInfoFragment extends BaseFragment {
                     mParent.getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
                 } else {
                     layout_topMenu.setVisibility(View.VISIBLE);
-                    mParent.getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color));
+                    mParent.getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
                 }
             }
 

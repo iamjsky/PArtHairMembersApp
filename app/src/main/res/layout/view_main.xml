@@ -7,19 +7,18 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_scrollView"
-        android:background="@color/ph_page_bg_color"
+        android:background="@color/ph_page_bg_color_02"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
 
-            android:background="@color/ph_page_bg_color"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:padding="@dimen/_20sdp"
-                android:background="@color/ph_page_bg_color"
+                android:background="@color/ph_page_bg_color_02"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp">
@@ -36,7 +35,7 @@
 
               <LinearLayout
                   android:elevation="@dimen/_10sdp"
-                  android:padding="@dimen/_20sdp"
+
                   android:background="@drawable/bg_main_page_rounded_01"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
@@ -44,21 +43,37 @@
 
                   <LinearLayout
 
-
+                      android:padding="@dimen/_20sdp"
                       android:orientation="vertical"
                       android:layout_width="match_parent"
                       android:layout_height="@dimen/_600sdp">
-
+                      <TextView
+                          android:fontFamily="@font/pretendard_bold"
+                          android:gravity="center|left"
+                          android:text="타이틀1"
+                          android:textSize="@dimen/_20sdp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"/>
 
                   </LinearLayout>
+
+                  <View
+                      android:background="@color/ph_page_bg_color_02"
+                      android:layout_width="match_parent"
+                      android:layout_height="@dimen/_10sdp"/>
                   <LinearLayout
-
-
-
+                      android:padding="@dimen/_20sdp"
                       android:orientation="vertical"
                       android:layout_width="match_parent"
                       android:layout_height="@dimen/_600sdp">
 
+                      <TextView
+                          android:fontFamily="@font/pretendard_bold"
+                          android:gravity="center|left"
+                          android:text="타이틀2"
+                          android:textSize="@dimen/_20sdp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"/>
 
                   </LinearLayout>
               </LinearLayout>
@@ -73,9 +88,14 @@
 
 
     </androidx.core.widget.NestedScrollView>
-    <LinearLayout
 
-        android:background="@color/ph_menu_tab_color"
+
+
+
+    <LinearLayout
+        android:clickable="true"
+        android:background="@color/ph_menu_tab_color_01"
+
         android:id="@+id/layout_topMenu"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
