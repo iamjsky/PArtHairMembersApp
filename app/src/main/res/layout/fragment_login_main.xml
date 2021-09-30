@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.page.login.LoginActivity"
-    android:background="@color/ph_gray_white">
+    android:background="@color/ph_page_bg_color">
 
 
     <LinearLayout
-
+        android:padding="@dimen/_20sdp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <LinearLayout
-            android:paddingLeft="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:orientation="vertical"
@@ -52,8 +52,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:paddingLeft="@dimen/_20sdp"
-            android:paddingTop="@dimen/_14sdp"
+
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

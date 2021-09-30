@@ -19,6 +19,7 @@ import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.net.api.callback.CheckSignUpCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
+import kr.co.parthair.android.members.net.api.callback.KakaoUserLoginCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneLoginCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
 import kr.co.parthair.android.members.social.kakao.KakaoGetUserInfo;
@@ -133,25 +134,19 @@ public class LoginSelectFragment extends BaseFragment {
 
 
         ((LoginActivity)mParent).setLoading(true);
-        String inputPhoneNumber = userPhoneId + "";
-        String inputPhoneLoginPw = userPhoneIdPw + "";
 
-        if (!String_IsNotNull(inputPhoneNumber)) {
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "휴대폰 번호를 입력해 주세요.");
-            loginMessageDialog.show();
-           // Toast.makeText(mParent, "휴대폰 번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
-            return;
 
-        }
-        if (!String_IsNotNull(inputPhoneLoginPw)) {
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "비밀번호를 입력해 주세요.");
-            loginMessageDialog.show();
-           // Toast.makeText(mParent, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
-            return;
+        userApi.phoneLogin(userPhoneId, userPhoneIdPw, phoneLoginCallback);
 
-        }
+    }
 
-        userApi.phoneLogin(inputPhoneNumber, inputPhoneLoginPw, phoneLoginCallback);
+    public void kakaoLogin(String kakao_id, String user_nickname, String user_profile_img) {
+
+
+        ((LoginActivity)mParent).setLoading(true);
+
+
+        userApi.kakaoLogin(kakao_id, user_nickname, user_profile_img, kakaoUserLoginCallback);
 
     }
 
@@ -187,30 +182,6 @@ public class LoginSelectFragment extends BaseFragment {
 
 
     //region callback
-
-//    private CheckSignUpCallback checkSignUpCallback = new CheckSignUpCallback() {
-//        @Override
-//        public void onSuccess(int code, String msg) {
-//            //Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-//        }
-//
-//        @Override
-//        public void onError(int code, String msg) {
-//           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-//        }
-//    };
-//
-//    private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
-//        @Override
-//        public void onSuccess(int code, String msg) {
-//           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-//        }
-//
-//        @Override
-//        public void onError(int code, String msg) {
-//           // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-//        }
-//    };
 
     private PhoneLoginCallback phoneLoginCallback = new PhoneLoginCallback() {
         @Override
@@ -274,7 +245,7 @@ public class LoginSelectFragment extends BaseFragment {
     public KakaoGetUserInfoCallback kakaoGetUserInfoCallback = new KakaoGetUserInfoCallback() {
         @Override
         public void onSuccess(User user) {
-            ((LoginActivity)mParent).setLoading(false);
+
             String kakaoId = "";
             String kakaoNickName = "";
             String kakaoProfileImg = "";
@@ -315,11 +286,13 @@ public class LoginSelectFragment extends BaseFragment {
 //                    kakaoProfileImg,
 //                    loginCallback);
 
-            Toast.makeText(mParent, "카카오 계정 로그인 준비 완료>>"
-                    + kakaoId + ","
-                    + kakaoNickName + ","
-                    + kakaoProfileImg + ","
-                    + kakaoEmail , Toast.LENGTH_LONG).show();
+//            Toast.makeText(mParent, "카카오 계정 로그인 준비 완료>>"
+//                    + kakaoId + ","
+//                    + kakaoNickName + ","
+//                    + kakaoProfileImg + ","
+//                    + kakaoEmail , Toast.LENGTH_LONG).show();
+
+            kakaoLogin(kakaoId, kakaoNickName, kakaoProfileImg);
         }
 
         @Override
@@ -339,6 +312,20 @@ public class LoginSelectFragment extends BaseFragment {
         @Override
         public void onError(@NonNull Throwable throwable) {
 
+        }
+    };
+
+    public KakaoUserLoginCallback kakaoUserLoginCallback = new KakaoUserLoginCallback() {
+        @Override
+        public void onSuccess(int code, String msg) {
+            userApi.getUserInfo(getUserInfoCallback);
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.(3)");
+            loginMessageDialog.show();
         }
     };
 

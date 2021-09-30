@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/ph_page_bg_color">
 
     <LinearLayout
-
+        android:padding="@dimen/_20sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
         <LinearLayout
-
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:orientation="vertical"
@@ -27,7 +28,7 @@
 
                 <ImageView
                     android:id="@+id/iv_back"
-                    android:layout_marginLeft="@dimen/_16sdp"
+
 
                     android:adjustViewBounds="true"
                     android:src="@drawable/ico_back_02"
@@ -55,8 +56,7 @@
 
 
             <TextView
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_14sdp"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_bold"
@@ -65,7 +65,7 @@
 
 
         <TextView
-            android:paddingLeft="@dimen/_20sdp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -73,8 +73,7 @@
             android:textSize="@dimen/_30sdp" />
         <TextView
             android:textColor="@color/ph_gray_color_01"
-            android:paddingRight="@dimen/_20sdp"
-            android:paddingLeft="@dimen/_20sdp"
+
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

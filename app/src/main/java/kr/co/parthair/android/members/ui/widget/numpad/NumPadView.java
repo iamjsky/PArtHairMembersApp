@@ -256,7 +256,7 @@ public class NumPadView extends RelativeLayout {
             }
         };
         UserApi userApi = new UserApi();
-        userApi.checkSignUp(phoneText, checkSignUpCallback);
+        userApi.checkSignUp(0, phoneText, checkSignUpCallback);
     }
 
 

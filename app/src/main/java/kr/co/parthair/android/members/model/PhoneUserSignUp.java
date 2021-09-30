@@ -6,17 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 /**
- * ClassName            PhoneLogin
+ * ClassName            PhoneNumberLogin
  * Created by JSky on   2021-09-16
  * <p>
  * Description
  */
 @Data
-public class PhoneLogin {
+public class PhoneUserSignUp {
     @SerializedName("header")
     @Expose
     public Header header;
-
 
     @Data
     public class Header{
@@ -26,8 +25,6 @@ public class PhoneLogin {
         @SerializedName("message")
         @Expose
         public String message;
-        @SerializedName("user_token")
-        @Expose
-        public String user_token;
     }
+
 }

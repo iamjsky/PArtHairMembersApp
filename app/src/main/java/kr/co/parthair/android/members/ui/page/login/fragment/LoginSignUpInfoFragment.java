@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
@@ -19,10 +20,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.net.api.callback.KakaoUserSignUpCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
 import kr.co.parthair.android.members.ui.page.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
+import retrofit2.http.Field;
 
 import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 
@@ -58,17 +61,21 @@ public class LoginSignUpInfoFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_login_signup_info, container, false);
         ButterKnife.bind(this, view);
 
-        nsv_scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        nsv_scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-             //   LOG_E(i + "," + i1 + "," + i2 + "," + i3);
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                LOG_E(scrollY+"");
 
-                if (i1 <= 0) {
+                if (scrollY <= 90) {
                     layout_topMenu.setVisibility(View.GONE);
+                    mParent.getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
                 } else {
                     layout_topMenu.setVisibility(View.VISIBLE);
+                    mParent.getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color));
                 }
             }
+
+
         });
 
         setUserInfoField();
@@ -140,7 +147,12 @@ public class LoginSignUpInfoFragment extends BaseFragment {
             }
             Toast.makeText(mParent, "휴대폰 번호 계정 가입 준비 완료>>"+sb.toString(), Toast.LENGTH_LONG).show();
 
-            // userApi.phoneSignUp(inputPhoneNumber, inputPhoneLoginPw, inputPhoneLoginName, phoneSignUpCallback);
+            ((LoginActivity)mParent).setLoading(true);
+             userApi.phoneSignUp(phoneSignUpData, phoneSignUpCallback);
+
+
+
+
         } else if (signUp_type == 1) {
 
             String kakaoSignUpPhoneNumber = edtxt_phoneNumber.getText().toString() + "";
@@ -181,7 +193,9 @@ public class LoginSignUpInfoFragment extends BaseFragment {
 
             Toast.makeText(mParent, "카카오 계정 가입 준비 완료>>"+sb.toString(), Toast.LENGTH_LONG).show();
 
-            // userApi.kakaoSignUp(inputPhoneNumber, inputPhoneLoginPw, inputPhoneLoginName, phoneSignUpCallback);
+
+            ((LoginActivity)mParent).setLoading(true);
+             userApi.kakaoSignUp(kakaoSignUpData, kakaoUserSignUpCallback);
 
         }
 
@@ -194,12 +208,31 @@ public class LoginSignUpInfoFragment extends BaseFragment {
     private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
         @Override
         public void onSuccess(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
+            ((LoginActivity) mParent).onBackPressed();
         }
 
         @Override
         public void onError(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
+            loginMessageDialog.show();
+        }
+    };
+    private KakaoUserSignUpCallback kakaoUserSignUpCallback = new KakaoUserSignUpCallback() {
+        @Override
+        public void onSuccess(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
+            loginMessageDialog.show();
+            ((LoginActivity) mParent).onBackPressed();
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+            ((LoginActivity)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
         }
