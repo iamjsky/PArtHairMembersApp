@@ -1,4 +1,4 @@
-package kr.co.parthair.android.members.ui.page.base;
+package kr.co.parthair.android.members.ui.page.common.base;
 
 import androidx.appcompat.app.AppCompatActivity;
 

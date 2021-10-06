@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_noticeImageSlider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/viewFadingEdge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/bg_indicator_fading_edge"
+        android:layout_alignParentBottom="true" />
+    <LinearLayout
+
+        android:id="@+id/layout_noticeImageSliderIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center|right"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_10sdp"
+        />
+
+</RelativeLayout>

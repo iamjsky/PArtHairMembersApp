@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,18 +15,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.callback.AgreeCallback;
-import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
 import kr.co.parthair.android.members.social.kakao.KakaoGetUserInfo;
 import kr.co.parthair.android.members.social.kakao.KakaoUserLogin;
 import kr.co.parthair.android.members.social.kakao.KakaoUserLogout;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
-import kr.co.parthair.android.members.ui.page.base.BaseFragment;
+import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
-
-import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 
 /**
  * ClassName            LoginSignUpFragment

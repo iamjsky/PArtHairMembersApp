@@ -10,9 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
@@ -22,10 +20,9 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.net.api.callback.KakaoUserSignUpCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
-import kr.co.parthair.android.members.ui.page.base.BaseFragment;
+import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
-import retrofit2.http.Field;
 
 import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 

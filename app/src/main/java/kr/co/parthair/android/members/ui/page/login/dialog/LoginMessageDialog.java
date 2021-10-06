@@ -1,19 +1,14 @@
 package kr.co.parthair.android.members.ui.page.login.dialog;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.Window;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.ui.page.base.BaseDialog;
+import kr.co.parthair.android.members.ui.page.common.base.BaseDialog;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 
 /**

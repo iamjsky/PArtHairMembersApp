@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.ui.page.base.BaseFragment;
+import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 
 /**

@@ -9,7 +9,6 @@ import android.widget.RelativeLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -18,7 +17,7 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.CommonInfo;
 import kr.co.parthair.android.members.common.callback.AgreeCallback;
-import kr.co.parthair.android.members.ui.page.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginMainFragment;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginSelectFragment;
 import kr.co.parthair.android.members.ui.page.login.fragment.LoginSignUpFragment;

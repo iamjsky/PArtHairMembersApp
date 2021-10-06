@@ -1,6 +1,5 @@
-package kr.co.parthair.android.members.ui.page.base;
+package kr.co.parthair.android.members.ui.page.common.base;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
+import kr.co.parthair.android.members.common.FragmentPageCode;
+import kr.co.parthair.android.members.common.HttpResponseCode;
+import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.net.api.UserApi;
 
 /**
- * ClassName            BaseDialogFragment
- * Created by JSky on   2021-09-29
+ * ClassName            BaseFragment
+ * Created by JSky on   2021-09-28
  * <p>
  * Description
  */
-public class BaseDialogFragment extends DialogFragment {
+public class BaseFragment extends Fragment implements MyConstants, HttpResponseCode, FragmentPageCode {
 
     protected BaseActivity mParent;
     protected UserApi userApi = new UserApi();
@@ -38,5 +40,4 @@ public class BaseDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
-
 }
