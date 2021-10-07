@@ -23,6 +23,9 @@ public interface MyConstants {
     String NUMPAD_PHONE_SIGNUP_PASSWORD = "signup_password";
     String NUMPAD_PHONE_LOGIN_PASSWORD_CHECK = "signup_passwordChk";
 
+    String NAVER_RESERVATION_URL = "https://m.place.naver.com/hairshop/1763421994/stylist?theme=place&entry=pll";
+    String VISIT_CHECK_CALL_NUMBER = "tel:1234567890";
+
 
 
     default void LOG_D(String msg){

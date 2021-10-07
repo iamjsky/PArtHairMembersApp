@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,18 +33,29 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.test_view);
         ButterKnife.bind(this);
 
+
+
         scrollviewtest.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event){
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+
+                    if (sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        sliding_layout.setTouchEnabled(false);
+                        sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        sliding_layout.setTouchEnabled(true);
+                        return true;
+                    }
+
 
                 }
-                if(sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
-                    scrollviewtest.requestDisallowInterceptTouchEvent(true);
-                    sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-                    scrollviewtest.requestDisallowInterceptTouchEvent(false);
-                }else{
-                    scrollviewtest.requestDisallowInterceptTouchEvent(false);
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED && scrollviewtest.getScrollY() <= 0) {
+
+                        sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+
+                    }
                 }
                 return false;
             }
@@ -52,20 +64,16 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 Log.e("_____", scrollY + "," + sliding_layout.getPanelState());
-             if(scrollY <= 0 && sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                if (scrollY <= 0 && sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
                     sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
 
-              }
+                }
             }
         });
 
 
-
     }
-
-
-
 
 
 }

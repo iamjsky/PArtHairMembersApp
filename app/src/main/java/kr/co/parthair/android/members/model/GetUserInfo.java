@@ -54,6 +54,12 @@ public class GetUserInfo {
         @SerializedName("user_nickname")
         @Expose
         public Object userNickname;
+        @SerializedName("user_email")
+        @Expose
+        public Object userEmail;
+        @SerializedName("user_profile_img")
+        @Expose
+        public Object userProfileImg;
         @SerializedName("kakao_id")
         @Expose
         public Object kakaoId;

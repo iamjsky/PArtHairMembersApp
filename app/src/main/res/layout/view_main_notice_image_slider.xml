@@ -15,7 +15,7 @@
         android:background="@drawable/bg_indicator_fading_edge"
         android:layout_alignParentBottom="true" />
     <LinearLayout
-
+        android:paddingRight="@dimen/_10sdp"
         android:id="@+id/layout_noticeImageSliderIndicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,7 @@ public class MainNoticeImageSliderAdapter extends RecyclerView.Adapter<MainNotic
 
     private Context mContext;
     private String[] sliderImageArr;
-
+    View mView;
 
 
     public MainNoticeImageSliderAdapter(Context context, String[] imageUrlArr) {
@@ -36,20 +37,26 @@ public class MainNoticeImageSliderAdapter extends RecyclerView.Adapter<MainNotic
     @NonNull
     @Override
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        mView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_main_notice_image_slider, parent, false);
-        return new SliderViewHolder(view);
+
+
+        return new SliderViewHolder(mView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
+
         holder.bindSliderImage(sliderImageArr[position]);
+        mView.setTag("MainNoticeImage_"+position);
     }
 
     @Override
     public int getItemCount() {
         return sliderImageArr.length;
     }
+
+
 
     public class SliderViewHolder extends RecyclerView.ViewHolder {
 

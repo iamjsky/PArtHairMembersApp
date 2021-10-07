@@ -1,23 +1,39 @@
 package kr.co.parthair.android.members.ui.page.main;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.io.FileNotFoundException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.ui.page.common.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
@@ -31,12 +47,13 @@ public class MainActivity extends BaseActivity {
     LinearLayout layout_body;
 
     @OnClick(R.id.layout_drawer)
-    public void layout_drawerClicked(){
+    public void layout_drawerClicked() {
         openDrawerClicked();
     }
+
     @OnClick(R.id.iv_openDrawer)
-    public void openDrawerClicked(){
-        if(layout_drawer.getVisibility() == View.VISIBLE){
+    public void openDrawerClicked() {
+        if (layout_drawer.getVisibility() == View.VISIBLE) {
             Animation openAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_left);
             layout_body.startAnimation(openAnim);
             openAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -57,7 +74,7 @@ public class MainActivity extends BaseActivity {
             });
 
 
-        }else{
+        } else {
             Animation closeAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_right);
             layout_drawer.setVisibility(View.VISIBLE);
             layout_body.startAnimation(closeAnim);
@@ -83,10 +100,9 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     //endregion
 
-    //region main top image slider(notice)
+    //region noticeslider
 
     @BindView(R.id.vp_noticeImageSlider)
     ViewPager2 vp_noticeImageSlider;
@@ -94,8 +110,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_noticeImageSliderIndicator)
     LinearLayout layout_noticeImageSliderIndicator;
 
-    //dummy images
-    private String[] images = new String[] {
+    MainNoticeImageSliderAdapter mainNoticeImageSliderAdapter;
+
+    private String[] images = new String[]{
             "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
@@ -103,37 +120,57 @@ public class MainActivity extends BaseActivity {
             "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
     };
 
+    boolean firstAnimStart = false;
 
-
-    private void setNoticeImageSlider(){
+    private void setNoticeImageSlider() {
         //미리 로딩 할 다음 데이터 수
         vp_noticeImageSlider.setOffscreenPageLimit(1);
+        mainNoticeImageSliderAdapter = new MainNoticeImageSliderAdapter(this, images);
+        vp_noticeImageSlider.setAdapter(mainNoticeImageSliderAdapter);
 
-        vp_noticeImageSlider.setAdapter(new MainNoticeImageSliderAdapter(this, images));
         vp_noticeImageSlider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 LOG_I("onPageScrolled position>>" + position);
+                if (!firstAnimStart) {
+                    ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
+                    nowImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.image_zoom));
+                    firstAnimStart = true;
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                LOG_I("onPageSelected position>>" + position);
+
+                //LOG_I("onPageSelected position>>" + position);
                 setCurrentNoticeImageIndicator(position);
+
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
-                LOG_I("onPageScrollStateChanged state>>" + state);
+                //   LOG_I("onPageScrollStateChanged state>>" + state);
+                ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
+
+                if (state == 0) {
+                    nowImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.image_zoom));
+                } else if (state == 1) {
+
+                    nowImageView.clearAnimation();
+
+                }
             }
         });
 
         setupNoticeImageIndicator(images.length);
 
     }
+
+
     private void setupNoticeImageIndicator(int count) {
         ImageView[] indicators = new ImageView[count];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -177,6 +214,23 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_topMenu)
     LinearLayout layout_topMenu;
 
+    //region userInfo
+
+    @BindView(R.id.iv_userInfo_userProfileImg)
+    ImageView iv_userInfo_userProfileImg;
+    @BindView(R.id.tv_userInfo_userName)
+    TextView tv_userInfo_userName;
+    @BindView(R.id.tv_userInfo_userCreatedDate)
+    TextView tv_userInfo_userCreatedDate;
+    @BindView(R.id.tv_userInfo_userLastVisitDate)
+    TextView tv_userInfo_userLastVisitDate;
+    @BindView(R.id.tv_userInfo_userPoints)
+    TextView tv_userInfo_userPoints;
+    @BindView(R.id.tv_userInfo_userCoupons)
+    TextView tv_userInfo_userCoupons;
+
+    //endregion
+
     private long closeAppTime = 0;
 
 
@@ -191,8 +245,14 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        refreshUserInfo();
+    }
+
+    @Override
     public void onBackPressed() {
-        if(layout_drawer.getVisibility() == View.VISIBLE){
+        if (layout_drawer.getVisibility() == View.VISIBLE) {
             openDrawerClicked();
             return;
         }
@@ -209,40 +269,75 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    void init(){
+    void init() {
         setupActivity();
 
     }
 
-    private void setupActivity(){
+    private void setupActivity() {
+
+        Window w = getWindow();
+
+        setStatusBarTransparent();
 
         //scrollview set
-        getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color_02));
+
         nsv_scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                LOG_D(scrollY+"");
-                if(scrollY >= 45){
+                LOG_D(scrollY + "");
+                if (scrollY >= 45) {
+
+                    w.setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
                     layout_topMenu.setVisibility(View.VISIBLE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
-                }else{
+
+                } else {
+
+                    w.setStatusBarColor(Color.TRANSPARENT);
                     layout_topMenu.setVisibility(View.GONE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color_02));
+
                 }
 
             }
         });
+
 
         setNoticeImageSlider();
         refreshUserInfo();
     }
 
 
+    void refreshUserInfo() {
 
-    void refreshUserInfo(){
+        iv_userInfo_userProfileImg.setBackground(new ShapeDrawable(new OvalShape()));
+        iv_userInfo_userProfileImg.setClipToOutline(true);
+
         GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
             @Override
             public void onSuccess(int code, String msg) {
+                String userProfileImgUrl = MyInfo.instance.getUserInfo().getUserProfileImg() + "";
+
+                if (!userProfileImgUrl.equals("")) {
+                    Glide.with(mContext).load(MyInfo.instance.getUserInfo()
+                            .getUserProfileImg()).error(R.drawable.ic_launcher_background)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .override(100, 100)
+                            .skipMemoryCache(true)
+                            .into(iv_userInfo_userProfileImg);
+                } else {
+                    Glide.with(mContext).load(R.drawable.ic_launcher_background)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .override(100, 100)
+                            .skipMemoryCache(true)
+                            .into(iv_userInfo_userProfileImg);
+                }
+
+
+                tv_userInfo_userName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
+                tv_userInfo_userCreatedDate.setText(MyInfo.instance.getUserInfo().getCreatedDate() + "");
+                tv_userInfo_userLastVisitDate.setText(MyInfo.instance.getUserInfo().getLastVisitDate() + "");
+                tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
+                tv_userInfo_userCoupons.setText("0");
 
             }
 
@@ -254,7 +349,37 @@ public class MainActivity extends BaseActivity {
         userApi.getUserInfo(getUserInfoCallback);
     }
 
+    public void setStatusBarTransparent() {
 
+        Window w = getWindow();
+        w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        w.setStatusBarColor(Color.TRANSPARENT);
+
+
+    }
+
+
+    //region onClick
+
+    @OnClick(R.id.layout_callVisitCheck)
+    public void layout_callVisitCheckClicked() {
+
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(VISIT_CHECK_CALL_NUMBER));
+        startActivity(intent);
+
+    }
+
+    @OnClick(R.id.layout_naverReservation)
+    public void layout_naverReservationClicked() {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(NAVER_RESERVATION_URL));
+        startActivity(intent);
+
+    }
+
+
+    //endregion
 
     //region callback
 
