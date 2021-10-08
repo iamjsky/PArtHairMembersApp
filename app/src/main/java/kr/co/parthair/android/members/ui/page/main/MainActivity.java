@@ -8,6 +8,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -28,15 +29,23 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
+import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.ui.page.common.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.main.dialog.VisitCallDialog;
+
+import static kr.co.parthair.android.members.utils.DateUtil.formatDateRemoveTime;
 
 public class MainActivity extends BaseActivity {
 
@@ -102,7 +111,7 @@ public class MainActivity extends BaseActivity {
 
     //endregion
 
-    //region noticeslider
+    //region noticeSlider
 
     @BindView(R.id.vp_noticeImageSlider)
     ViewPager2 vp_noticeImageSlider;
@@ -110,19 +119,25 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_noticeImageSliderIndicator)
     LinearLayout layout_noticeImageSliderIndicator;
 
+    private Handler sliderHandler;
+    int autoSlidingTime = 5000;
     MainNoticeImageSliderAdapter mainNoticeImageSliderAdapter;
 
     private String[] images = new String[]{
-            "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
-            "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
+            "https://ldb-phinf.pstatic.net/20210907_148/1631010711173eGWJF_JPEG/rxw1GRNrsJd0HV3jtl6dOtsM.JPG.jpg",
+            "https://ldb-phinf.pstatic.net/20210907_281/1631011229560xrk2x_JPEG/wNKnh84O_Immhj-G63Tv5Wz4.JPG.jpg",
+            "https://ldb-phinf.pstatic.net/20210907_10/1631010837704VXfyi_JPEG/suj_hzUAKNO984WtYMHGNuLc.JPG.jpg",
+            "https://ldb-phinf.pstatic.net/20210913_228/1631463501681Q0sSq_JPEG/7dLb-SUMdH5AkkYTRq13L46A.jpeg.jpg",
+            "https://ldb-phinf.pstatic.net/20210907_111/16310109739858rsCM_JPEG/7i9IWXUaKVOnptoMkTmDldlJ.JPG.jpg",
+            "https://ldb-phinf.pstatic.net/20210907_73/1631011048715SX6Bv_JPEG/cIzLAdwLlnhBb5h_IM7FYcp-.JPG.jpg"
     };
+
+
 
     boolean firstAnimStart = false;
 
     private void setNoticeImageSlider() {
+        sliderHandler = new Handler();
         //미리 로딩 할 다음 데이터 수
         vp_noticeImageSlider.setOffscreenPageLimit(1);
         mainNoticeImageSliderAdapter = new MainNoticeImageSliderAdapter(this, images);
@@ -146,7 +161,8 @@ public class MainActivity extends BaseActivity {
 
                 //LOG_I("onPageSelected position>>" + position);
                 setCurrentNoticeImageIndicator(position);
-
+                sliderHandler.removeCallbacks(sliderRunnable);
+                sliderHandler.postDelayed(sliderRunnable, autoSlidingTime);
 
             }
 
@@ -206,6 +222,17 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private Runnable sliderRunnable = new Runnable () {
+        @Override
+        public void run () {
+            if(vp_noticeImageSlider.getCurrentItem()+1 == mainNoticeImageSliderAdapter.getItemCount()){
+                vp_noticeImageSlider.setCurrentItem(0);
+            }else{
+                vp_noticeImageSlider.setCurrentItem(vp_noticeImageSlider.getCurrentItem() + 1);
+            }
+
+        }
+    };
     //endregion
 
 
@@ -213,6 +240,11 @@ public class MainActivity extends BaseActivity {
     NestedScrollView nsv_scrollView;
     @BindView(R.id.layout_topMenu)
     LinearLayout layout_topMenu;
+
+    @BindView(R.id.layout_userLogged)
+    LinearLayout layout_userLogged;
+    @BindView(R.id.layout_userNotLogged)
+    LinearLayout layout_userNotLogged;
 
     //region userInfo
 
@@ -239,7 +271,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        LOG_E("MyInfo.instance.getUser_token()>>" + MyInfo.instance.getUser_token());
         init();
 
     }
@@ -247,8 +279,21 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(sliderHandler != null){
+            sliderHandler.postDelayed(sliderRunnable, autoSlidingTime);
+        }
+
         refreshUserInfo();
     }
+    @Override
+    protected void onPause () {
+        super.onPause();
+        if(sliderHandler != null){
+            sliderHandler.removeCallbacks(sliderRunnable);
+        }
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -275,6 +320,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupActivity() {
+
 
         Window w = getWindow();
 
@@ -309,6 +355,18 @@ public class MainActivity extends BaseActivity {
 
     void refreshUserInfo() {
 
+        if(MyInfo.instance.getUser_token().equals("")){
+
+            layout_userLogged.setVisibility(View.GONE);
+            layout_userNotLogged.setVisibility(View.VISIBLE);
+
+
+            return;
+        }else{
+            layout_userLogged.setVisibility(View.VISIBLE);
+            layout_userNotLogged.setVisibility(View.GONE);
+        }
+
         iv_userInfo_userProfileImg.setBackground(new ShapeDrawable(new OvalShape()));
         iv_userInfo_userProfileImg.setClipToOutline(true);
 
@@ -332,10 +390,14 @@ public class MainActivity extends BaseActivity {
                             .into(iv_userInfo_userProfileImg);
                 }
 
+                String createdDate = MyInfo.instance.getUserInfo().getCreatedDate() + "";
+                String lastVisitDate = MyInfo.instance.getUserInfo().getLastVisitDate() + "";
+                String userCreatedDate = formatDateRemoveTime(createdDate);
+                String userLastVisitDate = formatDateRemoveTime(lastVisitDate);
 
                 tv_userInfo_userName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
-                tv_userInfo_userCreatedDate.setText(MyInfo.instance.getUserInfo().getCreatedDate() + "");
-                tv_userInfo_userLastVisitDate.setText(MyInfo.instance.getUserInfo().getLastVisitDate() + "");
+                tv_userInfo_userCreatedDate.setText(userCreatedDate + "");
+                tv_userInfo_userLastVisitDate.setText(userLastVisitDate + "");
                 tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
                 tv_userInfo_userCoupons.setText("0");
 
@@ -362,11 +424,16 @@ public class MainActivity extends BaseActivity {
 
     //region onClick
 
+    @OnClick(R.id.layout_goLogin)
+    public void layout_goLoginClicked(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.layout_callVisitCheck)
     public void layout_callVisitCheckClicked() {
-
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(VISIT_CHECK_CALL_NUMBER));
-        startActivity(intent);
+        VisitCallDialog visitCallDialog = new VisitCallDialog(this);
+        visitCallDialog.show();
 
     }
 
@@ -377,6 +444,15 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
 
     }
+
+    @OnClick(R.id.tv_userInfo_userName)
+    public void tv_userInfo_userNameClicked() {
+
+        MyPreferenceManager.setString(this, "user_token", "");
+
+    }
+
+
 
 
     //endregion

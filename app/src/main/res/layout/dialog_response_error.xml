@@ -23,7 +23,7 @@
 
             android:layout_weight="1"
             android:textColor="@color/ph_main_color"
-            android:gravity="left|center"
+            android:gravity="center"
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="0dp"/>

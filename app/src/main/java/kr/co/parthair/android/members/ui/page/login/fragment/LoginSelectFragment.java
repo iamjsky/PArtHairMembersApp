@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
+import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.net.api.callback.KakaoUserLoginCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneLoginCallback;
@@ -198,6 +199,10 @@ public class LoginSelectFragment extends BaseFragment {
         @Override
         public void onSuccess(int code, String msg) {
            // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
+            if(!MyInfo.instance.getUser_token().equals("")){
+                MyPreferenceManager.setString(mParent, "user_token", MyInfo.instance.getUser_token()+"");
+            }
+
             ((LoginActivity)mParent).setLoading(false);
             LOG_I(MyInfo.instance.getUserInfo().toString());
             Intent intent = new Intent(mParent, MainActivity.class);
@@ -313,6 +318,7 @@ public class LoginSelectFragment extends BaseFragment {
     public KakaoUserLoginCallback kakaoUserLoginCallback = new KakaoUserLoginCallback() {
         @Override
         public void onSuccess(int code, String msg) {
+
             userApi.getUserInfo(getUserInfoCallback);
         }
 

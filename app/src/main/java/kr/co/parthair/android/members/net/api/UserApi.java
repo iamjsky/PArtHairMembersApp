@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.common.MyInfo;
+import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.model.CheckSignUp;
 import kr.co.parthair.android.members.model.KakaoUserLogin;
 import kr.co.parthair.android.members.model.KakaoUserSignUp;
@@ -170,7 +171,7 @@ public class UserApi implements MyConstants, HttpResponseCode {
         String user_token = MyInfo.instance.getUser_token()+"";
        if(user_token.equals("")){
            callback.onError(-1, "TOKEN ERROR");
-           LOG_E("TOKEN ERROR");
+          // LOG_E("TOKEN ERROR");
            return;
        }
 
@@ -187,6 +188,9 @@ public class UserApi implements MyConstants, HttpResponseCode {
                         case OK:
                             MyInfo.instance.setUserInfo(resData.getUserInfo());
                             MyInfo.instance.setUser_token(resData.getUserInfo().getUserToken()+"");
+
+
+
                             callback.onSuccess(code, msg);
                             break;
 
