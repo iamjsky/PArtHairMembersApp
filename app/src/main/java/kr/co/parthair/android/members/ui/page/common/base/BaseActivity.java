@@ -8,6 +8,7 @@ import android.os.Bundle;
 import kr.co.parthair.android.members.common.FragmentPageCode;
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
+import kr.co.parthair.android.members.net.api.BoardApi;
 import kr.co.parthair.android.members.net.api.UserApi;
 
 
@@ -15,6 +16,7 @@ public class BaseActivity extends AppCompatActivity implements MyConstants, Http
 
     protected Context mContext;
     protected UserApi userApi = new UserApi();
+    protected BoardApi boardApi = new BoardApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

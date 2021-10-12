@@ -1,50 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/_300sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+   >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        xmlns:sothree="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/sliding_layout"
+    <Button
+
+        android:id="@+id/btn_test1"
+        android:text="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        sothree:umanoPanelHeight="@dimen/_100sdp"
-        sothree:umanoShadowHeight="4dp">
+        android:layout_height="wrap_content"/>
+    <Button
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/layout_body"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/btn_test2"
+        android:text="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
 
-        <androidx.core.widget.NestedScrollView
+        android:id="@+id/btn_test3"
+        android:text="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:id="@+id/layout_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
 
-            android:id="@+id/scrollviewtest"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:background="@color/green"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_500sdp"/>
-                <LinearLayout
-                    android:background="@color/red"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_500sdp"/>
-
-            </LinearLayout>
-
-
-        </androidx.core.widget.NestedScrollView>
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 
 

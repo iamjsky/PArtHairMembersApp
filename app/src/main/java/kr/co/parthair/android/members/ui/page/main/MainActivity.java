@@ -3,6 +3,7 @@ package kr.co.parthair.android.members.ui.page.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
@@ -15,13 +16,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -34,11 +38,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
+import kr.co.parthair.android.members.model.NewsDataModel;
+import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.ui.page.common.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
@@ -133,7 +140,6 @@ public class MainActivity extends BaseActivity {
     };
 
 
-
     boolean firstAnimStart = false;
 
     private void setNoticeImageSlider() {
@@ -222,12 +228,12 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private Runnable sliderRunnable = new Runnable () {
+    private Runnable sliderRunnable = new Runnable() {
         @Override
-        public void run () {
-            if(vp_noticeImageSlider.getCurrentItem()+1 == mainNoticeImageSliderAdapter.getItemCount()){
+        public void run() {
+            if (vp_noticeImageSlider.getCurrentItem() + 1 == mainNoticeImageSliderAdapter.getItemCount()) {
                 vp_noticeImageSlider.setCurrentItem(0);
-            }else{
+            } else {
                 vp_noticeImageSlider.setCurrentItem(vp_noticeImageSlider.getCurrentItem() + 1);
             }
 
@@ -241,13 +247,14 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_topMenu)
     LinearLayout layout_topMenu;
 
+
+
+    //region userInfo
+
     @BindView(R.id.layout_userLogged)
     LinearLayout layout_userLogged;
     @BindView(R.id.layout_userNotLogged)
     LinearLayout layout_userNotLogged;
-
-    //region userInfo
-
     @BindView(R.id.iv_userInfo_userProfileImg)
     ImageView iv_userInfo_userProfileImg;
     @BindView(R.id.tv_userInfo_userName)
@@ -260,6 +267,17 @@ public class MainActivity extends BaseActivity {
     TextView tv_userInfo_userPoints;
     @BindView(R.id.tv_userInfo_userCoupons)
     TextView tv_userInfo_userCoupons;
+
+
+    //endregion
+
+
+    //region news
+
+    @BindViews({R.id.btn_news_notice, R.id.btn_news_events,R.id.btn_news_coupons})
+    Button[] btn_news_buttons;
+
+
 
     //endregion
 
@@ -279,16 +297,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(sliderHandler != null){
+        if (sliderHandler != null) {
             sliderHandler.postDelayed(sliderRunnable, autoSlidingTime);
         }
 
-        refreshUserInfo();
+        refreshData();
     }
+
     @Override
-    protected void onPause () {
+    protected void onPause() {
         super.onPause();
-        if(sliderHandler != null){
+        if (sliderHandler != null) {
             sliderHandler.removeCallbacks(sliderRunnable);
         }
 
@@ -349,20 +368,24 @@ public class MainActivity extends BaseActivity {
 
 
         setNoticeImageSlider();
-        refreshUserInfo();
+        refreshData();
     }
 
+    void refreshData(){
+        refreshUserInfo();
+
+    }
 
     void refreshUserInfo() {
 
-        if(MyInfo.instance.getUser_token().equals("")){
+        if (MyInfo.instance.getUser_token().equals("")) {
 
             layout_userLogged.setVisibility(View.GONE);
             layout_userNotLogged.setVisibility(View.VISIBLE);
 
 
             return;
-        }else{
+        } else {
             layout_userLogged.setVisibility(View.VISIBLE);
             layout_userNotLogged.setVisibility(View.GONE);
         }
@@ -421,11 +444,15 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private void getNewsList(){
+
+    }
+
 
     //region onClick
 
     @OnClick(R.id.layout_goLogin)
-    public void layout_goLoginClicked(){
+    public void layout_goLoginClicked() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -455,9 +482,33 @@ public class MainActivity extends BaseActivity {
 
 
 
+//    @OnClick({R.id.btn_news_notice, R.id.btn_news_events, R.id.btn_news_coupons})
+//    public void btn_news_buttonsClicked(View view) {
+//
+//
+//        for(Button buttons : btn_news_buttons){
+//            if(buttons.getId() != view.getId()){
+//                buttons.setActivated(false);
+//                buttons.setTextColor(getColor(R.color.ph_main_color));
+//                Typeface normalFont = ResourcesCompat.getFont(this, R.font.pretendard_regular);
+//                buttons.setTypeface(normalFont);
+//
+//            }else{
+//                buttons.setActivated(true);
+//                buttons.setTextColor(getColor(R.color.white));
+//                Typeface boldFont = ResourcesCompat.getFont(this, R.font.pretendard_bold);
+//                buttons.setTypeface(boldFont);
+//            }
+//        }
+//
+//
+//    }
+
+
     //endregion
 
     //region callback
+
 
 //    GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
 //        @Override

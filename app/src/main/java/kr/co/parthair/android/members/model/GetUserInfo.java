@@ -53,28 +53,28 @@ public class GetUserInfo {
         public String userName;
         @SerializedName("user_nickname")
         @Expose
-        public Object userNickname;
+        public String userNickname;
         @SerializedName("user_email")
         @Expose
-        public Object userEmail;
+        public String userEmail;
         @SerializedName("user_profile_img")
         @Expose
-        public Object userProfileImg;
+        public String userProfileImg;
         @SerializedName("kakao_id")
         @Expose
-        public Object kakaoId;
+        public String kakaoId;
         @SerializedName("user_points")
         @Expose
         public String userPoints;
         @SerializedName("created_date")
         @Expose
-        public Object createdDate;
+        public String createdDate;
         @SerializedName("login_date")
         @Expose
-        public Object loginDate;
+        public String loginDate;
         @SerializedName("last_visit_date")
         @Expose
-        public Object lastVisitDate;
+        public String lastVisitDate;
 
 
     }

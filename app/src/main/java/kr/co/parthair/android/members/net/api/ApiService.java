@@ -3,13 +3,16 @@ package kr.co.parthair.android.members.net.api;
 import kr.co.parthair.android.members.model.CheckSignUp;
 import kr.co.parthair.android.members.model.KakaoUserLogin;
 import kr.co.parthair.android.members.model.KakaoUserSignUp;
+import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.model.PhoneUserLogin;
 import kr.co.parthair.android.members.model.PhoneUserSignUp;
 import kr.co.parthair.android.members.model.GetUserInfo;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * ClassName            ApiService
@@ -86,6 +89,15 @@ public interface ApiService {
             @Field("kakao_id") String kakao_id,
             @Field("user_nickname") String user_nickname,
             @Field("user_profile_img") String user_profile_img
+
+
+
+    );
+
+
+    @GET("news.php")
+    Call<NewsDataModel> getNews(
+
 
 
 
