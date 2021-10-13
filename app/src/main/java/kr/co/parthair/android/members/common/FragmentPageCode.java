@@ -13,4 +13,8 @@ public interface FragmentPageCode {
     int FRAGMENT_LOGIN_SIGNUP = 220;
     int FRAGMENT_LOGIN_SIGNUP_INFO = 221;
 
+    int FRAGMENT_MAIN_NEWS_NOTICE = 300;
+    int FRAGMENT_MAIN_NEWS_EVENTS = 310;
+    int FRAGMENT_MAIN_NEWS_COUPONS = 320;
+
 }

@@ -445,15 +445,18 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical"
-                android:padding="@dimen/_20sdp">
+               >
 
 
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/_20sdp"
+
+                    android:padding="@dimen/_20sdp"
+
                     android:gravity="center|bottom"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -496,7 +499,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_20sdp"
+
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -550,14 +554,65 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_news"
+                <FrameLayout
+                    android:id="@+id/layout_news"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="@dimen/_240sdp"/>
 
 
             </LinearLayout>
 
+            <LinearLayout
+                android:background="@color/ph_page_bg_color"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:padding="@dimen/_20sdp"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/instagram_regular"
+                        android:gravity="center|left"
+                        android:text="instagram"
+                        android:textSize="@dimen/_20sdp" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_instagramMore"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/ph_gray_color_02"
+                            android:gravity="center"
+                            android:text="더보기"
+                            />
+                        <ImageView
+
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ico_more_02" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

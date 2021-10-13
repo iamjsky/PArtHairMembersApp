@@ -77,6 +77,9 @@ public class NewsDataModel {
         @SerializedName("linked_coupon_idx")
         @Expose
         public Integer linked_coupon_idx;
+        @SerializedName("icon_image_url")
+        @Expose
+        public String icon_image_url;
     }
 
 }

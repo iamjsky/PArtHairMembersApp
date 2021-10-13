@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,6 +28,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -47,10 +53,14 @@ import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
+import kr.co.parthair.android.members.ui.page.common.adapter.MainNewsNoticeAdapter;
 import kr.co.parthair.android.members.ui.page.common.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.main.dialog.VisitCallDialog;
+import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
+import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
+import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
 
 import static kr.co.parthair.android.members.utils.DateUtil.formatDateRemoveTime;
 
@@ -153,7 +163,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                LOG_I("onPageScrolled position>>" + position);
+             //   LOG_I("onPageScrolled position>>" + position);
                 if (!firstAnimStart) {
                     ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
                     nowImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.image_zoom));
@@ -248,7 +258,6 @@ public class MainActivity extends BaseActivity {
     LinearLayout layout_topMenu;
 
 
-
     //region userInfo
 
     @BindView(R.id.layout_userLogged)
@@ -274,9 +283,12 @@ public class MainActivity extends BaseActivity {
 
     //region news
 
-    @BindViews({R.id.btn_news_notice, R.id.btn_news_events,R.id.btn_news_coupons})
+    @BindViews({R.id.btn_news_notice, R.id.btn_news_events, R.id.btn_news_coupons})
     Button[] btn_news_buttons;
 
+    @BindView(R.id.layout_news)
+    FrameLayout layout_news;
+    public Fragment newsFragmentPage;
 
 
     //endregion
@@ -350,7 +362,7 @@ public class MainActivity extends BaseActivity {
         nsv_scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                LOG_D(scrollY + "");
+               // LOG_D(scrollY + "");
                 if (scrollY >= 45) {
 
                     w.setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
@@ -368,10 +380,11 @@ public class MainActivity extends BaseActivity {
 
 
         setNoticeImageSlider();
+        btn_news_buttonsClicked(btn_news_buttons[0]);
         refreshData();
     }
 
-    void refreshData(){
+    void refreshData() {
         refreshUserInfo();
 
     }
@@ -444,11 +457,37 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private void getNewsList(){
 
+
+    public void setNewsFragmentPage(int page) {
+        String tag = "";
+        switch (page) {
+            case FRAGMENT_MAIN_NEWS_NOTICE:
+                newsFragmentPage = new MainNewsNoticeFragment();
+
+                tag = FRAGMENT_MAIN_NEWS_NOTICE + "";
+                break;
+            case FRAGMENT_MAIN_NEWS_EVENTS:
+                newsFragmentPage = new MainNewsEventsFragment();
+
+                tag = FRAGMENT_MAIN_NEWS_EVENTS + "";
+                break;
+            case FRAGMENT_MAIN_NEWS_COUPONS:
+                newsFragmentPage = new MainNewsCouponsFragment();
+
+                tag = FRAGMENT_MAIN_NEWS_COUPONS + "";
+                break;
+
+
+        }
+        if (newsFragmentPage != null) {
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(layout_news.getId(), newsFragmentPage, tag);
+            transaction.commitAllowingStateLoss();
+
+        }
     }
-
-
     //region onClick
 
     @OnClick(R.id.layout_goLogin)
@@ -480,29 +519,39 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @OnClick({R.id.btn_news_notice, R.id.btn_news_events, R.id.btn_news_coupons})
+    public void btn_news_buttonsClicked(View view) {
 
 
-//    @OnClick({R.id.btn_news_notice, R.id.btn_news_events, R.id.btn_news_coupons})
-//    public void btn_news_buttonsClicked(View view) {
-//
-//
-//        for(Button buttons : btn_news_buttons){
-//            if(buttons.getId() != view.getId()){
-//                buttons.setActivated(false);
-//                buttons.setTextColor(getColor(R.color.ph_main_color));
-//                Typeface normalFont = ResourcesCompat.getFont(this, R.font.pretendard_regular);
-//                buttons.setTypeface(normalFont);
-//
-//            }else{
-//                buttons.setActivated(true);
-//                buttons.setTextColor(getColor(R.color.white));
-//                Typeface boldFont = ResourcesCompat.getFont(this, R.font.pretendard_bold);
-//                buttons.setTypeface(boldFont);
-//            }
-//        }
-//
-//
-//    }
+        for (Button buttons : btn_news_buttons) {
+            if (buttons.getId() != view.getId()) {
+                buttons.setActivated(false);
+                buttons.setTextColor(getColor(R.color.ph_main_color));
+                Typeface normalFont = ResourcesCompat.getFont(this, R.font.pretendard_regular);
+                buttons.setTypeface(normalFont);
+
+            } else {
+                buttons.setActivated(true);
+                buttons.setTextColor(getColor(R.color.white));
+                Typeface boldFont = ResourcesCompat.getFont(this, R.font.pretendard_bold);
+                buttons.setTypeface(boldFont);
+            }
+        }
+
+        switch (view.getId()) {
+            case R.id.btn_news_notice:
+                setNewsFragmentPage(FRAGMENT_MAIN_NEWS_NOTICE);
+                break;
+            case R.id.btn_news_events:
+                setNewsFragmentPage(FRAGMENT_MAIN_NEWS_EVENTS);
+                break;
+            case R.id.btn_news_coupons:
+                setNewsFragmentPage(FRAGMENT_MAIN_NEWS_COUPONS);
+                break;
+
+        }
+
+    }
 
 
     //endregion

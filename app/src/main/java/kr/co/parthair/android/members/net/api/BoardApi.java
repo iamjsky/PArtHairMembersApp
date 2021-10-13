@@ -1,6 +1,5 @@
 package kr.co.parthair.android.members.net.api;
 
-import kr.co.parthair.android.members.common.BoardCategoryNum;
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.model.NewsDataModel;
@@ -17,12 +16,11 @@ import retrofit2.Response;
  * <p>
  * Description
  */
-public class BoardApi implements MyConstants, HttpResponseCode, BoardCategoryNum {
+public class BoardApi implements MyConstants, HttpResponseCode {
     private RetrofitGenerator retrofitGenerator = new RetrofitGenerator();
     private ApiService apiService = retrofitGenerator.getApiService();
 
     public void getNews(GetNewsCallback callback) {
-
 
 
         apiService.getNews().enqueue(new Callback<NewsDataModel>() {
@@ -35,24 +33,28 @@ public class BoardApi implements MyConstants, HttpResponseCode, BoardCategoryNum
 
                     switch (code) {
                         case OK:
-                            for(NewsDataModel.NewsData newsData : resData.getNewsData()){
+                            for (NewsDataModel.NewsData newsData : resData.getNewsData()) {
                                 int category = newsData.getCategory();
+                                /*
+                                    0   notice
+                                    1   events
+                                    2   coupons
+
+                                 */
                                 switch (category) {
-                                    case MAIN_NEWS_NOTICE:
+                                    case 0:
                                         resData.getNewsNoticeList().add(newsData);
                                         break;
-                                    case MAIN_NEWS_EVENTS:
+                                    case 1:
                                         resData.getNewsEventsList().add(newsData);
                                         break;
-                                    case MAIN_NEWS_COUPONS:
+                                    case 2:
                                         resData.getNewsCouponsList().add(newsData);
                                         break;
 
 
-
                                 }
                             }
-
 
 
                             callback.onSuccess(code, msg, resData);

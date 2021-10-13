@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.common.BoardCategoryNum;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
+import kr.co.parthair.android.members.ui.page.common.adapter.MainNewsNoticeAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
 
 /**
@@ -24,10 +27,12 @@ import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
  * <p>
  * Description
  */
-public class MainNewsCouponsFragment extends BaseFragment implements BoardCategoryNum {
+public class MainNewsCouponsFragment extends BaseFragment {
 
     @BindView(R.id.recv_body)
     RecyclerView recv_body;
+
+    private MainNewsNoticeAdapter mainNewsNoticeAdapter;
 
     public MainNewsCouponsFragment() {
     }
@@ -44,6 +49,8 @@ public class MainNewsCouponsFragment extends BaseFragment implements BoardCatego
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mParent);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recv_body.setLayoutManager(linearLayoutManager);
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recv_body);
 
 
         boardApi.getNews(getNewsCallback);
@@ -64,7 +71,11 @@ public class MainNewsCouponsFragment extends BaseFragment implements BoardCatego
     GetNewsCallback getNewsCallback = new GetNewsCallback() {
         @Override
         public void onSuccess(int code, String msg, @Nullable NewsDataModel data) {
-
+            if(data.getNewsCouponsList().size() > 0){
+                mainNewsNoticeAdapter = new MainNewsNoticeAdapter(data.getNewsCouponsList());
+                recv_body.setAdapter(mainNewsNoticeAdapter);
+                recv_body.setLayoutManager(new GridLayoutManager(mParent, 3, RecyclerView.HORIZONTAL, false));	// 가로
+            }
 
 
         }
