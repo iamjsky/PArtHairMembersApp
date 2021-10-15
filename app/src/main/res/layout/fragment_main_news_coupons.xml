@@ -7,7 +7,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:padding="@dimen/_20sdp"
+        android:padding="@dimen/_15sdp"
         android:clipToPadding="false"
         android:id="@+id/recv_body"
         tools:listitem="@layout/item_main_news_coupons"

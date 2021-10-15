@@ -6,34 +6,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <ImageView
+    <View
         android:id="@+id/iv_item_icon"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@color/gray"
+        android:background="@drawable/bg_rounded_skeleton_01"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"/>
     <LinearLayout
+        android:layout_weight="1"
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:id="@+id/layout_item"
         android:visibility="visible"
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent">
 
 
         <TextView
+            android:background="@drawable/bg_rounded_skeleton_01"
             android:textColor="@color/ph_main_color"
             android:fontFamily="@font/pretendard_bold"
             android:layout_marginBottom="@dimen/_4sdp"
-            android:text="asxcvxcvxcvcxvdasd"
+
             android:id="@+id/tv_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
+            android:background="@drawable/bg_rounded_skeleton_01"
             android:textColor="@color/ph_gray_color_01"
-            android:text="ccxvcxvcxvxcvcxvcvxcvx"
+
             android:id="@+id/tv_item_desc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

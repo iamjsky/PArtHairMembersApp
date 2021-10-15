@@ -1,8 +1,7 @@
-package kr.co.parthair.android.members.ui.page.common.adapter;
+package kr.co.parthair.android.members.ui.page.main.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.parthair.android.members.R;
-import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.model.NewsDataModel;
 
 
@@ -91,7 +89,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
         holder.tv_item_title.setText("제목없음");
         holder.tv_item_desc.setText("내용없음");
-        String icon_img_url = item.getIcon_image_url()+"";
+        String icon_img_url = item.getIcon_img_url()+"";
         if(String_IsNotNull(icon_img_url)){
             Glide.with(holder.iv_item_icon.getContext()).load(icon_img_url)
                     .error(R.color.ph_gray_color_01)

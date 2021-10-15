@@ -9,24 +9,21 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * ClassName            MainNews
- * Created by JSky on   2021-10-12
+ * ClassName            MainNoticeImage
+ * Created by JSky on   2021-10-14
  * <p>
  * Description
  */
 @Data
-public class NewsDataModel {
+public class MainNoticeImage {
+
     @SerializedName("header")
     @Expose
     public Header header;
 
-    @SerializedName("news_data")
+    @SerializedName("slide_img_list")
     @Expose
-    public List<NewsData> newsData = new ArrayList<>();
-
-    public List<NewsData> newsNoticeList = new ArrayList<>();
-    public List<NewsData> newsEventsList = new ArrayList<>();
-
+    public List<SlideImage> slideImageList = new ArrayList<>();
 
     @Data
     public class Header {
@@ -40,13 +37,10 @@ public class NewsDataModel {
     }
 
     @Data
-    public class NewsData {
+    public class SlideImage {
         @SerializedName("idx")
         @Expose
         public Integer idx;
-        @SerializedName("category")
-        @Expose
-        public Integer category;
         @SerializedName("midx")
         @Expose
         public Integer midx;
@@ -59,30 +53,18 @@ public class NewsDataModel {
         @SerializedName("content")
         @Expose
         public String content;
-        @SerializedName("top")
-        @Expose
-        public Integer top;
-        @SerializedName("secret")
-        @Expose
-        public Integer secret;
-        @SerializedName("regdate")
-        @Expose
-        public String regDate;
         @SerializedName("view")
         @Expose
         public Integer view;
         @SerializedName("state")
         @Expose
         public Integer state;
-        @SerializedName("linked_coupon_idx")
+        @SerializedName("img_url")
         @Expose
-        public Integer linked_coupon_idx;
-        @SerializedName("icon_img_url")
+        public String img_url;
+        @SerializedName("regdate")
         @Expose
-        public String icon_img_url;
-        @SerializedName("top_img_url")
-        @Expose
-        public String top_img_url;
+        public String regDate;
     }
 
 }

@@ -31,4 +31,23 @@ public class DateUtil {
         return outputDate;
 
     }
+    public static String formatDateRemoveTime2(String inputDate){
+
+        Date parsed = null;
+        String outputDate = "";
+
+        SimpleDateFormat df_input = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", java.util.Locale.getDefault());
+        SimpleDateFormat df_output = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+
+        try {
+            parsed = df_input.parse(inputDate);
+            outputDate = df_output.format(parsed);
+
+        } catch (ParseException e) {
+
+        }
+
+        return outputDate;
+
+    }
 }

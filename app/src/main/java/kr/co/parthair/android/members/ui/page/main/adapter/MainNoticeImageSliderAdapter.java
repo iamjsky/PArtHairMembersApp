@@ -1,10 +1,9 @@
-package kr.co.parthair.android.members.ui.page.common.adapter;
+package kr.co.parthair.android.members.ui.page.main.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.model.MainNoticeImage;
 
 /**
  * ClassName            MainNoticeImageSliderAdapter
@@ -23,14 +25,14 @@ import kr.co.parthair.android.members.R;
 public class MainNoticeImageSliderAdapter extends RecyclerView.Adapter<MainNoticeImageSliderAdapter.SliderViewHolder> {
 
     private Context mContext;
-    private String[] sliderImageArr;
+    private List<MainNoticeImage.SlideImage> sliderImageList;
     View mView;
 
 
-    public MainNoticeImageSliderAdapter(Context context, String[] imageUrlArr) {
+    public MainNoticeImageSliderAdapter(Context context, List<MainNoticeImage.SlideImage> sliderImageList) {
 
         mContext = context;
-        sliderImageArr = imageUrlArr;
+        this.sliderImageList = sliderImageList;
 
     }
 
@@ -47,13 +49,13 @@ public class MainNoticeImageSliderAdapter extends RecyclerView.Adapter<MainNotic
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
 
-        holder.bindSliderImage(sliderImageArr[position]);
+        holder.bindSliderImage(sliderImageList.get(position).getImg_url());
         mView.setTag("MainNoticeImage_"+position);
     }
 
     @Override
     public int getItemCount() {
-        return sliderImageArr.length;
+        return sliderImageList.size();
     }
 
 

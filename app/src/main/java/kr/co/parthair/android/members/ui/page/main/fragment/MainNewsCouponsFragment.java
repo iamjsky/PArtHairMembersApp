@@ -13,12 +13,16 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.model.Coupons;
 import kr.co.parthair.android.members.model.NewsDataModel;
+import kr.co.parthair.android.members.net.api.callback.GetCouponListCallback;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
-import kr.co.parthair.android.members.ui.page.common.adapter.MainNewsNoticeAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsCouponsAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
 
 /**
@@ -32,7 +36,8 @@ public class MainNewsCouponsFragment extends BaseFragment {
     @BindView(R.id.recv_body)
     RecyclerView recv_body;
 
-    private MainNewsNoticeAdapter mainNewsNoticeAdapter;
+    private MainNewsCouponsAdapter mainNewsCouponsAdapter;
+    private int spanCount = 1;
 
     public MainNewsCouponsFragment() {
     }
@@ -49,11 +54,11 @@ public class MainNewsCouponsFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mParent);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recv_body.setLayoutManager(linearLayoutManager);
-        SnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(recv_body);
+//        SnapHelper snapHelper = new PagerSnapHelper();
+//        snapHelper.attachToRecyclerView(recv_body);
 
 
-        boardApi.getNews(getNewsCallback);
+        etcApi.getCouponList(getCouponListCallback);
 
 
         return view;
@@ -68,13 +73,13 @@ public class MainNewsCouponsFragment extends BaseFragment {
 
     //region callback
 
-    GetNewsCallback getNewsCallback = new GetNewsCallback() {
+    GetCouponListCallback getCouponListCallback = new GetCouponListCallback() {
         @Override
-        public void onSuccess(int code, String msg, @Nullable NewsDataModel data) {
-            if(data.getNewsCouponsList().size() > 0){
-                mainNewsNoticeAdapter = new MainNewsNoticeAdapter(data.getNewsCouponsList());
-                recv_body.setAdapter(mainNewsNoticeAdapter);
-                recv_body.setLayoutManager(new GridLayoutManager(mParent, 3, RecyclerView.HORIZONTAL, false));	// 가로
+        public void onSuccess(int code, String msg, @Nullable List<Coupons.CouponList> data) {
+            if(data.size() > 0){
+                mainNewsCouponsAdapter = new MainNewsCouponsAdapter(data);
+                recv_body.setAdapter(mainNewsCouponsAdapter);
+                recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
             }
 
 

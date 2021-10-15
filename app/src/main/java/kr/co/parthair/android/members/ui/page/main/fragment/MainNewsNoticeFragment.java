@@ -18,9 +18,9 @@ import butterknife.ButterKnife;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
-import kr.co.parthair.android.members.ui.page.common.adapter.MainNewsNoticeAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsSkeletonAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsNoticeAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
-import kr.co.parthair.android.members.ui.widget.recyclerview.RecyclerViewItemDecoration;
 
 import static java.lang.Math.max;
 
@@ -37,6 +37,7 @@ public class MainNewsNoticeFragment extends BaseFragment {
 
     private MainNewsNoticeAdapter mainNewsNoticeAdapter;
 
+    private int spanCount = 2;
 
     public MainNewsNoticeFragment() {
     }
@@ -57,6 +58,9 @@ public class MainNewsNoticeFragment extends BaseFragment {
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recv_body);
 
+        MainNewsSkeletonAdapter mainNewsSkeletonAdapter = new MainNewsSkeletonAdapter();
+        recv_body.setAdapter(mainNewsSkeletonAdapter);
+        recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
 
         boardApi.getNews(getNewsCallback);
 
@@ -79,7 +83,7 @@ public class MainNewsNoticeFragment extends BaseFragment {
             if(data.getNewsNoticeList().size() > 0){
                 mainNewsNoticeAdapter = new MainNewsNoticeAdapter(data.getNewsNoticeList());
                 recv_body.setAdapter(mainNewsNoticeAdapter);
-                recv_body.setLayoutManager(new GridLayoutManager(mParent, 3, RecyclerView.HORIZONTAL, false));	// 가로
+                recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
             }
 
 

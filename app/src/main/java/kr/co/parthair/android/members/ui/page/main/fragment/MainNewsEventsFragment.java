@@ -18,8 +18,9 @@ import butterknife.ButterKnife;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
-import kr.co.parthair.android.members.ui.page.common.adapter.MainNewsNoticeAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsEventsAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsSkeletonAdapter;
 
 /**
  * ClassName            MainNewsNoticeFragment
@@ -32,7 +33,8 @@ public class MainNewsEventsFragment extends BaseFragment {
     @BindView(R.id.recv_body)
     RecyclerView recv_body;
 
-    private MainNewsNoticeAdapter mainNewsNoticeAdapter;
+    private MainNewsEventsAdapter mainNewsEventsAdapter;
+    private int spanCount = 2;
 
     public MainNewsEventsFragment() {
     }
@@ -52,6 +54,9 @@ public class MainNewsEventsFragment extends BaseFragment {
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recv_body);
 
+        MainNewsSkeletonAdapter mainNewsSkeletonAdapter = new MainNewsSkeletonAdapter();
+        recv_body.setAdapter(mainNewsSkeletonAdapter);
+        recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
 
         boardApi.getNews(getNewsCallback);
 
@@ -72,9 +77,9 @@ public class MainNewsEventsFragment extends BaseFragment {
         @Override
         public void onSuccess(int code, String msg, @Nullable NewsDataModel data) {
             if(data.getNewsEventsList().size() > 0){
-                mainNewsNoticeAdapter = new MainNewsNoticeAdapter(data.getNewsEventsList());
-                recv_body.setAdapter(mainNewsNoticeAdapter);
-                recv_body.setLayoutManager(new GridLayoutManager(mParent, 3, RecyclerView.HORIZONTAL, false));	// 가로
+                mainNewsEventsAdapter = new MainNewsEventsAdapter(data.getNewsEventsList());
+                recv_body.setAdapter(mainNewsEventsAdapter);
+                recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
             }
 
 

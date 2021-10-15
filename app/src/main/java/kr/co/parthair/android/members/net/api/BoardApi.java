@@ -2,8 +2,10 @@ package kr.co.parthair.android.members.net.api;
 
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
+import kr.co.parthair.android.members.model.MainNoticeImage;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.net.RetrofitGenerator;
+import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +40,7 @@ public class BoardApi implements MyConstants, HttpResponseCode {
                                 /*
                                     0   notice
                                     1   events
-                                    2   coupons
+
 
                                  */
                                 switch (category) {
@@ -48,9 +50,7 @@ public class BoardApi implements MyConstants, HttpResponseCode {
                                     case 1:
                                         resData.getNewsEventsList().add(newsData);
                                         break;
-                                    case 2:
-                                        resData.getNewsCouponsList().add(newsData);
-                                        break;
+
 
 
                                 }
@@ -82,4 +82,48 @@ public class BoardApi implements MyConstants, HttpResponseCode {
 
 
     }
+
+    public void getMainNoticeImage(GetMainNoticeImageCallback callback) {
+
+
+        apiService.getMainNoticeImage().enqueue(new Callback<MainNoticeImage>() {
+            @Override
+            public void onResponse(Call<MainNoticeImage> call, Response<MainNoticeImage> response) {
+                if (response.isSuccessful()) {
+                    MainNoticeImage resData = response.body();
+                    int code = resData.getHeader().getCode();
+                    String msg = resData.getHeader().getMessage();
+
+                    switch (code) {
+                        case OK:
+
+
+
+                            callback.onSuccess(code, msg, resData);
+                            break;
+
+                        case NOT_FOUND:
+                        case ERROR:
+                            callback.onError(code, msg);
+                            break;
+
+
+                    }
+
+
+                } else {
+                    callback.onError(SERVER_ERROR, "getMainNoticeImage()>>" + "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainNoticeImage> call, Throwable t) {
+                callback.onError(SERVER_ERROR, "getMainNoticeImage()>>" + t.toString());
+            }
+        });
+
+
+    }
+
+
 }

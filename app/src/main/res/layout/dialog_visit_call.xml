@@ -37,16 +37,15 @@
                 android:background="@drawable/bg_button_rounded_default_02"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_weight="1"
-
                 android:id="@+id/btn_cancel"
                 android:text="취소"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"/>
             <Button
                 android:layout_weight="1"
                 android:id="@+id/btn_confirm"
                 android:text="전화걸기"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"/>
 
         </LinearLayout>

@@ -1,8 +1,11 @@
 package kr.co.parthair.android.members.net.api;
 
 import kr.co.parthair.android.members.model.CheckSignUp;
+import kr.co.parthair.android.members.model.Coupons;
+import kr.co.parthair.android.members.model.HaveCoupons;
 import kr.co.parthair.android.members.model.KakaoUserLogin;
 import kr.co.parthair.android.members.model.KakaoUserSignUp;
+import kr.co.parthair.android.members.model.MainNoticeImage;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.model.PhoneUserLogin;
 import kr.co.parthair.android.members.model.PhoneUserSignUp;
@@ -97,9 +100,18 @@ public interface ApiService {
 
     @GET("news.php")
     Call<NewsDataModel> getNews(
-
-
-
-
     );
+
+    @GET("mainNoticeImg.php")
+    Call<MainNoticeImage> getMainNoticeImage(
+    );
+
+    @GET("coupons.php")
+    Call<Coupons> getCouponList(
+    );
+
+    @GET("haveCoupons.php")
+    Call<HaveCoupons> getHaveCouponList(
+    );
+
 }

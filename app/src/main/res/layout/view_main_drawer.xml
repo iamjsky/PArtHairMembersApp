@@ -9,14 +9,101 @@
     android:clickable="true">
 
 <LinearLayout
+    android:paddingTop="@dimen/_50sdp"
+    android:paddingBottom="@dimen/_50sdp"
+    android:paddingRight="@dimen/_20sdp"
+    android:paddingLeft="@dimen/_20sdp"
     android:clickable="true"
     android:id="@+id/layout_body"
     android:orientation="vertical"
     android:background="@color/white"
-    android:layout_width="@dimen/_200sdp"
+    android:layout_width="@dimen/_220sdp"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:fontFamily="@font/pretendard_bold"
+        android:textSize="@dimen/_20sdp"
+        android:text="피아트헤어"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_16sdp">
+
+        <ImageView
+            android:src="@drawable/ico_instagram_01"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:src="@drawable/ico_naver_01"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:padding="@dimen/_16sdp"
+        android:background="@drawable/bg_rounded_03"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="@dimen/_12sdp"
+            android:gravity="center|left"
+            android:textColor="@color/white"
+            android:fontFamily="@font/pretendard_bold"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:text="보유 포인트"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="@dimen/_20sdp"
+              android:text="100000"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pretendard_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:textSize="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:text="P"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pretendard_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@color/ph_main_color"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 </LinearLayout>
 
 

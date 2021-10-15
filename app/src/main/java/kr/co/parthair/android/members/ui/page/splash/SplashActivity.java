@@ -89,6 +89,7 @@ public class SplashActivity extends BaseActivity {
             ResponseErrorDialog responseErrorDialog = new ResponseErrorDialog(mContext, "알림", errMsg);
             responseErrorDialog.show();
 
+
         }
     };
 

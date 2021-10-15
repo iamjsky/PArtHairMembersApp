@@ -1,6 +1,7 @@
 package kr.co.parthair.android.members.ui.page.splash.dialog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.ui.page.common.base.BaseDialog;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.main.MainActivity;
 
 /**
  * ClassName            ResponseErrorDialog
@@ -52,6 +54,10 @@ public class ResponseErrorDialog extends BaseDialog {
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked() {
 
+
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
         dismiss();
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,7 @@
         android:background="@color/ph_page_bg_color_02">
 
         <LinearLayout
-
+            android:paddingBottom="@dimen/_40sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -504,7 +505,37 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn_news_coupons"
+                        android:focusable="true"
 
+                        android:paddingRight="@dimen/_14sdp"
+                        android:paddingLeft="@dimen/_14sdp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:textColor="@color/ph_main_color"
+                        android:background="@drawable/selector_main_tab_01"
+                        android:text="쿠폰"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn_news_events"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:focusable="true"
+                        android:paddingRight="@dimen/_14sdp"
+                        android:paddingLeft="@dimen/_14sdp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:textColor="@color/ph_main_color"
+                        android:background="@drawable/selector_main_tab_01"
+                        android:text="이벤트"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                     <Button
 
                         android:id="@+id/btn_news_notice"
@@ -522,47 +553,20 @@
                         android:textColor="@color/ph_main_color"
                         android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btn_news_events"
-                        android:layout_marginLeft="@dimen/_8sdp"
-                        android:focusable="true"
-                        android:paddingRight="@dimen/_14sdp"
-                        android:paddingLeft="@dimen/_14sdp"
-                        android:paddingTop="@dimen/_10sdp"
-                        android:paddingBottom="@dimen/_10sdp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:textColor="@color/ph_main_color"
-                        android:background="@drawable/selector_main_tab_01"
-                        android:text="이벤트"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <Button
-                        android:id="@+id/btn_news_coupons"
-                        android:focusable="true"
-                        android:layout_marginLeft="@dimen/_8sdp"
-                        android:paddingRight="@dimen/_14sdp"
-                        android:paddingLeft="@dimen/_14sdp"
-                        android:paddingTop="@dimen/_10sdp"
-                        android:paddingBottom="@dimen/_10sdp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:textColor="@color/ph_main_color"
-                        android:background="@drawable/selector_main_tab_01"
-                        android:text="쿠폰"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+
+
                 </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/layout_news"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_240sdp"/>
+                    android:layout_height="@dimen/_160sdp"/>
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -579,13 +583,13 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/instagram_regular"
+                        android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
-                        android:text="instagram"
+                        android:text="헤어스타일"
                         android:textSize="@dimen/_20sdp" />
 
                     <LinearLayout
-                        android:id="@+id/layout_instagramMore"
+                        android:id="@+id/layout_hairStyleMore"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -613,7 +617,58 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/ph_page_bg_color"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:padding="@dimen/_20sdp"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center|left"
+                        android:text="포인트샵"
+                        android:textSize="@dimen/_20sdp" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_pointShopMore"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/ph_gray_color_02"
+                            android:gravity="center"
+                            android:text="더보기"
+                            />
+                        <ImageView
+
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ico_more_02" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -621,9 +676,10 @@
 
 
     <LinearLayout
+        android:fitsSystemWindows="true"
         android:id="@+id/layout_topMenu"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/ph_menu_tab_color_01"
         android:clickable="true"

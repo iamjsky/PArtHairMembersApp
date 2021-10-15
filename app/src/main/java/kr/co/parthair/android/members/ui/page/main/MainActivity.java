@@ -1,6 +1,5 @@
 package kr.co.parthair.android.members.ui.page.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -27,21 +26,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.WindowInsetsAnimationCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -50,11 +42,10 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
-import kr.co.parthair.android.members.model.NewsDataModel;
-import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
+import kr.co.parthair.android.members.model.MainNoticeImage;
+import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
-import kr.co.parthair.android.members.ui.page.common.adapter.MainNewsNoticeAdapter;
-import kr.co.parthair.android.members.ui.page.common.adapter.MainNoticeImageSliderAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.main.dialog.VisitCallDialog;
@@ -77,7 +68,7 @@ public class MainActivity extends BaseActivity {
         openDrawerClicked();
     }
 
-    @OnClick(R.id.iv_openDrawer)
+    @OnClick({R.id.iv_openDrawer,R.id.iv_topMenuOpenDrawer})
     public void openDrawerClicked() {
         if (layout_drawer.getVisibility() == View.VISIBLE) {
             Animation openAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_left);
@@ -140,23 +131,26 @@ public class MainActivity extends BaseActivity {
     int autoSlidingTime = 5000;
     MainNoticeImageSliderAdapter mainNoticeImageSliderAdapter;
 
-    private String[] images = new String[]{
-            "https://ldb-phinf.pstatic.net/20210907_148/1631010711173eGWJF_JPEG/rxw1GRNrsJd0HV3jtl6dOtsM.JPG.jpg",
-            "https://ldb-phinf.pstatic.net/20210907_281/1631011229560xrk2x_JPEG/wNKnh84O_Immhj-G63Tv5Wz4.JPG.jpg",
-            "https://ldb-phinf.pstatic.net/20210907_10/1631010837704VXfyi_JPEG/suj_hzUAKNO984WtYMHGNuLc.JPG.jpg",
-            "https://ldb-phinf.pstatic.net/20210913_228/1631463501681Q0sSq_JPEG/7dLb-SUMdH5AkkYTRq13L46A.jpeg.jpg",
-            "https://ldb-phinf.pstatic.net/20210907_111/16310109739858rsCM_JPEG/7i9IWXUaKVOnptoMkTmDldlJ.JPG.jpg",
-            "https://ldb-phinf.pstatic.net/20210907_73/1631011048715SX6Bv_JPEG/cIzLAdwLlnhBb5h_IM7FYcp-.JPG.jpg"
-    };
+//    private String[] images = new String[]{
+//            "https://ldb-phinf.pstatic.net/20210907_148/1631010711173eGWJF_JPEG/rxw1GRNrsJd0HV3jtl6dOtsM.JPG.jpg",
+//            "https://ldb-phinf.pstatic.net/20210907_281/1631011229560xrk2x_JPEG/wNKnh84O_Immhj-G63Tv5Wz4.JPG.jpg",
+//            "https://ldb-phinf.pstatic.net/20210907_10/1631010837704VXfyi_JPEG/suj_hzUAKNO984WtYMHGNuLc.JPG.jpg",
+//            "https://ldb-phinf.pstatic.net/20210913_228/1631463501681Q0sSq_JPEG/7dLb-SUMdH5AkkYTRq13L46A.jpeg.jpg",
+//            "https://ldb-phinf.pstatic.net/20210907_111/16310109739858rsCM_JPEG/7i9IWXUaKVOnptoMkTmDldlJ.JPG.jpg",
+//            "https://ldb-phinf.pstatic.net/20210907_73/1631011048715SX6Bv_JPEG/cIzLAdwLlnhBb5h_IM7FYcp-.JPG.jpg"
+//    };
 
 
     boolean firstAnimStart = false;
 
-    private void setNoticeImageSlider() {
+    private void setNoticeImageSlider(MainNoticeImage mainNoticeImage) {
+
+
+        LOG_E("mainNoticeImage.getSlideImageList().size() : " + mainNoticeImage.getSlideImageList().size()+"");
         sliderHandler = new Handler();
         //미리 로딩 할 다음 데이터 수
         vp_noticeImageSlider.setOffscreenPageLimit(1);
-        mainNoticeImageSliderAdapter = new MainNoticeImageSliderAdapter(this, images);
+        mainNoticeImageSliderAdapter = new MainNoticeImageSliderAdapter(this, mainNoticeImage.getSlideImageList());
         vp_noticeImageSlider.setAdapter(mainNoticeImageSliderAdapter);
 
         vp_noticeImageSlider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -198,12 +192,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        setupNoticeImageIndicator(images.length);
+        setupNoticeImageIndicator(mainNoticeImage.getSlideImageList().size());
 
     }
 
 
     private void setupNoticeImageIndicator(int count) {
+        layout_noticeImageSliderIndicator.removeAllViews();
         ImageView[] indicators = new ImageView[count];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -241,8 +236,12 @@ public class MainActivity extends BaseActivity {
     private Runnable sliderRunnable = new Runnable() {
         @Override
         public void run() {
+            ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
+            nowImageView.clearAnimation();
             if (vp_noticeImageSlider.getCurrentItem() + 1 == mainNoticeImageSliderAdapter.getItemCount()) {
+
                 vp_noticeImageSlider.setCurrentItem(0);
+
             } else {
                 vp_noticeImageSlider.setCurrentItem(vp_noticeImageSlider.getCurrentItem() + 1);
             }
@@ -283,7 +282,7 @@ public class MainActivity extends BaseActivity {
 
     //region news
 
-    @BindViews({R.id.btn_news_notice, R.id.btn_news_events, R.id.btn_news_coupons})
+    @BindViews({ R.id.btn_news_coupons, R.id.btn_news_events,R.id.btn_news_notice})
     Button[] btn_news_buttons;
 
     @BindView(R.id.layout_news)
@@ -379,14 +378,16 @@ public class MainActivity extends BaseActivity {
         });
 
 
-        setNoticeImageSlider();
+
         btn_news_buttonsClicked(btn_news_buttons[0]);
         refreshData();
+
+
     }
 
     void refreshData() {
         refreshUserInfo();
-
+        refreshMainNoticeImage();
     }
 
     void refreshUserInfo() {
@@ -406,53 +407,26 @@ public class MainActivity extends BaseActivity {
         iv_userInfo_userProfileImg.setBackground(new ShapeDrawable(new OvalShape()));
         iv_userInfo_userProfileImg.setClipToOutline(true);
 
-        GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
-            @Override
-            public void onSuccess(int code, String msg) {
-                String userProfileImgUrl = MyInfo.instance.getUserInfo().getUserProfileImg() + "";
 
-                if (!userProfileImgUrl.equals("")) {
-                    Glide.with(mContext).load(MyInfo.instance.getUserInfo()
-                            .getUserProfileImg()).error(R.drawable.ic_launcher_background)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .override(100, 100)
-                            .skipMemoryCache(true)
-                            .into(iv_userInfo_userProfileImg);
-                } else {
-                    Glide.with(mContext).load(R.drawable.ic_launcher_background)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .override(100, 100)
-                            .skipMemoryCache(true)
-                            .into(iv_userInfo_userProfileImg);
-                }
-
-                String createdDate = MyInfo.instance.getUserInfo().getCreatedDate() + "";
-                String lastVisitDate = MyInfo.instance.getUserInfo().getLastVisitDate() + "";
-                String userCreatedDate = formatDateRemoveTime(createdDate);
-                String userLastVisitDate = formatDateRemoveTime(lastVisitDate);
-
-                tv_userInfo_userName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
-                tv_userInfo_userCreatedDate.setText(userCreatedDate + "");
-                tv_userInfo_userLastVisitDate.setText(userLastVisitDate + "");
-                tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
-                tv_userInfo_userCoupons.setText("0");
-
-            }
-
-            @Override
-            public void onError(int code, String msg) {
-
-            }
-        };
         userApi.getUserInfo(getUserInfoCallback);
+    }
+
+    void refreshMainNoticeImage(){
+
+        boardApi.getMainNoticeImage(getMainNoticeImageCallback);
     }
 
     public void setStatusBarTransparent() {
 
         Window w = getWindow();
-        w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        w.setStatusBarColor(Color.TRANSPARENT);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            w.setStatusBarColor(Color.TRANSPARENT);
+
+        }
 
 
     }
@@ -558,7 +532,56 @@ public class MainActivity extends BaseActivity {
 
     //region callback
 
+    GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
+        @Override
+        public void onSuccess(int code, String msg) {
+            String userProfileImgUrl = MyInfo.instance.getUserInfo().getUserProfileImg() + "";
 
+            if (!userProfileImgUrl.equals("")) {
+                Glide.with(mContext).load(MyInfo.instance.getUserInfo()
+                        .getUserProfileImg()).error(R.drawable.ic_launcher_background)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .override(100, 100)
+                        .skipMemoryCache(true)
+                        .into(iv_userInfo_userProfileImg);
+            } else {
+                Glide.with(mContext).load(R.drawable.ic_launcher_background)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .override(100, 100)
+                        .skipMemoryCache(true)
+                        .into(iv_userInfo_userProfileImg);
+            }
+
+            String createdDate = MyInfo.instance.getUserInfo().getCreatedDate() + "";
+            String lastVisitDate = MyInfo.instance.getUserInfo().getLastVisitDate() + "";
+            String userCreatedDate = formatDateRemoveTime(createdDate);
+            String userLastVisitDate = formatDateRemoveTime(lastVisitDate);
+
+            tv_userInfo_userName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
+            tv_userInfo_userCreatedDate.setText(userCreatedDate + "");
+            tv_userInfo_userLastVisitDate.setText(userLastVisitDate + "");
+            tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
+            tv_userInfo_userCoupons.setText("0");
+
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+
+        }
+    };
+
+    GetMainNoticeImageCallback getMainNoticeImageCallback = new GetMainNoticeImageCallback() {
+        @Override
+        public void onSuccess(int code, String msg, @Nullable MainNoticeImage data) {
+            setNoticeImageSlider(data);
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+
+        }
+    };
 //    GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
 //        @Override
 //        public void onSuccess(int code, String msg) {
