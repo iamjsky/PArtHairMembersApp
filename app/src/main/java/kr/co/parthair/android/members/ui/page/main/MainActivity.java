@@ -60,20 +60,24 @@ public class MainActivity extends BaseActivity {
     //region navi drawer
     @BindView(R.id.layout_drawer)
     RelativeLayout layout_drawer;
-    @BindView(R.id.layout_body)
-    LinearLayout layout_body;
+    @BindView(R.id.sv_drawerBody)
+    NestedScrollView sv_drawerBody;
+    @BindView(R.id.layout_drawerBody)
+    LinearLayout layout_drawerBody;
 
     @OnClick(R.id.layout_drawer)
     public void layout_drawerClicked() {
         openDrawerClicked();
     }
 
-    @OnClick({R.id.iv_openDrawer,R.id.iv_topMenuOpenDrawer})
+    @OnClick({R.id.iv_openDrawer, R.id.iv_topMenuOpenDrawer})
     public void openDrawerClicked() {
         if (layout_drawer.getVisibility() == View.VISIBLE) {
-            Animation openAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_left);
-            layout_body.startAnimation(openAnim);
-            openAnim.setAnimationListener(new Animation.AnimationListener() {
+
+            Animation closeAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_left);
+            sv_drawerBody.startAnimation(closeAnim);
+
+            closeAnim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
 
@@ -82,6 +86,8 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     layout_drawer.setVisibility(View.GONE);
+                    sv_drawerBody.setVisibility(View.GONE);
+                    layout_drawerBody.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -92,10 +98,35 @@ public class MainActivity extends BaseActivity {
 
 
         } else {
-            Animation closeAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_right);
+
+            Animation openDrawerAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_right);
+            Animation openBodyAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_right);
+
             layout_drawer.setVisibility(View.VISIBLE);
-            layout_body.startAnimation(closeAnim);
-            closeAnim.setAnimationListener(new Animation.AnimationListener() {
+            sv_drawerBody.setScrollY(0);
+            sv_drawerBody.setVisibility(View.VISIBLE);
+            layout_drawerBody.setVisibility(View.GONE);
+            sv_drawerBody.startAnimation(openDrawerAnim);
+
+            openDrawerAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    layout_drawerBody.setVisibility(View.VISIBLE);
+                    layout_drawerBody.startAnimation(openBodyAnim);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            openBodyAnim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
 
