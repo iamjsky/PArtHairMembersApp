@@ -62,8 +62,7 @@ public class MainActivity extends BaseActivity {
     RelativeLayout layout_drawer;
     @BindView(R.id.sv_drawerBody)
     NestedScrollView sv_drawerBody;
-    @BindView(R.id.layout_drawerBody)
-    LinearLayout layout_drawerBody;
+
 
     @OnClick(R.id.layout_drawer)
     public void layout_drawerClicked() {
@@ -87,7 +86,7 @@ public class MainActivity extends BaseActivity {
                 public void onAnimationEnd(Animation animation) {
                     layout_drawer.setVisibility(View.GONE);
                     sv_drawerBody.setVisibility(View.GONE);
-                    layout_drawerBody.setVisibility(View.GONE);
+
                 }
 
                 @Override
@@ -100,12 +99,12 @@ public class MainActivity extends BaseActivity {
         } else {
 
             Animation openDrawerAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_right);
-            Animation openBodyAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_right);
+
 
             layout_drawer.setVisibility(View.VISIBLE);
             sv_drawerBody.setScrollY(0);
             sv_drawerBody.setVisibility(View.VISIBLE);
-            layout_drawerBody.setVisibility(View.GONE);
+
             sv_drawerBody.startAnimation(openDrawerAnim);
 
             openDrawerAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -116,24 +115,6 @@ public class MainActivity extends BaseActivity {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    layout_drawerBody.setVisibility(View.VISIBLE);
-                    layout_drawerBody.startAnimation(openBodyAnim);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-
-            openBodyAnim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
 
                 }
 
@@ -142,6 +123,8 @@ public class MainActivity extends BaseActivity {
 
                 }
             });
+
+
         }
 
 

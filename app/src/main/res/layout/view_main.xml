@@ -221,7 +221,7 @@
                         android:id="@+id/layout_naverReservation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
+
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -251,7 +251,7 @@
                         android:id="@+id/layout_userPoints"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
+
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -283,7 +283,7 @@
                         android:id="@+id/layout_userCoupons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
+
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -418,7 +418,7 @@
                         android:layout_marginRight="@dimen/_12sdp"
                         android:fontFamily="@font/pretendard_bold"
                         android:textColor="@color/ph_gray_color_01"
-                        android:text="공지"
+                        android:text="알림"
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"/>
@@ -549,7 +549,7 @@
                         android:paddingTop="@dimen/_10sdp"
                         android:paddingRight="@dimen/_14sdp"
                         android:paddingBottom="@dimen/_10sdp"
-                        android:text="공지"
+                        android:text="공지사항"
                         android:textColor="@color/ph_main_color"
                         android:textStyle="bold" />
 
@@ -585,7 +585,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
-                        android:text="헤어스타일"
+                        android:text="헤어스타일, 시술"
                         android:textSize="@dimen/_20sdp" />
 
                     <LinearLayout
@@ -637,7 +637,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
-                        android:text="포인트샵"
+                        android:text="포인트 샵"
                         android:textSize="@dimen/_20sdp" />
 
                     <LinearLayout

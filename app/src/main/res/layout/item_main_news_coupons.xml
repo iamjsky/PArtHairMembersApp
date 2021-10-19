@@ -8,7 +8,7 @@
     android:orientation="horizontal">
     <RelativeLayout
         android:id="@+id/layout_couponBody"
-        android:background="@color/ph_gray_color_01"
+        android:background="@drawable/bg_coupons_01"
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_10sdp"
         android:orientation="horizontal"
@@ -29,7 +29,7 @@
                 android:gravity="center|top"
 
                 android:textSize="@dimen/_14sdp"
-                android:textColor="@color/white"
+
                 android:fontFamily="@font/pretendard_bold"
                 android:layout_marginBottom="@dimen/_6sdp"
                 android:text="asxcvxcvxcvcxvdasd"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:textColor="@color/white"
+
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -48,7 +48,7 @@
             <TextView
                 android:textSize="@dimen/_8sdp"
                 android:gravity="center"
-                android:textColor="@color/white"
+
                 android:text="ccxvcxvcxvxcvcxvcvxcvx"
                 android:id="@+id/tv_item_date"
                 android:layout_width="match_parent"
