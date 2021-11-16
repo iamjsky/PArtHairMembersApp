@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/ph_page_bg_color">
 
     <androidx.core.widget.NestedScrollView
@@ -38,18 +39,19 @@
                         android:id="@+id/layout_topMainMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_18sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:gravity="center|left"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_20sdp">
+                        android:padding="@dimen/_16sdp">
 
                         <ImageView
-
+                            android:padding="@dimen/_4sdp"
+                            android:background="@drawable/bg_rounded_hamburger_01"
                             android:id="@+id/iv_openDrawer"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
                             android:adjustViewBounds="true"
-                            android:background="@drawable/ico_hamburger_04" />
+                            android:src="@drawable/ico_hamburger_04" />
 
                     </LinearLayout>
 
@@ -566,6 +568,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical"
@@ -573,7 +576,10 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:padding="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:gravity="center|bottom"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -614,6 +620,35 @@
                     </LinearLayout>
 
                 </LinearLayout>
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp">
+                    <androidx.recyclerview.widget.RecyclerView
+
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:clipToPadding="false"
+                        android:id="@+id/recv_hairStyle"
+                        tools:listitem="@layout/item_main_hair_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <LinearLayout
+                        android:id="@+id/layout_mainHairStyleEmpty"
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:gravity="center"
+                            android:text="데이터가 없습니다."
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
 
 
             </LinearLayout>

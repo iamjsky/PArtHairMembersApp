@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import kr.co.parthair.android.members.common.FragmentPageCode;
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
-import kr.co.parthair.android.members.net.api.BoardApi;
+import kr.co.parthair.android.members.net.api.MainApi;
 import kr.co.parthair.android.members.net.api.EtcApi;
 import kr.co.parthair.android.members.net.api.UserApi;
 
@@ -26,7 +26,7 @@ public class BaseFragment extends Fragment implements MyConstants, HttpResponseC
 
     protected BaseActivity mParent;
     protected UserApi userApi = new UserApi();
-    protected BoardApi boardApi = new BoardApi();
+    protected MainApi mainApi = new MainApi();
     protected EtcApi etcApi = new EtcApi();
     protected String pageTag = "";
 

@@ -26,14 +26,17 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.WindowInsetsAnimationCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -42,16 +45,24 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
+import kr.co.parthair.android.members.model.MainHairStyle;
 import kr.co.parthair.android.members.model.MainNoticeImage;
+import kr.co.parthair.android.members.model.TagListModel;
+import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleSkeletonAdapter;
+import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsSkeletonAdapter;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.main.dialog.ReservationDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.VisitCallDialog;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
+import kr.co.parthair.android.members.ui.page.splash.SplashActivity;
 
 import static kr.co.parthair.android.members.utils.DateUtil.formatDateRemoveTime;
 
@@ -62,6 +73,16 @@ public class MainActivity extends BaseActivity {
     RelativeLayout layout_drawer;
     @BindView(R.id.sv_drawerBody)
     NestedScrollView sv_drawerBody;
+    @BindView(R.id.tv_drawerHavePoints)
+    TextView tv_drawerHavePoints;
+    @BindView(R.id.tv_drawerUserName)
+    TextView tv_drawerUserName;
+    @BindView(R.id.layout_drawerUserNotLogged)
+    LinearLayout layout_drawerUserNotLogged;
+    @BindView(R.id.layout_drawerUserLogged)
+    LinearLayout layout_drawerUserLogged;
+    @BindView(R.id.tv_drawerUserLogout)
+    TextView tv_drawerUserLogout;
 
 
     @OnClick(R.id.layout_drawer)
@@ -71,6 +92,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick({R.id.iv_openDrawer, R.id.iv_topMenuOpenDrawer})
     public void openDrawerClicked() {
+        refreshUserInfo();
         if (layout_drawer.getVisibility() == View.VISIBLE) {
 
             Animation closeAnim = AnimationUtils.loadAnimation(this, R.anim.drawer_left);
@@ -160,7 +182,7 @@ public class MainActivity extends BaseActivity {
     private void setNoticeImageSlider(MainNoticeImage mainNoticeImage) {
 
 
-        LOG_E("mainNoticeImage.getSlideImageList().size() : " + mainNoticeImage.getSlideImageList().size()+"");
+        LOG_E("mainNoticeImage.getSlideImageList().size() : " + mainNoticeImage.getSlideImageList().size() + "");
         sliderHandler = new Handler();
         //미리 로딩 할 다음 데이터 수
         vp_noticeImageSlider.setOffscreenPageLimit(1);
@@ -171,7 +193,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-             //   LOG_I("onPageScrolled position>>" + position);
+                //   LOG_I("onPageScrolled position>>" + position);
                 if (!firstAnimStart) {
                     ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
                     nowImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.image_zoom));
@@ -296,12 +318,25 @@ public class MainActivity extends BaseActivity {
 
     //region news
 
-    @BindViews({ R.id.btn_news_coupons, R.id.btn_news_events,R.id.btn_news_notice})
+    @BindViews({R.id.btn_news_coupons, R.id.btn_news_events, R.id.btn_news_notice})
     Button[] btn_news_buttons;
 
     @BindView(R.id.layout_news)
     FrameLayout layout_news;
     public Fragment newsFragmentPage;
+
+
+    //endregion
+
+    //region hairStyle
+
+    @BindView(R.id.recv_hairStyle)
+    RecyclerView recv_hairStyle;
+    @BindView(R.id.layout_mainHairStyleEmpty)
+    LinearLayout layout_mainHairStyleEmpty;
+
+
+    MainHairStyleAdapter mainHairStyleAdapter;
 
 
     //endregion
@@ -375,7 +410,7 @@ public class MainActivity extends BaseActivity {
         nsv_scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-               // LOG_D(scrollY + "");
+                // LOG_D(scrollY + "");
                 if (scrollY >= 45) {
 
                     w.setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
@@ -392,6 +427,11 @@ public class MainActivity extends BaseActivity {
         });
 
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recv_hairStyle.setLayoutManager(linearLayoutManager);
+        MainHairStyleSkeletonAdapter mainHairStyleSkeletonAdapter = new MainHairStyleSkeletonAdapter();
+        recv_hairStyle.setAdapter(mainHairStyleSkeletonAdapter);
 
         btn_news_buttonsClicked(btn_news_buttons[0]);
         refreshData();
@@ -402,6 +442,7 @@ public class MainActivity extends BaseActivity {
     void refreshData() {
         refreshUserInfo();
         refreshMainNoticeImage();
+        refreshMainHairStyle();
     }
 
     void refreshUserInfo() {
@@ -411,11 +452,18 @@ public class MainActivity extends BaseActivity {
             layout_userLogged.setVisibility(View.GONE);
             layout_userNotLogged.setVisibility(View.VISIBLE);
 
+            layout_drawerUserLogged.setVisibility(View.GONE);
+            layout_drawerUserNotLogged.setVisibility(View.VISIBLE);
+
+
 
             return;
         } else {
             layout_userLogged.setVisibility(View.VISIBLE);
             layout_userNotLogged.setVisibility(View.GONE);
+            layout_drawerUserLogged.setVisibility(View.VISIBLE);
+            layout_drawerUserNotLogged.setVisibility(View.GONE);
+
         }
 
         iv_userInfo_userProfileImg.setBackground(new ShapeDrawable(new OvalShape()));
@@ -425,9 +473,13 @@ public class MainActivity extends BaseActivity {
         userApi.getUserInfo(getUserInfoCallback);
     }
 
-    void refreshMainNoticeImage(){
+    void refreshMainNoticeImage() {
 
-        boardApi.getMainNoticeImage(getMainNoticeImageCallback);
+        mainApi.getMainNoticeImage(getMainNoticeImageCallback);
+    }
+
+    void refreshMainHairStyle() {
+        mainApi.getMainHairStyle(getMainHairStyleCallback);
     }
 
     public void setStatusBarTransparent() {
@@ -437,14 +489,13 @@ public class MainActivity extends BaseActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             w.setStatusBarColor(Color.TRANSPARENT);
 
         }
 
 
     }
-
 
 
     public void setNewsFragmentPage(int page) {
@@ -476,9 +527,16 @@ public class MainActivity extends BaseActivity {
 
         }
     }
+
+    public void userLogout(){
+        MyPreferenceManager.setString(this, "user_token", "");
+        MyInfo.instance.setUser_token("");
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+    }
     //region onClick
 
-    @OnClick(R.id.layout_goLogin)
+    @OnClick({R.id.layout_goLogin, R.id.layout_drawerGoLogin})
     public void layout_goLoginClicked() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -494,15 +552,20 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.layout_naverReservation)
     public void layout_naverReservationClicked() {
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(NAVER_RESERVATION_URL));
-        startActivity(intent);
+        ReservationDialog reservationDialog = new ReservationDialog(this);
+        reservationDialog.show();
+
 
     }
 
-    @OnClick(R.id.tv_userInfo_userName)
-    public void tv_userInfo_userNameClicked() {
+    @OnClick(R.id.tv_drawerUserLogout)
+    public void tv_drawerUserLogout() {
+        if(MyInfo.instance.getUser_token().equals("")){
+            layout_goLoginClicked();
+        }else{
+            userLogout();
+        }
 
-        MyPreferenceManager.setString(this, "user_token", "");
 
     }
 
@@ -575,8 +638,11 @@ public class MainActivity extends BaseActivity {
             tv_userInfo_userCreatedDate.setText(userCreatedDate + "");
             tv_userInfo_userLastVisitDate.setText(userLastVisitDate + "");
             tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
+
             tv_userInfo_userCoupons.setText("0");
 
+            tv_drawerUserName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
+            tv_drawerHavePoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
         }
 
         @Override
@@ -596,6 +662,39 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+    GetMainHairStyleCallback getMainHairStyleCallback = new GetMainHairStyleCallback() {
+        @Override
+        public void onSuccess(int code, String msg, @Nullable MainHairStyle data) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (data.getHairData() != null && data.getHairData().size() > 0) {
+                        layout_mainHairStyleEmpty.setVisibility(View.GONE);
+                        mainHairStyleAdapter = new MainHairStyleAdapter(data.getHairData());
+                        recv_hairStyle.setAdapter(mainHairStyleAdapter);
+                        mainHairStyleAdapter.notifyDataSetChanged();
+                        for(int i=0; i < data.getHairData().size(); i++){
+                            List<TagListModel.TagInfo> styleTagList = data.getHairData().get(i).getStyleTag();
+                            for(int j=0; j < styleTagList.size(); j++){
+                                LOG_I(styleTagList.get(j).getName()+"");
+                            }
+                        }
+                    } else {
+                        layout_mainHairStyleEmpty.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+
+        }
+    };
+
+
 //    GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
 //        @Override
 //        public void onSuccess(int code, String msg) {

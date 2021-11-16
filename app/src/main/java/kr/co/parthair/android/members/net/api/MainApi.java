@@ -1,10 +1,18 @@
 package kr.co.parthair.android.members.net.api;
 
+import android.graphics.Paint;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
+import kr.co.parthair.android.members.model.MainHairStyle;
 import kr.co.parthair.android.members.model.MainNoticeImage;
 import kr.co.parthair.android.members.model.NewsDataModel;
+import kr.co.parthair.android.members.model.TagListModel;
 import kr.co.parthair.android.members.net.RetrofitGenerator;
+import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
 import retrofit2.Call;
@@ -18,7 +26,7 @@ import retrofit2.Response;
  * <p>
  * Description
  */
-public class BoardApi implements MyConstants, HttpResponseCode {
+public class MainApi implements MyConstants, HttpResponseCode {
     private RetrofitGenerator retrofitGenerator = new RetrofitGenerator();
     private ApiService apiService = retrofitGenerator.getApiService();
 
@@ -125,5 +133,71 @@ public class BoardApi implements MyConstants, HttpResponseCode {
 
     }
 
+    public void getMainHairStyle(GetMainHairStyleCallback callback) {
+
+
+        apiService.getMainHairStyle().enqueue(new Callback<MainHairStyle>() {
+            @Override
+            public void onResponse(Call<MainHairStyle> call, Response<MainHairStyle> response) {
+                if (response.isSuccessful()) {
+                    MainHairStyle resData = response.body();
+                    int code = resData.getHeader().getCode();
+                    String msg = resData.getHeader().getMessage();
+
+                    switch (code) {
+                        case OK:
+
+                            for(MainHairStyle.HairStyleData data : resData.getHairData()){
+                                String tags = data.getTag()+"";
+
+                                String[] splitTags = tags.split(",");
+                                List<TagListModel.TagInfo> styleTagList = new ArrayList<>();
+
+                                    for(int i=0; i < splitTags.length; i++){
+                                        TagListModel.TagInfo styleTag = new TagListModel.TagInfo();
+                                        styleTag.setIdx(Integer.parseInt(splitTags[i]));
+                                        LOG_I("styleTag.getIdx() : " + styleTag.getIdx());
+                                        LOG_I("TagListModel.instance.getTagInfoList().size() : " + TagListModel.instance.getTagInfoList().size());
+                                        for(int j=0; j < TagListModel.instance.getTagInfoList().size(); j++){
+                                            if(TagListModel.instance.getTagInfoList().get(j).getIdx() == styleTag.getIdx()){
+                                                styleTag.setCategory(TagListModel.instance.getTagInfoList().get(j).getCategory());
+                                                styleTag.setName(TagListModel.instance.getTagInfoList().get(j).getName());
+                                            }
+                                        }
+
+                                        styleTagList.add(styleTag);
+                                    }
+
+
+                                data.setStyleTag(styleTagList);
+                            }
+
+
+
+                            callback.onSuccess(code, msg, resData);
+                            break;
+
+                        case NOT_FOUND:
+                        case ERROR:
+                            callback.onError(code, msg);
+                            break;
+
+
+                    }
+
+
+                } else {
+                    callback.onError(SERVER_ERROR, "getMainHairStyle()>>" + "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainHairStyle> call, Throwable t) {
+                callback.onError(SERVER_ERROR, "getMainHairStyle()>>" + t.toString());
+            }
+        });
+
+
+    }
 
 }

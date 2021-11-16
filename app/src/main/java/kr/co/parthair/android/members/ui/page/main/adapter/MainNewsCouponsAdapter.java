@@ -37,20 +37,20 @@ import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNul
  */
 public class MainNewsCouponsAdapter extends RecyclerView.Adapter<MainNewsCouponsAdapter.ViewHolder> {
 
-//    int[] couponBackgroundArr = {
-//            R.drawable.bg_coupon_rounded_01,
-//            R.drawable.bg_coupon_rounded_02,
-//            R.drawable.bg_coupon_rounded_03,
-//            R.drawable.bg_coupon_rounded_04,
-//            R.drawable.bg_coupon_rounded_05
-//    };
-int[] couponBackgroundArr = {
-        R.drawable.bg_coupons_01,
-        R.drawable.bg_coupons_01,
-        R.drawable.bg_coupons_01,
-        R.drawable.bg_coupons_01,
-        R.drawable.bg_coupons_01
-};
+    int[] couponBackgroundArr = {
+            R.drawable.bg_coupons_01,
+            R.drawable.bg_coupons_01,
+            R.drawable.bg_coupons_01,
+            R.drawable.bg_coupons_01,
+            R.drawable.bg_coupons_01
+    };
+//int[] couponBackgroundArr = {
+//        R.drawable.bg_coupons_01,
+//        R.drawable.bg_coupons_01,
+//        R.drawable.bg_coupons_01,
+//        R.drawable.bg_coupons_01,
+//        R.drawable.bg_coupons_01
+//};
 
     int beforeRandomNum = -1;
 

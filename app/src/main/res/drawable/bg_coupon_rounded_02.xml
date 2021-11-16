@@ -17,11 +17,11 @@
         android:bottom="0dp"
         />
     <size
-        android:width="@dimen/_1sdp"
-        android:height="@dimen/_1sdp"
+        android:width="@dimen/_10sdp"
+        android:height="@dimen/_10sdp"
         />
     <stroke
-        android:width="0dp"
-        android:color="#FFFAFD"
+        android:width="@dimen/_1sdp"
+        android:color="@color/ph_main_color"
         />
 </shape>

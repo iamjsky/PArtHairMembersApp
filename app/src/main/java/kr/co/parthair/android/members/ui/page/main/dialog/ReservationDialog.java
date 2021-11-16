@@ -11,8 +11,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.ui.page.common.base.BaseDialog;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 
+import static kr.co.parthair.android.members.common.MyConstants.NAVER_RESERVATION_URL;
+import static kr.co.parthair.android.members.common.MyConstants.RESERVATION_CALL_NUMBER;
 import static kr.co.parthair.android.members.common.MyConstants.VISIT_CHECK_CALL_NUMBER;
 
 /**
@@ -21,17 +22,14 @@ import static kr.co.parthair.android.members.common.MyConstants.VISIT_CHECK_CALL
  * <p>
  * Description
  */
-public class VisitCallDialog extends BaseDialog {
+public class ReservationDialog extends BaseDialog {
 
 
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.tv_desc)
-    TextView tv_desc;
+
 
     Context mContext;
 
-    public VisitCallDialog(Context context) {
+    public ReservationDialog(Context context) {
         super(context);
         mContext = context;
     }
@@ -41,19 +39,31 @@ public class VisitCallDialog extends BaseDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_visit_call);
+        setContentView(R.layout.dialog_reservation_select);
         ButterKnife.bind(this);
 
-        tv_title.setText("출입관리 안심콜(CALL) 안내");
-        tv_desc.setText("코로나19 확산 방지를 위한 출입관리를 위해\n아래의 번호로 전화를 겁니다.\n\n080-205-0000\n\n안심콜(CALL) 등록을 하시겠습니까?");
+
 
     }
 
 
 
-    @OnClick(R.id.btn_confirm)
-    public void btn_confirmClicked() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(VISIT_CHECK_CALL_NUMBER));
+
+    @OnClick(R.id.layout_reservationNaver)
+    public void layout_reservationNaverClicked() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(NAVER_RESERVATION_URL));
+        mContext.startActivity(intent);
+        dismiss();
+    }
+
+    @OnClick(R.id.layout_reservationApp)
+    public void layout_reservationAppClicked() {
+
+        dismiss();
+    }
+    @OnClick(R.id.layout_reservationCall)
+    public void layout_reservationCallClicked() {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(RESERVATION_CALL_NUMBER));
         mContext.startActivity(intent);
         dismiss();
     }

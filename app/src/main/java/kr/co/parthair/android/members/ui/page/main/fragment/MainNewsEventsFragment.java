@@ -58,7 +58,7 @@ public class MainNewsEventsFragment extends BaseFragment {
         recv_body.setAdapter(mainNewsSkeletonAdapter);
         recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
 
-        boardApi.getNews(getNewsCallback);
+        mainApi.getNews(getNewsCallback);
 
 
         return view;

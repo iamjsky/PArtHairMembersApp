@@ -5,10 +5,12 @@ import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.model.Coupons;
 import kr.co.parthair.android.members.model.HaveCoupons;
 import kr.co.parthair.android.members.model.MainNoticeImage;
+import kr.co.parthair.android.members.model.TagListModel;
 import kr.co.parthair.android.members.net.RetrofitGenerator;
 import kr.co.parthair.android.members.net.api.callback.GetCouponListCallback;
 import kr.co.parthair.android.members.net.api.callback.GetHaveCouponListCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
+import kr.co.parthair.android.members.net.api.callback.TagListCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -105,4 +107,47 @@ public class EtcApi implements MyConstants, HttpResponseCode {
 
 
     }
+
+    public void getTagList(TagListCallback callback) {
+
+
+        apiService.getTagList().enqueue(new Callback<TagListModel>() {
+            @Override
+            public void onResponse(Call<TagListModel> call, Response<TagListModel> response) {
+                if (response.isSuccessful()) {
+                    TagListModel resData = response.body();
+                    int code = resData.getHeader().getCode();
+                    String msg = resData.getHeader().getMessage();
+
+                    switch (code) {
+                        case OK:
+
+
+
+                            callback.onSuccess(code, msg, resData.getTagInfoList());
+                            break;
+
+                        case NOT_FOUND:
+                        case ERROR:
+                            callback.onError(code, msg);
+                            break;
+
+
+                    }
+
+
+                } else {
+                    callback.onError(SERVER_ERROR, "getTagList()>>" + "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TagListModel> call, Throwable t) {
+                callback.onError(SERVER_ERROR, "getTagList()>>" + t.toString());
+            }
+        });
+
+
+    }
+
 }

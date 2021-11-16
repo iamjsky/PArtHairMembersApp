@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
  */
 public class NullCheckUtil {
     public static boolean String_IsNotNull(@Nullable String value){
-        if(value != null && !value.equals("")){
+        if(value != null && !value.equals("") && !value.equals("null")){
             return true;
         }else{
             return false;

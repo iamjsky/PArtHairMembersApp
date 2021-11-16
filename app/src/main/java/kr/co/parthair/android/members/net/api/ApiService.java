@@ -5,17 +5,18 @@ import kr.co.parthair.android.members.model.Coupons;
 import kr.co.parthair.android.members.model.HaveCoupons;
 import kr.co.parthair.android.members.model.KakaoUserLogin;
 import kr.co.parthair.android.members.model.KakaoUserSignUp;
+import kr.co.parthair.android.members.model.MainHairStyle;
 import kr.co.parthair.android.members.model.MainNoticeImage;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.model.PhoneUserLogin;
 import kr.co.parthair.android.members.model.PhoneUserSignUp;
 import kr.co.parthair.android.members.model.GetUserInfo;
+import kr.co.parthair.android.members.model.TagListModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * ClassName            ApiService
@@ -114,4 +115,10 @@ public interface ApiService {
     Call<HaveCoupons> getHaveCouponList(
     );
 
+    @GET("hairStyle.php")
+    Call<MainHairStyle> getMainHairStyle(
+    );
+    @GET("tagList.php")
+    Call<TagListModel> getTagList(
+    );
 }

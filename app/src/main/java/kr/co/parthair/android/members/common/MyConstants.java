@@ -25,6 +25,7 @@ public interface MyConstants {
 
     String NAVER_RESERVATION_URL = "https://m.place.naver.com/hairshop/1763421994/stylist?theme=place&entry=pll";
     String VISIT_CHECK_CALL_NUMBER = "tel:1234567890";
+    String RESERVATION_CALL_NUMBER = "tel:1234567890";
 
 
 

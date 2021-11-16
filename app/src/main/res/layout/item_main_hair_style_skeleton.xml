@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/ph_page_bg_color"
+    android:id="@+id/layout_body"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <LinearLayout
+            android:outlineAmbientShadowColor="@color/ph_light_gray_color_01"
+            android:outlineSpotShadowColor="@color/ph_light_gray_color_01"
+            android:layout_margin="@dimen/_10sdp"
+            android:elevation="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:background="@drawable/bg_card_01"
+            android:id="@+id/layout_item"
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.joooonho.SelectableRoundedImageView
+                android:background="@color/color_skeleton"
+                android:layout_weight="1"
+
+                app:sriv_left_top_corner_radius="@dimen/_10sdp"
+
+                app:sriv_right_top_corner_radius="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:id="@+id/iv_hairStyle"
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+
+            <View
+                android:background="@color/color_skeleton"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"/>
+            <View
+                android:background="@color/color_skeleton"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_60sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_16sdp"/>
+
+
+        </LinearLayout>
+
+
+
+
+</LinearLayout>

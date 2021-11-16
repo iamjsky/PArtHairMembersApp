@@ -40,13 +40,13 @@
                 android:id="@+id/btn_cancel"
                 android:text="취소"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"/>
+                android:layout_height="@dimen/_30sdp"/>
             <Button
                 android:layout_weight="1"
                 android:id="@+id/btn_confirm"
                 android:text="전화걸기"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"/>
+                android:layout_height="@dimen/_30sdp"/>
 
         </LinearLayout>
 

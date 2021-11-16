@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.Nullable;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,7 +14,9 @@ import butterknife.ButterKnife;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
+import kr.co.parthair.android.members.model.TagListModel;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
+import kr.co.parthair.android.members.net.api.callback.TagListCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.main.MainActivity;
@@ -28,9 +33,29 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        startTimer();
+        etcApi.getTagList(tagListCallback);
+
     }
 
+    public TagListCallback tagListCallback = new TagListCallback() {
+        @Override
+        public void onSuccess(int code, String msg, @Nullable List<TagListModel.TagInfo> data) {
+            LOG_I("TagListModel.instance.getTagInfoList().size() : " + data.size());
+            TagListModel.instance.setTagInfoList(data);
+            LOG_I("TagListModel.instance.getTagInfoList().size() : " + TagListModel.instance.getTagInfoList().size());
+            startTimer();
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+            String errMsg = msg;
+            if(code == SERVER_ERROR){
+                errMsg = "네트워크가 불안정 합니다. 인터넷 연결 상태를 확인해 주세요";
+            }
+            ResponseErrorDialog responseErrorDialog = new ResponseErrorDialog(mContext, "알림", errMsg);
+            responseErrorDialog.show();
+        }
+    };
     public void startTimer() {
         timer = new Timer(true);
         Handler handler = new Handler();
