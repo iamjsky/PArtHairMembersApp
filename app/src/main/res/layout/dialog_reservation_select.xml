@@ -106,7 +106,7 @@
 
             <Button
                 android:id="@+id/btn_cancel"
-                android:layout_width="@dimen/_120sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/bg_button_rounded_default_02"
 
