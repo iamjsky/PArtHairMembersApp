@@ -1,31 +1,16 @@
 package kr.co.parthair.android.members;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 
-
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
-import kr.co.parthair.android.members.ui.page.login.fragment.LoginMainFragment;
-import kr.co.parthair.android.members.ui.page.login.fragment.LoginSelectFragment;
-import kr.co.parthair.android.members.ui.page.login.fragment.LoginSignUpFragment;
-import kr.co.parthair.android.members.ui.page.login.fragment.LoginSignUpInfoFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;

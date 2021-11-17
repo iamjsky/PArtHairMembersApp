@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
 
 /**
  * ClassName            LoginMainFragment
@@ -20,11 +20,11 @@ import kr.co.parthair.android.members.ui.page.login.LoginActivity;
  * <p>
  * Description
  */
-public class LoginMainFragment extends BaseFragment {
+public class LoginMainFragmentBack extends BaseFragment {
 
 
 
-    public LoginMainFragment() {
+    public LoginMainFragmentBack() {
     }
 
 
@@ -45,14 +45,14 @@ public class LoginMainFragment extends BaseFragment {
     @OnClick(R.id.btn_login)
     public void btn_loginClicked(){
 
-        ((LoginActivity)mParent).setFragmentPage(FRAGMENT_LOGIN_SELECT);
+        ((LoginActivityBack)mParent).setFragmentPage(FRAGMENT_LOGIN_SELECT);
 
     }
 
     @OnClick(R.id.btn_signUp)
     public void btn_signUpClicked(){
 
-        ((LoginActivity)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP);
+        ((LoginActivityBack)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP);
 
     }
 

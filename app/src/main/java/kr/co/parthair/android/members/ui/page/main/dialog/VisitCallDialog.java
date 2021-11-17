@@ -11,7 +11,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.ui.page.common.base.BaseDialog;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 
 import static kr.co.parthair.android.members.common.MyConstants.VISIT_CHECK_CALL_NUMBER;
 

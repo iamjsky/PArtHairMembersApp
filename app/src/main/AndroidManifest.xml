@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
     <application
         android:name=".social.kakao.MyApplication"
         android:allowBackup="true"
@@ -16,14 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PArtHairMembersApp">
-        <activity android:name=".TestActivity">
-
-        </activity>
+        <activity android:name=".ui.page.login.LoginPhoneActivity" />
+        <activity android:name=".ui.page.login.LoginActivity" />
+        <activity android:name=".TestActivity" />
         <activity
-            android:name=".ui.page.login.LoginActivity"
+            android:name=".ui.page.login.LoginActivityBack"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.page.splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -40,7 +39,7 @@
             android:name=".ui.page.main.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

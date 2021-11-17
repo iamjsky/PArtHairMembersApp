@@ -21,7 +21,7 @@ import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.net.api.callback.KakaoUserSignUpCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 
 import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
@@ -32,7 +32,7 @@ import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNul
  * <p>
  * Description
  */
-public class LoginSignUpInfoFragment extends BaseFragment {
+public class LoginSignUpInfoFragmentBack extends BaseFragment {
 
     @BindView(R.id.nsv_scrollView)
     NestedScrollView nsv_scrollView;
@@ -47,7 +47,7 @@ public class LoginSignUpInfoFragment extends BaseFragment {
     EditText edtxt_email;
 
 
-    public LoginSignUpInfoFragment() {
+    public LoginSignUpInfoFragmentBack() {
     }
 
 
@@ -82,17 +82,17 @@ public class LoginSignUpInfoFragment extends BaseFragment {
 
     private void setUserInfoField() {
 
-        int signUp_type = ((LoginActivity) mParent).getSignUpType();
+        int signUp_type = ((LoginActivityBack) mParent).getSignUpType();
 
         String phoneNumber = "";
         String email = "";
 
         if (signUp_type == 0) {
-            ArrayList<String> phoneSignUpData = ((LoginActivity) mParent).getPhoneSignUpData();
+            ArrayList<String> phoneSignUpData = ((LoginActivityBack) mParent).getPhoneSignUpData();
             edtxt_phoneNumber.setText(phoneSignUpData.get(0) + "");
         } else if (signUp_type == 1) {
 
-            ArrayList<String> kakaoSignUpData = ((LoginActivity) mParent).getKakaoSignUpData();
+            ArrayList<String> kakaoSignUpData = ((LoginActivityBack) mParent).getKakaoSignUpData();
             edtxt_email.setText(kakaoSignUpData.get(5) + "");
         }
     }
@@ -101,12 +101,12 @@ public class LoginSignUpInfoFragment extends BaseFragment {
 
     @OnClick(R.id.iv_back)
     public void iv_backClicked() {
-        ((LoginActivity) mParent).onBackPressed();
+        ((LoginActivityBack) mParent).onBackPressed();
     }
 
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked() {
-        int signUp_type = ((LoginActivity) mParent).getSignUpType();
+        int signUp_type = ((LoginActivityBack) mParent).getSignUpType();
 
         if (signUp_type == 0) {
 
@@ -136,15 +136,15 @@ public class LoginSignUpInfoFragment extends BaseFragment {
 
             }
 
-            ((LoginActivity) mParent).setPhoneSignUpData_02(phoneSignUpPhoneNumber, phoneSignUpName, phoneSignUpEmail);
-            ArrayList<String> phoneSignUpData = ((LoginActivity) mParent).getPhoneSignUpData();
+            ((LoginActivityBack) mParent).setPhoneSignUpData_02(phoneSignUpPhoneNumber, phoneSignUpName, phoneSignUpEmail);
+            ArrayList<String> phoneSignUpData = ((LoginActivityBack) mParent).getPhoneSignUpData();
             StringBuilder sb = new StringBuilder();
             for(int i=0; i < phoneSignUpData.size(); i++){
                 sb.append(phoneSignUpData.get(i)+",");
             }
             Toast.makeText(mParent, "휴대폰 번호 계정 가입 준비 완료>>"+sb.toString(), Toast.LENGTH_LONG).show();
 
-            ((LoginActivity)mParent).setLoading(true);
+            ((LoginActivityBack)mParent).setLoading(true);
              userApi.phoneSignUp(phoneSignUpData, phoneSignUpCallback);
 
 
@@ -180,9 +180,9 @@ public class LoginSignUpInfoFragment extends BaseFragment {
             }
 
 
-            ((LoginActivity) mParent).setKakaoSignUpData_02(kakaoSignUpPhoneNumber, kakaoSignUpName, kakaoSignUpEmail);
+            ((LoginActivityBack) mParent).setKakaoSignUpData_02(kakaoSignUpPhoneNumber, kakaoSignUpName, kakaoSignUpEmail);
 
-            ArrayList<String> kakaoSignUpData = ((LoginActivity) mParent).getKakaoSignUpData();
+            ArrayList<String> kakaoSignUpData = ((LoginActivityBack) mParent).getKakaoSignUpData();
             StringBuilder sb = new StringBuilder();
             for(int i=0; i < kakaoSignUpData.size(); i++){
                 sb.append(kakaoSignUpData.get(i)+",");
@@ -191,7 +191,7 @@ public class LoginSignUpInfoFragment extends BaseFragment {
             Toast.makeText(mParent, "카카오 계정 가입 준비 완료>>"+sb.toString(), Toast.LENGTH_LONG).show();
 
 
-            ((LoginActivity)mParent).setLoading(true);
+            ((LoginActivityBack)mParent).setLoading(true);
              userApi.kakaoSignUp(kakaoSignUpData, kakaoUserSignUpCallback);
 
         }
@@ -205,15 +205,15 @@ public class LoginSignUpInfoFragment extends BaseFragment {
     private PhoneSignUpCallback phoneSignUpCallback = new PhoneSignUpCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
-            ((LoginActivity) mParent).onBackPressed();
+            ((LoginActivityBack) mParent).onBackPressed();
         }
 
         @Override
         public void onError(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
         }
@@ -221,15 +221,15 @@ public class LoginSignUpInfoFragment extends BaseFragment {
     private KakaoUserSignUpCallback kakaoUserSignUpCallback = new KakaoUserSignUpCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
-            ((LoginActivity) mParent).onBackPressed();
+            ((LoginActivityBack) mParent).onBackPressed();
         }
 
         @Override
         public void onError(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
         }

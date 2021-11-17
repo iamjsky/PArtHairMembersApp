@@ -66,7 +66,7 @@ public class GetUserInfo {
         @SerializedName("user_points")
         @Expose
         public String userPoints;
-        @SerializedName("created_date")
+        @SerializedName("created_at")
         @Expose
         public String createdDate;
         @SerializedName("login_date")

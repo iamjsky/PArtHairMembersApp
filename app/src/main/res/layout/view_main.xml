@@ -388,7 +388,7 @@
 
                     <ImageView
 
-                        android:layout_width="@dimen/_20sdp"
+                        android:layout_width="26dp"
                         android:layout_height="@dimen/_20sdp"
                         android:adjustViewBounds="true"
                         android:src="@drawable/ico_more_01" />

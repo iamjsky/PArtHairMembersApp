@@ -10,6 +10,7 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.ui.page.common.base.BaseDialog;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
 
 /**
  * ClassName            LoginMessageDialog
@@ -45,14 +46,14 @@ public class LoginMessageDialog extends BaseDialog {
 
         tv_title.setText(title);
         tv_desc.setText(desc);
-        ((LoginActivity)mContext).setLoading(true);
+
     }
 
 
 
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked() {
-        ((LoginActivity)mContext).setLoading(false);
+
         dismiss();
     }
 

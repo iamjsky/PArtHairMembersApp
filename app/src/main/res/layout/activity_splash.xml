@@ -67,79 +67,88 @@
 
         <TextView
             android:textColor="@color/ph_gray_color_02"
-            android:textSize="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="피아트헤어 앱을 이용하기 위해\n아래의 접근 권한을 허용해 주세요."
+            android:text="앱을 이용하기 위해 아래의 접근 권한을 허용해 주세요."
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <LinearLayout
+        <ScrollView
             android:layout_marginTop="@dimen/_40sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp">
-
-            <TextView
-                android:layout_marginBottom="@dimen/_14sdp"
-                android:fontFamily="@font/pretendard_bold"
-                android:textSize="@dimen/_20sdp"
-                android:text="필수적 접근 권한"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
             <LinearLayout
-                android:gravity="top|left"
-                android:orientation="horizontal"
+
+                android:orientation="vertical"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:padding="@dimen/_4sdp"
-                    android:background="@drawable/bg_rounded_04"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:src="@drawable/ico_call_01"
-                    android:adjustViewBounds="true"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"/>
+                <TextView
+                    android:layout_marginBottom="@dimen/_14sdp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textSize="@dimen/_20sdp"
+                    android:text="필수적 접근 권한"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:gravity="top|left"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:textSize="@dimen/_14sdp"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:layout_marginBottom="@dimen/_6sdp"
-                        android:text="전화"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginBottom="@dimen/_4sdp"
-                        android:text="- 코로나19 확산 방지를 위해 출입관리 안심콜(CALL) 전화를 겁니다."
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginBottom="@dimen/_6sdp"
-                        android:text="- 피아트헤어 방문 예약을 위해 전화를 겁니다."
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
 
+                    <ImageView
+                        android:padding="@dimen/_4sdp"
+                        android:background="@drawable/bg_rounded_04"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/ico_call_01"
+                        android:adjustViewBounds="true"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:textSize="@dimen/_14sdp"
+                            android:fontFamily="@font/pretendard_bold"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:text="전화"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:textColor="@color/ph_gray_color_02"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:text="- 코로나19 확산 방지를 위해 출입관리 안심콜(CALL) 전화를 겁니다."
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:textColor="@color/ph_gray_color_02"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:text="- 피아트헤어 방문 예약을 위해 전화를 겁니다."
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
+
 
         <Button
 
             android:id="@+id/btn_confirm"
             android:text="확인"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"/>
+            android:layout_height="@dimen/_40sdp"/>
     </LinearLayout>
 
 </RelativeLayout>

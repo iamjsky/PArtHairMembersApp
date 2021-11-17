@@ -27,7 +27,7 @@ import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCall
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLogoutCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.page.main.MainActivity;
 import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
@@ -38,7 +38,7 @@ import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
  * <p>
  * Description
  */
-public class LoginSelectFragment extends BaseFragment {
+public class LoginSelectFragmentBack extends BaseFragment {
 
 
     KakaoUserLogin kakaoUserLogin;
@@ -101,7 +101,7 @@ public class LoginSelectFragment extends BaseFragment {
 
     //endregion
 
-    public LoginSelectFragment() {
+    public LoginSelectFragmentBack() {
     }
 
 
@@ -129,7 +129,7 @@ public class LoginSelectFragment extends BaseFragment {
     public void phoneLogin(String userPhoneId, String userPhoneIdPw) {
 
 
-        ((LoginActivity)mParent).setLoading(true);
+        ((LoginActivityBack)mParent).setLoading(true);
 
 
         userApi.phoneLogin(userPhoneId, userPhoneIdPw, phoneLoginCallback);
@@ -139,7 +139,7 @@ public class LoginSelectFragment extends BaseFragment {
     public void kakaoLogin(String kakao_id, String user_nickname, String user_profile_img) {
 
 
-        ((LoginActivity)mParent).setLoading(true);
+        ((LoginActivityBack)mParent).setLoading(true);
 
 
         userApi.kakaoLogin(kakao_id, user_nickname, user_profile_img, kakaoUserLoginCallback);
@@ -151,7 +151,7 @@ public class LoginSelectFragment extends BaseFragment {
     @OnClick(R.id.iv_back)
     public void iv_backClicked(){
 
-        ((LoginActivity)mParent).onBackPressed();
+        ((LoginActivityBack)mParent).onBackPressed();
 
     }
 
@@ -169,7 +169,7 @@ public class LoginSelectFragment extends BaseFragment {
 
         userPhoneId = "";
         userPhoneIdPw = "";
-        ((LoginActivity)mParent).setLoading(true);
+        ((LoginActivityBack)mParent).setLoading(true);
         kakaoUserLogin.login();
 
     }
@@ -188,7 +188,7 @@ public class LoginSelectFragment extends BaseFragment {
 
         @Override
         public void onError(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
 
@@ -203,7 +203,7 @@ public class LoginSelectFragment extends BaseFragment {
                 MyPreferenceManager.setString(mParent, "user_token", MyInfo.instance.getUser_token()+"");
             }
 
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LOG_I(MyInfo.instance.getUserInfo().toString());
             Intent intent = new Intent(mParent, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -212,7 +212,7 @@ public class LoginSelectFragment extends BaseFragment {
 
         @Override
         public void onError(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", msg);
             loginMessageDialog.show();
         }
@@ -226,7 +226,7 @@ public class LoginSelectFragment extends BaseFragment {
             if (kakaoUserToken != null) {
                 kakaoGetUserInfo.getUserInfo();
             }else{
-                ((LoginActivity)mParent).setLoading(false);
+                ((LoginActivityBack)mParent).setLoading(false);
                 LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.(1)");
                 loginMessageDialog.show();
             }
@@ -236,7 +236,7 @@ public class LoginSelectFragment extends BaseFragment {
         @Override
         public void onError(@NonNull Throwable throwable) {
             LOG_E("kakaoLoginCallback : " + throwable.toString());
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.(2)");
             loginMessageDialog.show();
         }
@@ -297,7 +297,7 @@ public class LoginSelectFragment extends BaseFragment {
 
         @Override
         public void onError(@NonNull Throwable throwable) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 정보가 없습니다.");
             loginMessageDialog.show();
         }
@@ -324,7 +324,7 @@ public class LoginSelectFragment extends BaseFragment {
 
         @Override
         public void onError(int code, String msg) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.(3)");
             loginMessageDialog.show();
         }

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,12 +50,12 @@ import kr.co.parthair.android.members.model.TagListModel;
 import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
+import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleAdapter;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleSkeletonAdapter;
-import kr.co.parthair.android.members.ui.page.main.adapter.MainNewsSkeletonAdapter;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
 import kr.co.parthair.android.members.ui.page.main.dialog.ReservationDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.VisitCallDialog;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
@@ -194,11 +193,7 @@ public class MainActivity extends BaseActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 //   LOG_I("onPageScrolled position>>" + position);
-                if (!firstAnimStart) {
-                    ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
-                    nowImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.image_zoom));
-                    firstAnimStart = true;
-                }
+
             }
 
             @Override
@@ -216,15 +211,7 @@ public class MainActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
                 //   LOG_I("onPageScrollStateChanged state>>" + state);
-                ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
 
-                if (state == 0) {
-                    nowImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.image_zoom));
-                } else if (state == 1) {
-
-                    nowImageView.clearAnimation();
-
-                }
             }
         });
 
@@ -272,8 +259,7 @@ public class MainActivity extends BaseActivity {
     private Runnable sliderRunnable = new Runnable() {
         @Override
         public void run() {
-            ImageView nowImageView = (ImageView) vp_noticeImageSlider.findViewWithTag("MainNoticeImage_" + vp_noticeImageSlider.getCurrentItem());
-            nowImageView.clearAnimation();
+
             if (vp_noticeImageSlider.getCurrentItem() + 1 == mainNoticeImageSliderAdapter.getItemCount()) {
 
                 vp_noticeImageSlider.setCurrentItem(0);

@@ -21,7 +21,7 @@ import kr.co.parthair.android.members.social.kakao.KakaoUserLogout;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseFragment;
-import kr.co.parthair.android.members.ui.page.login.LoginActivity;
+import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
 
@@ -31,7 +31,7 @@ import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
  * <p>
  * Description
  */
-public class LoginSignUpFragment extends BaseFragment {
+public class LoginSignUpFragmentBack extends BaseFragment {
 
         KakaoUserLogin kakaoUserLogin;
     KakaoGetUserInfo kakaoGetUserInfo;
@@ -104,7 +104,7 @@ public class LoginSignUpFragment extends BaseFragment {
 
     //endregion
 
-    public LoginSignUpFragment() {
+    public LoginSignUpFragmentBack() {
     }
 
 
@@ -130,15 +130,15 @@ public class LoginSignUpFragment extends BaseFragment {
 
 
 
-        ((LoginActivity)mParent).setLoading(true);
-        ((LoginActivity)mParent).setPhoneSignUpData_01(signUp_type, userPhoneId, userPhoneIdPw);
-        ((LoginActivity)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP_INFO);
-        ((LoginActivity)mParent).setLoading(false);
+        ((LoginActivityBack)mParent).setLoading(true);
+        ((LoginActivityBack)mParent).setPhoneSignUpData_01(signUp_type, userPhoneId, userPhoneIdPw);
+        ((LoginActivityBack)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP_INFO);
+        ((LoginActivityBack)mParent).setLoading(false);
 
     }
     public void kakaoSignUpInfoMove() {
 
-        ((LoginActivity)mParent).setLoading(true);
+        ((LoginActivityBack)mParent).setLoading(true);
         kakaoUserLogin.login();
 
 
@@ -150,20 +150,20 @@ public class LoginSignUpFragment extends BaseFragment {
     @OnClick(R.id.iv_back)
     public void iv_backClicked(){
 
-        ((LoginActivity)mParent).onBackPressed();
+        ((LoginActivityBack)mParent).onBackPressed();
 
     }
 
     @OnClick(R.id.btn_phoneSignUp)
     public void btn_phoneSignUpClicked(){
         signUp_type = 0;
-        ((LoginActivity)mParent).visiblePolicy(policyAgreeCallback);
+        ((LoginActivityBack)mParent).visiblePolicy(policyAgreeCallback);
     }
 
     @OnClick(R.id.btn_kakaoSignUp)
     public void btn_kakaoSignUpClicked(){
         signUp_type = 1;
-        ((LoginActivity)mParent).visiblePolicy(policyAgreeCallback);
+        ((LoginActivityBack)mParent).visiblePolicy(policyAgreeCallback);
     }
 
 
@@ -178,7 +178,7 @@ public class LoginSignUpFragment extends BaseFragment {
     public AgreeCallback policyAgreeCallback = new AgreeCallback() {
         @Override
         public void agree() {
-            ((LoginActivity)mParent).visiblePrivacy(privacyAgreeCallback);
+            ((LoginActivityBack)mParent).visiblePrivacy(privacyAgreeCallback);
         }
 
         @Override
@@ -207,7 +207,7 @@ public class LoginSignUpFragment extends BaseFragment {
         @Override
         public void cancel() {
 
-            ((LoginActivity)mParent).visiblePolicy(policyAgreeCallback);
+            ((LoginActivityBack)mParent).visiblePolicy(policyAgreeCallback);
         }
     };
 
@@ -217,7 +217,7 @@ public class LoginSignUpFragment extends BaseFragment {
             if (kakaoUserToken != null) {
                 kakaoGetUserInfo.getUserInfo();
             }else{
-                ((LoginActivity)mParent).setLoading(false);
+                ((LoginActivityBack)mParent).setLoading(false);
                 LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.");
                 loginMessageDialog.show();
             }
@@ -227,7 +227,7 @@ public class LoginSignUpFragment extends BaseFragment {
         @Override
         public void onError(@NonNull Throwable throwable) {
             LOG_E("kakaoLoginCallback : " + throwable.toString());
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 로그인이 실패 하였습니다.");
             loginMessageDialog.show();
         }
@@ -236,7 +236,7 @@ public class LoginSignUpFragment extends BaseFragment {
     public KakaoGetUserInfoCallback kakaoGetUserInfoCallback = new KakaoGetUserInfoCallback() {
         @Override
         public void onSuccess(User user) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             String kakaoId = "";
             String kakaoNickName = "";
             String kakaoProfileImg = "";
@@ -278,16 +278,16 @@ public class LoginSignUpFragment extends BaseFragment {
 //                    loginCallback);
 
 
-            ((LoginActivity)mParent).setKakaoSignUpData_01(signUp_type, kakaoId, kakaoNickName, kakaoProfileImg, kakaoEmail);
-            ((LoginActivity)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP_INFO);
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setKakaoSignUpData_01(signUp_type, kakaoId, kakaoNickName, kakaoProfileImg, kakaoEmail);
+            ((LoginActivityBack)mParent).setFragmentPage(FRAGMENT_LOGIN_SIGNUP_INFO);
+            ((LoginActivityBack)mParent).setLoading(false);
 
 
         }
 
         @Override
         public void onError(@NonNull Throwable throwable) {
-            ((LoginActivity)mParent).setLoading(false);
+            ((LoginActivityBack)mParent).setLoading(false);
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mParent, "알림", "카카오 계정 정보가 없습니다.");
             loginMessageDialog.show();
         }
