@@ -2,10 +2,13 @@ package kr.co.parthair.android.members.ui.page.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -29,22 +32,32 @@ import kr.co.parthair.android.members.social.kakao.callback.KakaoGetUserInfoCall
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLoginCallback;
 import kr.co.parthair.android.members.social.kakao.callback.KakaoLogoutCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.common.dialog.LoadingDialog;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.page.main.MainActivity;
 
 public class LoginActivity extends BaseActivity {
 
 
+    @BindView(R.id.layout_phoneSignUp)
+    LinearLayout layout_phoneSignUp;
     @BindView(R.id.layout_phoneLogin)
     LinearLayout layout_phoneLogin;
     @BindView(R.id.layout_kakaoLogin)
     LinearLayout layout_kakaoLogin;
-    @BindView(R.id.layout_loading)
-    LinearLayout layout_loading;
+
 
     KakaoUserLogin kakaoUserLogin;
     KakaoGetUserInfo kakaoGetUserInfo;
     KakaoUserLogout kakaoUserLogout;
+
+    LoadingDialog loadingDialog = null;
+
+    @BindView(R.id.sv_body)
+    NestedScrollView sv_body;
+
+    @BindView(R.id.layout_topMenu)
+    LinearLayout layout_topMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +75,33 @@ public class LoginActivity extends BaseActivity {
         kakaoGetUserInfo = new KakaoGetUserInfo(mContext, kakaoGetUserInfoCallback);
         kakaoUserLogout = new KakaoUserLogout(mContext, kakaoLogoutCallback);
 
+        Animation phoneSignUpAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
         Animation phoneLoginAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
         Animation kakaoLoginAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
-        layout_phoneLogin.startAnimation(phoneLoginAnim);
+        layout_phoneSignUp.startAnimation(phoneSignUpAnim);
+        phoneSignUpAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                layout_phoneSignUp.setVisibility(View.VISIBLE);
+                layout_phoneLogin.setVisibility(View.INVISIBLE);
+                layout_kakaoLogin.setVisibility(View.INVISIBLE);
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                layout_phoneLogin.startAnimation(phoneLoginAnim);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         phoneLoginAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+
                 layout_phoneLogin.setVisibility(View.VISIBLE);
                 layout_kakaoLogin.setVisibility(View.INVISIBLE);
             }
@@ -102,17 +135,40 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
+
+        sv_body.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                LOG_E(scrollY+"");
+
+                if (scrollY <= 90) {
+                    layout_topMenu.setVisibility(View.GONE);
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
+                } else {
+                    layout_topMenu.setVisibility(View.VISIBLE);
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
+                }
+            }
+
+
+        });
+
     }
     public void setLoading(boolean value){
+        if(loadingDialog == null){
+            loadingDialog = new LoadingDialog(this);
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(value){
-                    layout_loading.bringToFront();
-                    layout_loading.invalidate();
-                    layout_loading.setVisibility(View.VISIBLE);
-                }else{
-                    layout_loading.setVisibility(View.GONE);
+                if (value) {
+
+                    loadingDialog.show();
+                } else {
+                    if(loadingDialog != null){
+                        loadingDialog.dismiss();
+                    }
+
                 }
             }
         });
@@ -136,7 +192,11 @@ public class LoginActivity extends BaseActivity {
     public void iv_backClicked() {
         onBackPressed();
     }
-
+    @OnClick(R.id.layout_phoneSignUp)
+    public void layout_phoneSignUpClicked() {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+    }
     @OnClick(R.id.layout_phoneLogin)
     public void layout_phoneLoginClicked() {
 

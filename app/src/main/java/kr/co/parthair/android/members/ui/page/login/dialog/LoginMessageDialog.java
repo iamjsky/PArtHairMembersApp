@@ -29,14 +29,17 @@ public class LoginMessageDialog extends BaseDialog {
     String title,desc;
     Context mContext;
 
+
     public LoginMessageDialog(Context context) {
         super(context);
     }
+
     public LoginMessageDialog(Context context, String title, String desc) {
         super(context);
         mContext = context;
         this.title = title;
         this.desc = desc;
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

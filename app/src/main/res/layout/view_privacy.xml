@@ -6,7 +6,10 @@
     android:id="@+id/layout_privacy"
     android:background="@color/ph_page_bg_color"
     android:clickable="true">
-
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_privacyBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:padding="@dimen/_20sdp"
         android:id="@+id/layout_top"
@@ -73,40 +76,108 @@
 
             android:text="개인정보처리방침"
             android:textSize="@dimen/_30sdp" />
+        <TextView
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            android:text="회원가입을 위해 개인정보처리방침에 동의해 주세요."
+            android:textColor="@color/ph_gray_color_02" />
+
+  <LinearLayout
+    android:background="@drawable/bg_rounded_04"
+    android:padding="@dimen/_20sdp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_privacy"
+        android:text="개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침개인정보처리방침개인정보처리방치ㅏㅁ개인정보처리방침"
+        android:gravity="left|top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
 
 
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/layout_top"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/_20sdp"
-        android:paddingRight="@dimen/_20sdp"
-        android:paddingBottom="@dimen/_20sdp">
-        <androidx.core.widget.NestedScrollView
-            android:layout_weight="1"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:background="@color/ph_menu_tab_color_01"
+        android:orientation="vertical">
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0.5dp"
+            android:background="@color/line_elevation_01" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+
+            <Button
+
+                android:id="@+id/btn_privacyAgree"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:text="개인정보처리방침에 동의 합니다." />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_privacyTopMenu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_alignParentTop="true"
+        android:background="@color/ph_menu_tab_color_01"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_privacyBackTop"
+                android:layout_width="@dimen/_20sdp"
+
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ico_back_02" />
 
             <TextView
-                android:id="@+id/tv_privacy"
-                android:text=""
-                android:gravity="left|top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:gravity="center|left"
+                android:text="피아트헤어 개인정보처리방침" />
+        </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
-        <Button
-            android:layout_marginTop="@dimen/_20sdp"
-            android:id="@+id/btn_privacyAgree"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:text="개인정보처리방침에 동의 합니다." />
+            android:layout_height="0.5dp"
+            android:background="@color/line_elevation_01" />
+
     </LinearLayout>
-
-
 
 
 

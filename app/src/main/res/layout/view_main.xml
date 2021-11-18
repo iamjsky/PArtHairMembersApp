@@ -737,11 +737,12 @@
                 android:background="@drawable/ico_hamburger_03" />
 
             <TextView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:gravity="center|left"
-                android:text="피아트헤어 고객 추가정보 입력" />
+                android:text="피아트헤어" />
         </LinearLayout>
 
         <View

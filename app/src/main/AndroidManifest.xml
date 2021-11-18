@@ -15,9 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PArtHairMembersApp">
+        <activity android:name=".ui.page.login.SignUpActivity"></activity>
         <activity android:name=".ui.page.login.LoginPhoneActivity" />
         <activity android:name=".ui.page.login.LoginActivity" />
-        <activity android:name=".TestActivity" />
+        <activity android:name=".TestActivity">
+
+
+        </activity>
         <activity
             android:name=".ui.page.login.LoginActivityBack"
             android:configChanges="keyboardHidden|orientation|screenSize"

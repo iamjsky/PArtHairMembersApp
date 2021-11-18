@@ -34,7 +34,7 @@
             android:layout_height="wrap_content">
             <Button
                 android:textColor="@color/ph_main_color"
-                android:background="@drawable/bg_button_rounded_default_02"
+                android:background="@drawable/selector_button_rounded_02"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_weight="1"
                 android:id="@+id/btn_cancel"

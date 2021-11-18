@@ -145,7 +145,7 @@ public class LoginSignUpInfoFragmentBack extends BaseFragment {
             Toast.makeText(mParent, "휴대폰 번호 계정 가입 준비 완료>>"+sb.toString(), Toast.LENGTH_LONG).show();
 
             ((LoginActivityBack)mParent).setLoading(true);
-             userApi.phoneSignUp(phoneSignUpData, phoneSignUpCallback);
+           //  userApi.phoneSignUp(phoneSignUpData, phoneSignUpCallback);
 
 
 

@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.common.dialog.LoadingDialog;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
@@ -26,7 +27,7 @@ public class TestActivity extends BaseActivity {
     public int nowFragmentPage = -1;
 
     boolean isShown = false;
-
+    LoadingDialog loadingDialog = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +35,30 @@ public class TestActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         setFragmentPage(0);
+        setLoading(true);
+
+    }
+    public void setLoading(boolean value){
+        if(loadingDialog == null){
+            loadingDialog = new LoadingDialog(this);
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (value) {
+
+                    loadingDialog.show();
+                } else {
+                    if(loadingDialog != null){
+                        loadingDialog.dismiss();
+                    }
+
+                }
+            }
+        });
 
 
     }
-
     @OnClick(R.id.btn_test1)
     public void btn_test1Clicked(){
         setFragmentPage(0);

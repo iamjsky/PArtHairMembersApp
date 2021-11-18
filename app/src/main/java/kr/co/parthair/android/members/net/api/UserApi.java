@@ -75,12 +75,9 @@ public class UserApi implements MyConstants, HttpResponseCode {
     }
 
 
-    public void phoneSignUp(ArrayList<String> phoneSignUpDataList, PhoneSignUpCallback callback) {
+    public void phoneSignUp(String user_phone, String phone_login_pw, String user_name, String user_email, PhoneSignUpCallback callback) {
 
-        String user_phone = phoneSignUpDataList.get(0) + "";
-        String phone_login_pw = phoneSignUpDataList.get(1) + "";
-        String user_name = phoneSignUpDataList.get(2) + "";
-        String user_email = phoneSignUpDataList.get(3) + "";
+
 
         apiService.phoneSignUp(user_phone, phone_login_pw, user_name, user_email).enqueue(new Callback<PhoneUserSignUp>() {
             @Override

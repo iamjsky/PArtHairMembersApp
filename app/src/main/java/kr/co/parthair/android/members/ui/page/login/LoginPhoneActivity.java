@@ -3,9 +3,11 @@ package kr.co.parthair.android.members.ui.page.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.net.api.callback.PhoneLoginCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.common.dialog.LoadingDialog;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.page.main.MainActivity;
 import kr.co.parthair.android.members.ui.widget.numpad.NumPadView;
@@ -34,6 +37,8 @@ public class LoginPhoneActivity extends BaseActivity {
     int type = 0;
     static final int LOGIN_INPUT_PHONE_NUMBER = 0;
     static final int LOGIN_INPUT_PASSWORD = 1;
+
+    LoadingDialog loadingDialog = null;
 
     @BindView(R.id.tv_desc)
     TextView tv_desc;
@@ -56,8 +61,7 @@ public class LoginPhoneActivity extends BaseActivity {
     @BindView(R.id.iv_password_04)
     ImageView iv_password_04;
 
-    @BindView(R.id.layout_loading)
-    LinearLayout layout_loading;
+
 
     @BindView(R.id.layout_inputNumPad)
     LinearLayout layout_inputNumPad;
@@ -76,7 +80,8 @@ public class LoginPhoneActivity extends BaseActivity {
     }
 
     void init() {
-
+        Window w = getWindow();
+        w.setStatusBarColor(getResources().getColor(R.color.ph_main_color));
         setInputType(LOGIN_INPUT_PHONE_NUMBER);
 
 
@@ -84,6 +89,7 @@ public class LoginPhoneActivity extends BaseActivity {
 
     void setInputType(int _type) {
         type = _type;
+
         switch (type) {
             case LOGIN_INPUT_PHONE_NUMBER:
                 layout_inputNumPad.setVisibility(View.INVISIBLE);
@@ -157,15 +163,20 @@ public class LoginPhoneActivity extends BaseActivity {
     }
 
     public void setLoading(boolean value) {
+        if (loadingDialog == null) {
+            loadingDialog = new LoadingDialog(this);
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (value) {
-                    layout_loading.bringToFront();
-                    layout_loading.invalidate();
-                    layout_loading.setVisibility(View.VISIBLE);
+
+                    loadingDialog.show();
                 } else {
-                    layout_loading.setVisibility(View.GONE);
+                    if (loadingDialog != null) {
+                        loadingDialog.dismiss();
+                    }
+
                 }
             }
         });
@@ -176,7 +187,7 @@ public class LoginPhoneActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (type == LOGIN_INPUT_PHONE_NUMBER) {
-            setInputType(LOGIN_INPUT_PHONE_NUMBER);
+            //setInputType(LOGIN_INPUT_PHONE_NUMBER);
             super.onBackPressed();
         } else if (type == LOGIN_INPUT_PASSWORD) {
             setInputType(LOGIN_INPUT_PHONE_NUMBER);

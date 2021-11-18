@@ -20,17 +20,19 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
+
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:layout_weight="1"
                 android:id="@+id/layout_reservationNaver"
-                android:background="@drawable/bg_rounded_05"
+                android:background="@drawable/bg_rounded_07"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="@dimen/_65sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_65sdp">
 
                 <ImageView
@@ -49,13 +51,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_weight="1"
                 android:id="@+id/layout_reservationApp"
-                android:background="@drawable/bg_rounded_05"
+                android:background="@drawable/bg_rounded_07"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="@dimen/_65sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_65sdp">
 
                 <ImageView
@@ -73,11 +76,12 @@
 
             </LinearLayout>
             <LinearLayout
+                android:layout_weight="1"
                 android:id="@+id/layout_reservationCall"
-                android:background="@drawable/bg_rounded_05"
+                android:background="@drawable/bg_rounded_07"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="@dimen/_65sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_65sdp">
 
                 <ImageView
@@ -108,7 +112,7 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:background="@drawable/bg_button_rounded_default_02"
+                android:background="@drawable/selector_button_rounded_02"
 
                 android:text="취소"
                 android:textColor="@color/ph_main_color" />

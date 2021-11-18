@@ -28,6 +28,7 @@
             android:paddingBottom="@dimen/_20sdp">
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/_30sdp"
                 android:visibility="gone"
                 android:id="@+id/layout_drawerUserLogged"
                 android:orientation="vertical"
@@ -113,7 +114,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/_30sdp"
+
                     android:gravity="center|right"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -149,7 +150,7 @@
 
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/_40sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
                 android:orientation="vertical"
                 android:visibility="visible"
                 android:id="@+id/layout_drawerUserNotLogged"
@@ -194,11 +195,11 @@
 
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/_20sdp"
+
                     android:id="@+id/layout_drawerGoLogin"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_74sdp"
-
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:background="@drawable/bg_rounded_02"
                     android:gravity="center|left"
                     android:orientation="horizontal"
@@ -231,7 +232,29 @@
 
                 </LinearLayout>
 
+                <LinearLayout
 
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_20sdp">
+                    <TextView
+                        android:text="아이디"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        android:layout_margin="@dimen/_4sdp"
+                        android:background="@color/ph_main_color"
+                        android:layout_width="0.5dp"
+                        android:layout_height="@dimen/_10sdp"/>
+                    <TextView
+
+                        android:text="비밀번호 찾기"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
