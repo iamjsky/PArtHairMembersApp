@@ -252,12 +252,17 @@
     </LinearLayout>
 
     <include
+        layout="@layout/view_kakao_signup_info"
+        android:visibility="gone" />
+
+    <include
         layout="@layout/view_policy"
         android:visibility="gone" />
 
     <include
         layout="@layout/view_privacy"
         android:visibility="gone" />
+
     <include
         layout="@layout/view_signup_finish"
         android:visibility="gone" />
