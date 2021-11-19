@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -89,9 +90,15 @@ public class SplashActivity extends BaseActivity {
     void checkPermission() {
 
         int CALL_PHONE = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+        int READ_PHONE_NUMBER;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            READ_PHONE_NUMBER = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS);
+        }else{
+            READ_PHONE_NUMBER = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        }
 
 
-        if (CALL_PHONE == PackageManager.PERMISSION_DENIED
+        if (CALL_PHONE == PackageManager.PERMISSION_DENIED || READ_PHONE_NUMBER == PackageManager.PERMISSION_DENIED
         ) {
 
             layout_checkPermission.setVisibility(View.VISIBLE);
@@ -156,9 +163,14 @@ public class SplashActivity extends BaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1000) {
             int CALL_PHONE = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+            int READ_PHONE_NUMBER;
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+                READ_PHONE_NUMBER = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS);
+            }else{
+                READ_PHONE_NUMBER = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+            }
 
-
-            if (CALL_PHONE == PackageManager.PERMISSION_DENIED
+            if (CALL_PHONE == PackageManager.PERMISSION_DENIED || READ_PHONE_NUMBER == PackageManager.PERMISSION_DENIED
             ) {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
@@ -172,6 +184,7 @@ public class SplashActivity extends BaseActivity {
             }
 
         }
+
     }
 
     @Override
@@ -179,9 +192,14 @@ public class SplashActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
             int CALL_PHONE = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+            int READ_PHONE_NUMBER;
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+                READ_PHONE_NUMBER = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS);
+            }else{
+                READ_PHONE_NUMBER = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+            }
 
-
-            if (CALL_PHONE == PackageManager.PERMISSION_DENIED
+            if (CALL_PHONE == PackageManager.PERMISSION_DENIED || READ_PHONE_NUMBER == PackageManager.PERMISSION_DENIED
             ) {
                 layout_checkPermission.setVisibility(View.VISIBLE);
 
@@ -191,10 +209,16 @@ public class SplashActivity extends BaseActivity {
             }
 
         }
+
     }
 
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked(){
-       requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_PHONE_NUMBERS}, 1000);
+        }else{
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_PHONE_STATE}, 1000);
+        }
     }
 }

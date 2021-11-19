@@ -1,15 +1,26 @@
 package kr.co.parthair.android.members.ui.page.login;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
-import android.content.Intent;
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,12 +28,11 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.net.api.callback.PhoneSignUpCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
-import kr.co.parthair.android.members.ui.page.common.dialog.LoadingDialog;
 import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 
 import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNull;
 
-public class SignUpActivity extends BaseActivity {
+public class SignUpPhoneActivity extends BaseActivity {
 
 
     @BindView(R.id.layout_policy)
@@ -71,11 +81,13 @@ public class SignUpActivity extends BaseActivity {
     @BindView(R.id.layout_privacyTopMenu)
     LinearLayout layout_privacyTopMenu;
 
-
+    private static final int PERMISSIONS_REQUEST_CODE = 22;
+    private boolean is_Permission = false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_phone);
         ButterKnife.bind(this);
         init();
 
@@ -89,12 +101,17 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
+                    String phoneNum = edtxt_userPhoneNumber.getText()+"";
+                    phoneNum = phoneNum.replace("-","");
+                    edtxt_userPhoneNumber.setText(phoneNum);
                     tv_userPhoneNumber.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userPhoneNumber.setTextColor(getColor(R.color.paypal_blue));
+                    edtxt_userPhoneNumber.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
                     tv_userPhoneNumber.setTextColor(getColor(R.color.ph_main_color));
                     edtxt_userPhoneNumber.setTextColor(getColor(R.color.ph_main_color));
+                    String phoneNum = PhoneNumberUtils.formatNumber(edtxt_userPhoneNumber.getText()+"", Locale.getDefault().getCountry()) + "";
+                    edtxt_userPhoneNumber.setText(phoneNum);
                 }
             }
         });
@@ -103,7 +120,7 @@ public class SignUpActivity extends BaseActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     tv_userName.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userName.setTextColor(getColor(R.color.paypal_blue));
+                    edtxt_userName.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
                     tv_userName.setTextColor(getColor(R.color.ph_main_color));
@@ -116,7 +133,7 @@ public class SignUpActivity extends BaseActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     tv_userEmail.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userEmail.setTextColor(getColor(R.color.paypal_blue));
+                    edtxt_userEmail.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
                     tv_userEmail.setTextColor(getColor(R.color.ph_main_color));
@@ -129,7 +146,7 @@ public class SignUpActivity extends BaseActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     tv_userPassword.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userPassword.setTextColor(getColor(R.color.paypal_blue));
+                    edtxt_userPassword.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
                     tv_userPassword.setTextColor(getColor(R.color.ph_main_color));
@@ -142,7 +159,7 @@ public class SignUpActivity extends BaseActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     tv_userPasswordChk.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userPasswordChk.setTextColor(getColor(R.color.paypal_blue));
+                    edtxt_userPasswordChk.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
                     tv_userPasswordChk.setTextColor(getColor(R.color.ph_main_color));
@@ -198,6 +215,43 @@ public class SignUpActivity extends BaseActivity {
 
 
         });
+
+        is_Permission = checkPhoneNumberPermission();
+        LOG_I("퍼미션 체크 값은? : "+is_Permission);
+        if (is_Permission) {
+            LOG_I("체크 퍼미션 승인");
+            // 휴대폰 정보는 TelephonyManager 를 이용
+            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+
+            // READ_PHONE_NUMBERS 또는 READ_PHONE_STATE 권한을 허가 받았는지 확인
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                LOG_I("넘버 스테이트 권한 확인 / 권한 실패");
+                return;
+            }
+            String phoneNum = tm.getLine1Number()+"";
+            phoneNum = PhoneNumberUtils.formatNumber(phoneNum, Locale.getDefault().getCountry()) + "";
+            edtxt_userPhoneNumber.setText(phoneNum+"");
+
+
+
+//            LOG_I( "음성통화 상태 : [ getCallState ] >>> " + tm.getCallState());
+//            LOG_I( "데이터통신 상태 : [ getDataState ] >>> " + tm.getDataState());
+//            LOG_I( "전화번호 : [ getLine1Number ] >>> " + tm.getLine1Number());
+//            LOG_I( "통신사 ISO 국가코드 : [ getNetworkCountryIso ] >>> "+tm.getNetworkCountryIso());
+//            LOG_I("통신사 ISO 국가코드 : [ getSimCountryIso ] >>> "+tm.getSimCountryIso());
+//            LOG_I("망사업자 MCC+MNC : [ getNetworkOperator ] >>> "+tm.getNetworkOperator());
+//            LOG_I("망사업자 MCC+MNC : [ getSimOperator ] >>> "+tm.getSimOperator());
+//            LOG_I("망사업자명 : [ getNetworkOperatorName ] >>> "+tm.getNetworkOperatorName());
+//            LOG_I("망사업자명 : [ getSimOperatorName ] >>> "+tm.getSimOperatorName());
+//            LOG_I("SIM 카드 상태 : [ getSimState ] >>> "+tm.getSimState());
+//
+//            // 유니크한 단말 번호 >>> Android ID 사용
+//            @SuppressLint("HardwareIds")
+//            String android_id = Settings.Secure.getString(this.getContentResolver(),Settings.Secure.ANDROID_ID);
+//            LOG_I("Android_ID >>> "+android_id);
+        }
     }
 
     @Override
@@ -216,6 +270,7 @@ public class SignUpActivity extends BaseActivity {
 
     boolean checkInputField(){
         String phoneSignUpPhoneNumber = edtxt_userPhoneNumber.getText().toString() + "";
+        phoneSignUpPhoneNumber = phoneSignUpPhoneNumber.replace("-","");
         String phoneSignUpPassword = edtxt_userPassword.getText().toString() + "";
         String phoneSignUpPasswordChk = edtxt_userPasswordChk.getText().toString() + "";
         String phoneSignUpName = edtxt_userName.getText().toString() + "";
@@ -281,6 +336,56 @@ public class SignUpActivity extends BaseActivity {
         return true;
     }
 
+
+    boolean checkPhoneNumberPermission(){
+        
+           // 위험 권한을 모두 승인했는지 여부
+                boolean mPermissionsGranted = false;
+                String[] mRequiredPermissions = new String[1];
+                // 승인 받기 위한 권한 목록
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    mRequiredPermissions[0] = Manifest.permission.READ_PHONE_NUMBERS;
+
+                }else{
+                    mRequiredPermissions[0] = Manifest.permission.READ_PRECISE_PHONE_STATE;
+                }
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // 필수 권한을 가지고 있는지 확인한다.
+                    mPermissionsGranted = hasPermissions(mRequiredPermissions);
+
+                    // 필수 권한 중에 한 개라도 없는 경우
+                    if (!mPermissionsGranted) {
+                        // 권한을 요청한다.
+                        ActivityCompat.requestPermissions(this, mRequiredPermissions, PERMISSIONS_REQUEST_CODE);
+                    }
+                } else {
+                    mPermissionsGranted = true;
+                }
+       
+
+                return mPermissionsGranted;
+                
+
+      
+              
+
+           
+        
+
+    }
+
+
+    public boolean hasPermissions(String[] permissions) {
+        // 필수 권한을 가지고 있는지 확인한다.
+        for (String permission : permissions) {
+            if (checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
     //region onClick
 
     @OnClick(R.id.btn_policyAgree)
@@ -303,6 +408,7 @@ public class SignUpActivity extends BaseActivity {
     public void btn_confirmClicked(){
         if(checkInputField()){
             String phoneSignUpPhoneNumber = edtxt_userPhoneNumber.getText().toString() + "";
+            phoneSignUpPhoneNumber = phoneSignUpPhoneNumber.replace("-","");
             String phoneSignUpPassword = edtxt_userPassword.getText().toString() + "";
             String phoneSignUpName = edtxt_userName.getText().toString() + "";
             String phoneSignUpEmail = edtxt_userEmail.getText().toString() + "";
@@ -339,4 +445,7 @@ public class SignUpActivity extends BaseActivity {
 
 
     //endregion
+
+
+    
 }

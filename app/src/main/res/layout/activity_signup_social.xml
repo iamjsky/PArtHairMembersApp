@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ph_page_bg_color"
-    tools:context=".ui.page.login.SignUpActivity">
+    tools:context=".ui.page.login.SignUpPhoneActivity">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/sv_body"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
 
 
-                    android:text="회원가입"
+                    android:text="고객 정보 입력"
                     android:textSize="@dimen/_30sdp" />
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
 
-                    android:text="피아트헤어 회원가입 후 다양한 혜택을 누리세요!"
+                    android:text="간편 로그인을 위해 고객 정보를 입력해 주세요."
                     android:textColor="@color/ph_gray_color_02" />
 
 
@@ -115,61 +115,7 @@
                         android:textSize="@dimen/_14sdp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_userPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="비밀번호" />
-
-                    <EditText
-
-                        android:letterSpacing="0.5"
-                        android:id="@+id/edtxt_userPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_edit_text_01"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:gravity="center"
-                        android:inputType="numberPassword"
-                        android:maxLength="4"
-                        android:padding="@dimen/_14sdp"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_userPasswordChk"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="비밀번호 확인" />
-
-                    <EditText
-
-                        android:letterSpacing="0.5"
-                        android:id="@+id/edtxt_userPasswordChk"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_edit_text_01"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:gravity="center"
-                        android:inputType="numberPassword"
-                        android:maxLength="4"
-                        android:padding="@dimen/_14sdp"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -295,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:gravity="center|left"
-                android:text="피아트헤어 회원가입" />
+                android:text="고객 정보 입력" />
         </LinearLayout>
 
         <View

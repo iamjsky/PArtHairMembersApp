@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_marginRight="@dimen/_4sdp"
-                        android:src="@drawable/ico_phone_02"
+                        android:src="@drawable/ico_user_04"
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"/>
                     <TextView
@@ -129,7 +129,6 @@
 
 
                 <TextView
-                    android:fontFamily="@font/pretendard_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
@@ -215,7 +214,6 @@
 
 
                 <TextView
-                    android:fontFamily="@font/pretendard_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 
@@ -291,10 +289,9 @@
                         android:src="@drawable/ico_kakao_small_01" />
 
                     <TextView
+                        android:fontFamily="@font/pretendard_bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:fontFamily="@font/pretendard_bold"
                         android:text="카카오 간편 로그인"
                         android:textColor="@color/ph_main_color" />
 
@@ -302,7 +299,6 @@
 
 
                 <TextView
-                    android:fontFamily="@font/pretendard_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
 

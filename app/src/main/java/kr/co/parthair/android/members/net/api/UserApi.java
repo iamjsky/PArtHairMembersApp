@@ -216,14 +216,15 @@ public class UserApi implements MyConstants, HttpResponseCode {
     }
 
 
-    public void kakaoSignUp(ArrayList<String> kakaoSignUpDataList, KakaoUserSignUpCallback callback) {
+    public void kakaoSignUp(String kakao_id,
+                            String user_nickname,
+                            String user_profile_img,
+                            String user_phone,
+                            String user_name,
+                            String user_email,
+                            KakaoUserSignUpCallback callback) {
 
-        String kakao_id = kakaoSignUpDataList.get(0) + "";
-        String user_nickname = kakaoSignUpDataList.get(1) + "";
-        String user_profile_img = kakaoSignUpDataList.get(2) + "";
-        String user_phone = kakaoSignUpDataList.get(3) + "";
-        String user_name = kakaoSignUpDataList.get(4) + "";
-        String user_email = kakaoSignUpDataList.get(5) + "";
+
 
         apiService.kakaoSignUp(kakao_id, user_nickname, user_profile_img, user_phone, user_name, user_email).enqueue(new Callback<KakaoUserSignUp>() {
             @Override

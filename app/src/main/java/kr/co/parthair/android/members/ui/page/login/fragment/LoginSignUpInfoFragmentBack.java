@@ -192,7 +192,7 @@ public class LoginSignUpInfoFragmentBack extends BaseFragment {
 
 
             ((LoginActivityBack)mParent).setLoading(true);
-             userApi.kakaoSignUp(kakaoSignUpData, kakaoUserSignUpCallback);
+             //userApi.kakaoSignUp(kakaoSignUpData, kakaoUserSignUpCallback);
 
         }
 

@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+
 
     <application
         android:name=".social.kakao.MyApplication"
@@ -15,13 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PArtHairMembersApp">
-        <activity android:name=".ui.page.login.SignUpActivity"></activity>
+        <activity android:name=".ui.page.login.SignUpSocialActivity"></activity>
+        <activity android:name=".ui.page.login.SignUpPhoneActivity" />
         <activity android:name=".ui.page.login.LoginPhoneActivity" />
         <activity android:name=".ui.page.login.LoginActivity" />
-        <activity android:name=".TestActivity">
-
-
-        </activity>
+        <activity android:name=".TestActivity"></activity>
         <activity
             android:name=".ui.page.login.LoginActivityBack"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -15,7 +15,7 @@
         android:layout_height="@dimen/_100sdp"/>
 
     <LinearLayout
-        android:paddingTop="@dimen/_40sdp"
+        android:paddingTop="@dimen/_70sdp"
         android:id="@+id/layout_checkPermission"
         android:visibility="gone"
         android:paddingLeft="@dimen/_20sdp"
@@ -150,5 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"/>
     </LinearLayout>
+
+
 
 </RelativeLayout>

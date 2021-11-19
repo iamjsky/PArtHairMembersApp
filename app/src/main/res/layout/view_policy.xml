@@ -12,7 +12,10 @@
         android:layout_height="match_parent">
 
     <LinearLayout
-        android:padding="@dimen/_20sdp"
+        android:paddingTop="@dimen/_20sdp"
+        android:paddingLeft="@dimen/_20sdp"
+        android:paddingRight="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_80sdp"
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

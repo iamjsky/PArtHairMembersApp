@@ -1,20 +1,15 @@
 package kr.co.parthair.android.members.ui.page.login;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.kakao.sdk.user.model.User;
 
 import butterknife.BindView;
@@ -23,8 +18,10 @@ import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
+import kr.co.parthair.android.members.model.KakaoUserSignUp;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.net.api.callback.KakaoUserLoginCallback;
+import kr.co.parthair.android.members.net.api.callback.KakaoUserSignUpCallback;
 import kr.co.parthair.android.members.social.kakao.KakaoGetUserInfo;
 import kr.co.parthair.android.members.social.kakao.KakaoUserLogin;
 import kr.co.parthair.android.members.social.kakao.KakaoUserLogout;
@@ -59,6 +56,10 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.layout_topMenu)
     LinearLayout layout_topMenu;
 
+    String _kakao_id = "";
+    String _kakao_nickname = "";
+    String _kakao_profile_img = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class LoginActivity extends BaseActivity {
         kakaoUserLogin = new KakaoUserLogin(mContext, kakaoLoginCallback);
         kakaoGetUserInfo = new KakaoGetUserInfo(mContext, kakaoGetUserInfoCallback);
         kakaoUserLogout = new KakaoUserLogout(mContext, kakaoLogoutCallback);
+
 
         Animation phoneSignUpAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
         Animation phoneLoginAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
@@ -180,7 +182,9 @@ public class LoginActivity extends BaseActivity {
 
         setLoading(true);
 
-
+        _kakao_id = kakao_id+"";
+        _kakao_nickname = user_nickname+"";
+        _kakao_profile_img = user_profile_img+"";
         userApi.kakaoLogin(kakao_id, user_nickname, user_profile_img, kakaoUserLoginCallback);
 
     }
@@ -194,7 +198,7 @@ public class LoginActivity extends BaseActivity {
     }
     @OnClick(R.id.layout_phoneSignUp)
     public void layout_phoneSignUpClicked() {
-        Intent intent = new Intent(this, SignUpActivity.class);
+        Intent intent = new Intent(this, SignUpPhoneActivity.class);
         startActivity(intent);
     }
     @OnClick(R.id.layout_phoneLogin)
@@ -215,6 +219,17 @@ public class LoginActivity extends BaseActivity {
 
     //region callback
 
+    public KakaoUserSignUpCallback kakaoSignUpCallback = new KakaoUserSignUpCallback() {
+        @Override
+        public void onSuccess(int code, String msg) {
+
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+
+        }
+    };
     public KakaoLoginCallback kakaoLoginCallback = new KakaoLoginCallback() {
         @Override
         public void onSuccess(String kakaoUserToken) {
@@ -222,6 +237,7 @@ public class LoginActivity extends BaseActivity {
                 kakaoGetUserInfo.getUserInfo();
             } else {
                 setLoading(false);
+
                 LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "카카오 계정 로그인이 실패 하였습니다.(1)");
                 loginMessageDialog.show();
             }
@@ -232,6 +248,7 @@ public class LoginActivity extends BaseActivity {
         public void onError(@NonNull Throwable throwable) {
             LOG_E("kakaoLoginCallback : " + throwable.toString());
             setLoading(false);
+
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "카카오 계정 로그인이 실패 하였습니다.(2)");
             loginMessageDialog.show();
         }
@@ -320,8 +337,18 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onError(int code, String msg) {
            setLoading(false);
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "카카오 계정 로그인이 실패 하였습니다.(3)");
-            loginMessageDialog.show();
+           if(code == NOT_FOUND){
+               Intent intent = new Intent(mContext, SignUpSocialActivity.class);
+               intent.putExtra("kakao_id", _kakao_id);
+               intent.putExtra("kakao_nickname", _kakao_nickname);
+               intent.putExtra("kakao_profile_img", _kakao_profile_img);
+               startActivity(intent);
+
+           }else{
+               LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "카카오 계정 로그인이 실패 하였습니다.(3)");
+               loginMessageDialog.show();
+           }
+
         }
     };
 
