@@ -30,7 +30,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iv_privacyBack"
+                    android:id="@+id/iv_back"
 
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="match_parent"
@@ -80,7 +80,7 @@
             android:textColor="@color/ph_gray_color_02" />
 
         <LinearLayout
-            android:gravity="center"
+            android:gravity="center|top"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -120,20 +120,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_userPhoneNumber"
+                    android:id="@+id/tv_userPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:text="비밀번호" />
 
                 <EditText
-                    android:id="@+id/edtxt_userPhoneNumber"
+
+                    android:letterSpacing="0.5"
+                    android:id="@+id/edtxt_userPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_edit_text_01"
                     android:fontFamily="@font/pretendard_bold"
                     android:gravity="center"
-                    android:inputType="number"
+                    android:inputType="numberPassword"
+                    android:maxLength="4"
                     android:padding="@dimen/_14sdp"
                     android:textSize="@dimen/_14sdp" />
             </LinearLayout>
@@ -144,7 +147,7 @@
 
         <Button
 
-            android:id="@+id/btn_privacyAgree"
+            android:id="@+id/btn_kakaoLogin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:text="카카오 계정으로 로그인" />

@@ -5,263 +5,257 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ph_page_bg_color"
-    tools:context=".ui.page.login.SignUpPhoneActivity">
+    tools:context=".ui.page.login.SignUpSocialActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/sv_body"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:id="@+id/sv_body"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:id="@+id/layout_top"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/ph_page_bg_color"
-                android:orientation="vertical"
-                android:padding="@dimen/_20sdp">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:gravity="center"
-
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/iv_back"
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layout_top"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/ph_page_bg_color"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="@dimen/_20sdp">-->
 
 
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/ico_back_02" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_40sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                    android:gravity="center"-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|left"
-                        android:text="" />
-                </LinearLayout>
+<!--                    android:orientation="horizontal">-->
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_bold"
-
-                    android:text="피아트헤어"
-                    android:textSize="@dimen/_30sdp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_back"-->
 
 
-                    android:text="고객 정보 입력"
-                    android:textSize="@dimen/_30sdp" />
+<!--                        android:layout_width="@dimen/_20sdp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:adjustViewBounds="true"-->
+<!--                        android:src="@drawable/ico_back_02" />-->
 
-                <TextView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-
-                    android:text="간편 로그인을 위해 고객 정보를 입력해 주세요."
-                    android:textColor="@color/ph_gray_color_02" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/_20sdp"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingRight="@dimen/_20sdp"
-                android:paddingBottom="@dimen/_70sdp">
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_userPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="휴대폰 번호" />
-
-                    <EditText
-                        android:id="@+id/edtxt_userPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_edit_text_01"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:padding="@dimen/_14sdp"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center|left"-->
+<!--                        android:text="" />-->
+<!--                </LinearLayout>-->
 
 
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/pretendard_bold"-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="vertical">
+<!--                    android:text="피아트헤어"-->
+<!--                    android:textSize="@dimen/_30sdp" />-->
 
-                    <TextView
-
-                        android:id="@+id/tv_userName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="이름" />
-
-                    <EditText
-                        android:id="@+id/edtxt_userName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_edit_text_01"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:gravity="center"
-                        android:inputType="text"
-                        android:padding="@dimen/_14sdp"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_userEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="이메일" />
-
-                    <EditText
-                        android:id="@+id/edtxt_userEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_edit_text_01"
-                        android:fontFamily="@font/pretendard_bold"
-                        android:gravity="center"
-                        android:inputType="textEmailAddress"
-                        android:padding="@dimen/_14sdp"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
 
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+<!--                    android:text="고객 정보 입력"-->
+<!--                    android:textSize="@dimen/_30sdp" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+<!--                <TextView-->
 
-        android:layout_alignParentBottom="true"
-        android:background="@color/ph_menu_tab_color_01"
-        android:orientation="vertical">
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line_elevation_01" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/_20sdp"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingRight="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_10sdp">
+<!--                    android:text="간편 로그인을 위해 고객 정보를 입력해 주세요."-->
+<!--                    android:textColor="@color/ph_gray_color_02" />-->
 
 
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="1"
-                android:background="@drawable/selector_button_rounded_01"
-                android:text="입력 완료" />
+<!--            </LinearLayout>-->
 
-        </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingTop="@dimen/_20sdp"-->
+<!--                android:paddingLeft="@dimen/_20sdp"-->
+<!--                android:paddingRight="@dimen/_20sdp"-->
+<!--                android:paddingBottom="@dimen/_70sdp">-->
 
-    </LinearLayout>
+<!--                <LinearLayout-->
 
-    <LinearLayout
-        android:id="@+id/layout_topMenu"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_alignParentTop="true"
-        android:background="@color/ph_menu_tab_color_01"
-        android:clickable="true"
-        android:orientation="vertical"
-        android:visibility="gone">
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                    android:orientation="vertical">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_userPhoneNumber"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                        android:text="휴대폰 번호" />-->
 
-            <ImageView
-                android:id="@+id/iv_backTop"
-                android:layout_width="@dimen/_20sdp"
+<!--                    <EditText-->
+<!--                        android:id="@+id/edtxt_userPhoneNumber"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/selector_edit_text_01"-->
+<!--                        android:fontFamily="@font/pretendard_bold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:inputType="number"-->
+<!--                        android:padding="@dimen/_14sdp"-->
+<!--                        android:textSize="@dimen/_14sdp" />-->
+<!--                </LinearLayout>-->
 
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ico_back_02" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:gravity="center|left"
-                android:text="고객 정보 입력" />
-        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line_elevation_01" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                    android:orientation="vertical">-->
 
-    </LinearLayout>
+<!--                    <TextView-->
+
+<!--                        android:id="@+id/tv_userName"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                        android:text="이름" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/edtxt_userName"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/selector_edit_text_01"-->
+<!--                        android:fontFamily="@font/pretendard_bold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:inputType="text"-->
+<!--                        android:padding="@dimen/_14sdp"-->
+<!--                        android:textSize="@dimen/_14sdp" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_userEmail"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                        android:text="이메일" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/edtxt_userEmail"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/selector_edit_text_01"-->
+<!--                        android:fontFamily="@font/pretendard_bold"-->
+<!--                        android:gravity="center"-->
+<!--                        android:inputType="textEmailAddress"-->
+<!--                        android:padding="@dimen/_14sdp"-->
+<!--                        android:textSize="@dimen/_14sdp" />-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+
+<!--        </LinearLayout>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@color/ph_menu_tab_color_01"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0.5dp"-->
+<!--            android:background="@color/line_elevation_01" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:paddingLeft="@dimen/_20sdp"-->
+<!--            android:paddingTop="@dimen/_10sdp"-->
+<!--            android:paddingRight="@dimen/_20sdp"-->
+<!--            android:paddingBottom="@dimen/_10sdp">-->
+
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_confirm"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="@dimen/_40sdp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/selector_button_rounded_01"-->
+<!--                android:text="입력 완료" />-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_topMenu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_40sdp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:background="@color/ph_menu_tab_color_01"-->
+<!--        android:clickable="true"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="gone">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_backTop"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginLeft="@dimen/_20sdp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:src="@drawable/ico_back_02" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="@dimen/_10sdp"-->
+<!--                android:gravity="center|left"-->
+<!--                android:text="고객 정보 입력" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0.5dp"-->
+<!--            android:background="@color/line_elevation_01" />-->
+
+<!--    </LinearLayout>-->
 
     <include
         layout="@layout/view_kakao_signup_info"
         android:visibility="gone" />
 
-    <include
-        layout="@layout/view_policy"
-        android:visibility="gone" />
 
-    <include
-        layout="@layout/view_privacy"
-        android:visibility="gone" />
 
     <include
         layout="@layout/view_signup_finish"

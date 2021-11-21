@@ -220,13 +220,12 @@ public class UserApi implements MyConstants, HttpResponseCode {
                             String user_nickname,
                             String user_profile_img,
                             String user_phone,
-                            String user_name,
-                            String user_email,
+                            String phone_login_pw,
                             KakaoUserSignUpCallback callback) {
 
 
 
-        apiService.kakaoSignUp(kakao_id, user_nickname, user_profile_img, user_phone, user_name, user_email).enqueue(new Callback<KakaoUserSignUp>() {
+        apiService.kakaoSignUp(kakao_id, user_nickname, user_profile_img, user_phone, phone_login_pw).enqueue(new Callback<KakaoUserSignUp>() {
             @Override
             public void onResponse(Call<KakaoUserSignUp> call, Response<KakaoUserSignUp> response) {
                 if (response.isSuccessful()) {

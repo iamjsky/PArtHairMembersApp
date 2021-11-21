@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,45 +35,29 @@ import static kr.co.parthair.android.members.utils.NullCheckUtil.String_IsNotNul
 
 public class SignUpSocialActivity extends BaseActivity {
 
-    @BindView(R.id.layout_policy)
-    RelativeLayout layout_policy;
-    @BindView(R.id.layout_privacy)
-    RelativeLayout layout_privacy;
+
 
     @BindView(R.id.tv_userPhoneNumber)
     TextView tv_userPhoneNumber;
     @BindView(R.id.edtxt_userPhoneNumber)
     EditText edtxt_userPhoneNumber;
-    @BindView(R.id.tv_userName)
-    TextView tv_userName;
-    @BindView(R.id.edtxt_userName)
-    EditText edtxt_userName;
-    @BindView(R.id.tv_userEmail)
-    TextView tv_userEmail;
-    @BindView(R.id.edtxt_userEmail)
-    EditText edtxt_userEmail;
+    @BindView(R.id.tv_userPassword)
+    TextView tv_userPassword;
+    @BindView(R.id.edtxt_userPassword)
+    EditText edtxt_userPassword;
 
-    @BindView(R.id.sv_body)
-    NestedScrollView sv_body;
 
-    @BindView(R.id.layout_topMenu)
-    LinearLayout layout_topMenu;
 
     @BindView(R.id.layout_signUpFinish)
     RelativeLayout layout_signUpFinish;
 
 
-    @BindView(R.id.sv_policyBody)
-    NestedScrollView sv_policyBody;
 
-    @BindView(R.id.layout_policyTopMenu)
-    LinearLayout layout_policyTopMenu;
-    @BindView(R.id.sv_privacyBody)
-    NestedScrollView sv_privacyBody;
 
-    @BindView(R.id.layout_privacyTopMenu)
-    LinearLayout layout_privacyTopMenu;
+    @BindView(R.id.layout_kakao_signup_info)
+    RelativeLayout layout_kakao_signup_info;
 
+    int login_type = 0;
     String _kakao_id = "";
     String _kakao_nickname = "";
     String _kakao_profile_img = "";
@@ -90,6 +75,7 @@ public class SignUpSocialActivity extends BaseActivity {
         if(getIntent() != null){
             Intent intent = new Intent();
             intent = getIntent();
+            login_type = intent.getIntExtra("login_type", 0);
             _kakao_id = intent.getStringExtra("kakao_id");
             _kakao_nickname = intent.getStringExtra("kakao_nickname");
             _kakao_profile_img = intent.getStringExtra("kakao_profile_img");
@@ -98,11 +84,23 @@ public class SignUpSocialActivity extends BaseActivity {
 
         init();
     }
+
+    void setSocialSignUpInterface(){
+
+        Window w = getWindow();
+        if(login_type == 1){
+            layout_kakao_signup_info.setVisibility(View.VISIBLE);
+            w.setStatusBarColor(getResources().getColor(R.color.kakao));
+        }else{
+
+        }
+
+    }
     void init(){
 
-
+        setSocialSignUpInterface();
         layout_signUpFinish.setVisibility(View.GONE);
-        layout_policy.setVisibility(View.VISIBLE);
+
 
         edtxt_userPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -112,7 +110,7 @@ public class SignUpSocialActivity extends BaseActivity {
                     phoneNum = phoneNum.replace("-","");
                     edtxt_userPhoneNumber.setText(phoneNum);
                     tv_userPhoneNumber.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userPhoneNumber.setTextColor(getColor(R.color.paypal_blue));
+                    edtxt_userPhoneNumber.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
                     tv_userPhoneNumber.setTextColor(getColor(R.color.ph_main_color));
@@ -122,81 +120,20 @@ public class SignUpSocialActivity extends BaseActivity {
                 }
             }
         });
-        edtxt_userName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edtxt_userPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    tv_userName.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userName.setTextColor(getColor(R.color.paypal_blue));
+                    tv_userPassword.setTextColor(getColor(R.color.ebay_blue));
+                    edtxt_userPassword.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
-                    tv_userName.setTextColor(getColor(R.color.ph_main_color));
-                    edtxt_userName.setTextColor(getColor(R.color.ph_main_color));
-                }
-            }
-        });
-        edtxt_userEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    tv_userEmail.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userEmail.setTextColor(getColor(R.color.paypal_blue));
-
-                }else{
-                    tv_userEmail.setTextColor(getColor(R.color.ph_main_color));
-                    edtxt_userEmail.setTextColor(getColor(R.color.ph_main_color));
+                    tv_userPassword.setTextColor(getColor(R.color.ph_main_color));
+                    edtxt_userPassword.setTextColor(getColor(R.color.ph_main_color));
                 }
             }
         });
 
-        sv_body.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                LOG_E(scrollY+"");
-
-                if (scrollY <= 90) {
-                    layout_topMenu.setVisibility(View.GONE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
-                } else {
-                    layout_topMenu.setVisibility(View.VISIBLE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
-                }
-            }
-
-
-        });
-        sv_policyBody.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                LOG_E(scrollY+"");
-
-                if (scrollY <= 90) {
-                    layout_policyTopMenu.setVisibility(View.GONE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
-                } else {
-                    layout_policyTopMenu.setVisibility(View.VISIBLE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
-                }
-            }
-
-
-        });
-        sv_privacyBody.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                LOG_E(scrollY+"");
-
-                if (scrollY <= 90) {
-                    layout_privacyTopMenu.setVisibility(View.GONE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
-                } else {
-                    layout_privacyTopMenu.setVisibility(View.VISIBLE);
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.ph_menu_tab_color_01));
-                }
-            }
-
-
-        });
 
         is_Permission = checkPhoneNumberPermission();
         LOG_I("퍼미션 체크 값은? : "+is_Permission);
@@ -238,23 +175,17 @@ public class SignUpSocialActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if(layout_policy.getVisibility() == View.VISIBLE){
-            super.onBackPressed();
-        }else if(layout_privacy.getVisibility() == View.VISIBLE){
 
-            layout_policy.setVisibility(View.VISIBLE);
-            layout_privacy.setVisibility(View.GONE);
-        }else{
             super.onBackPressed();
-        }
+
 
     }
 
     boolean checkInputField(){
         String socialSignUpPhoneNumber = edtxt_userPhoneNumber.getText().toString() + "";
         socialSignUpPhoneNumber = socialSignUpPhoneNumber.replace("-","");
-        String socialSignUpName = edtxt_userName.getText().toString() + "";
-        String socialSignUpEmail = edtxt_userEmail.getText().toString() + "";
+        String socialSignUpPassword = edtxt_userPassword.getText().toString() + "";
+
 
         if (!String_IsNotNull(socialSignUpPhoneNumber)) {
 
@@ -264,16 +195,9 @@ public class SignUpSocialActivity extends BaseActivity {
 
         }
 
-        if (!String_IsNotNull(socialSignUpName)) {
+        if (!String_IsNotNull(socialSignUpPassword)) {
 
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "이름를 입력해 주세요.");
-            loginMessageDialog.show();
-            return false;
-
-        }
-        if (!String_IsNotNull(socialSignUpEmail)) {
-
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "아이디 / 비밀번호 찾기에 사용할\n이메일을 입력해 주세요.");
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "비밀번호를 입력해 주세요.");
             loginMessageDialog.show();
             return false;
 
@@ -330,26 +254,28 @@ public class SignUpSocialActivity extends BaseActivity {
         }
         return true;
     }
+
+    void visibleSignUpFinish(){
+        Window w = getWindow();
+        if(login_type == 1) {
+            layout_kakao_signup_info.setVisibility(View.GONE);
+            w.setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
+            layout_signUpFinish.setVisibility(View.VISIBLE);
+
+
+        }
+    }
     //region onClick
 
-    @OnClick(R.id.btn_policyAgree)
-    public void btn_policyAgreeClicked(){
-        layout_privacy.setVisibility(View.VISIBLE);
-        layout_policy.setVisibility(View.GONE);
-    }
-    @OnClick(R.id.btn_privacyAgree)
-    public void btn_privacyAgreeClicked(){
-        layout_policy.setVisibility(View.GONE);
-        layout_privacy.setVisibility(View.GONE);
-    }
-    @OnClick({R.id.iv_back,R.id.iv_policyBack,R.id.iv_privacyBack,R.id.iv_backTop,R.id.iv_privacyBackTop,R.id.iv_policyBackTop})
+
+    @OnClick(R.id.iv_back)
     public void iv_backClicked(){
         onBackPressed();
     }
 
 
-    @OnClick(R.id.btn_confirm)
-    public void btn_confirmClicked(){
+    @OnClick(R.id.btn_kakaoLogin)
+    public void btn_kakaoLoginClicked(){
         if(checkInputField()){
 
             String kakao_id = _kakao_id + "";
@@ -357,10 +283,8 @@ public class SignUpSocialActivity extends BaseActivity {
             String user_profile_img = _kakao_profile_img + "";
             String user_phone = edtxt_userPhoneNumber.getText().toString() + "";
             user_phone = user_phone.replace("-","");
-            String user_name = edtxt_userName.getText().toString() + "";
-            String user_email = edtxt_userEmail.getText().toString() + "";
-
-            userApi.kakaoSignUp(kakao_id, user_nickname, user_profile_img, user_phone, user_name, user_email, kakaoUserSignUpCallback);
+            String phone_login_pw = edtxt_userPassword.getText().toString() + "";
+            userApi.kakaoSignUp(kakao_id, user_nickname, user_profile_img, user_phone, phone_login_pw, kakaoUserSignUpCallback);
         }
 
     }
@@ -378,7 +302,8 @@ public class SignUpSocialActivity extends BaseActivity {
         @Override
         public void onSuccess(int code, String msg) {
             setLoading(false);
-            layout_signUpFinish.setVisibility(View.VISIBLE);
+
+            visibleSignUpFinish();
 
 
         }

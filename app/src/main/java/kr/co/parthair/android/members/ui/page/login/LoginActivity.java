@@ -339,6 +339,7 @@ public class LoginActivity extends BaseActivity {
            setLoading(false);
            if(code == NOT_FOUND){
                Intent intent = new Intent(mContext, SignUpSocialActivity.class);
+               intent.putExtra("login_type", 1);
                intent.putExtra("kakao_id", _kakao_id);
                intent.putExtra("kakao_nickname", _kakao_nickname);
                intent.putExtra("kakao_profile_img", _kakao_profile_img);

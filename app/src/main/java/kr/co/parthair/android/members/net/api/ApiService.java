@@ -78,8 +78,7 @@ public interface ApiService {
             @Field("user_nickname") String user_nickname,
             @Field("user_profile_img") String user_profile_img,
             @Field("user_phone") String user_phone,
-            @Field("user_name") String user_name,
-            @Field("user_email") String user_email
+            @Field("phone_login_pw") String user_name
 
 
 
