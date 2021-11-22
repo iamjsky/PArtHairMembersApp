@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,8 @@ public class MainNewsEventsFragment extends BaseFragment {
 
     @BindView(R.id.recv_body)
     RecyclerView recv_body;
+    @BindView(R.id.tv_emptyEventList)
+    TextView tv_emptyEventList;
 
     private MainNewsEventsAdapter mainNewsEventsAdapter;
     private int spanCount = 2;
@@ -77,9 +80,14 @@ public class MainNewsEventsFragment extends BaseFragment {
         @Override
         public void onSuccess(int code, String msg, @Nullable NewsDataModel data) {
             if(data.getNewsEventsList().size() > 0){
+                tv_emptyEventList.setVisibility(View.GONE);
                 mainNewsEventsAdapter = new MainNewsEventsAdapter(data.getNewsEventsList());
                 recv_body.setAdapter(mainNewsEventsAdapter);
                 recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
+            }else{
+                recv_body.setVisibility(View.GONE);
+                tv_emptyEventList.setText("진행중인 이벤트가 없습니다.");
+                tv_emptyEventList.setVisibility(View.VISIBLE);
             }
 
 
@@ -89,6 +97,9 @@ public class MainNewsEventsFragment extends BaseFragment {
         @Override
         public void onError(int code, String msg) {
             LOG_E("onError? : " + code + "," +msg);
+            recv_body.setVisibility(View.GONE);
+            tv_emptyEventList.setText("이벤트 목록을 받아올 수 없습니다.");
+            tv_emptyEventList.setVisibility(View.VISIBLE);
         }
     };
 

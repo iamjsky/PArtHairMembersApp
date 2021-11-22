@@ -235,7 +235,8 @@ public class UserApi implements MyConstants, HttpResponseCode {
 
                     switch (code) {
                         case OK:
-                            callback.onSuccess(code, msg);
+                            String user_name = resData.getSocialUserInfo().getUserName();
+                            callback.onSuccess(code, msg, user_name);
                             break;
 
                         case NOT_FOUND:

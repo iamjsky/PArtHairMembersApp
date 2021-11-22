@@ -7,6 +7,6 @@ package kr.co.parthair.android.members.net.api.callback;
  * Description
  */
 public interface KakaoUserSignUpCallback {
-    void onSuccess(int code, String msg);
+    void onSuccess(int code, String msg, String user_name);
     void onError(int code, String msg);
 }

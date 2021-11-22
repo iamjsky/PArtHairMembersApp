@@ -54,9 +54,9 @@ public class ResponseErrorDialog extends BaseDialog {
     public void btn_confirmClicked() {
 
 
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(intent);
+//        Intent intent = new Intent(mContext, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        mContext.startActivity(intent);
         dismiss();
     }
 

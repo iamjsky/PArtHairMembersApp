@@ -16,6 +16,9 @@ public class KakaoUserSignUp {
     @SerializedName("header")
     @Expose
     public Header header;
+    @SerializedName("user_info")
+    @Expose
+    public SocialUserInfo socialUserInfo;
 
     @Data
     public class Header{
@@ -25,5 +28,20 @@ public class KakaoUserSignUp {
         @SerializedName("message")
         @Expose
         public String message;
+    }
+
+    @Data
+    public class SocialUserInfo {
+
+        @SerializedName("user_token")
+        @Expose
+        public String userToken;
+
+        @SerializedName("user_name")
+        @Expose
+        public String userName;
+
+
+
     }
 }

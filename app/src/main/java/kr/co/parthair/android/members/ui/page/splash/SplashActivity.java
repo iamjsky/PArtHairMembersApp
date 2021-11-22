@@ -27,8 +27,10 @@ import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.model.TagListModel;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
+import kr.co.parthair.android.members.net.api.callback.PhoneLoginCallback;
 import kr.co.parthair.android.members.net.api.callback.TagListCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
+import kr.co.parthair.android.members.ui.page.login.dialog.LoginMessageDialog;
 import kr.co.parthair.android.members.ui.page.main.MainActivity;
 import kr.co.parthair.android.members.ui.page.splash.dialog.ResponseErrorDialog;
 
@@ -117,11 +119,11 @@ public class SplashActivity extends BaseActivity {
     GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            MyPreferenceManager.setString(mContext, "user_token", MyInfo.instance.getUser_token() + "");
-            Intent intent = new Intent(mContext, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            String user_phone = MyInfo.instance.getUserInfo().getUserPhone() + "";
+            String phone_login_pw = MyInfo.instance.getUserInfo().getPhoneLoginPw() + "";
+            userApi.phoneLogin(user_phone, phone_login_pw, phoneLoginCallback);
 
-            startActivity(intent);
+
         }
 
         @Override
@@ -129,9 +131,16 @@ public class SplashActivity extends BaseActivity {
             String errMsg = msg;
             if (code == SERVER_ERROR) {
                 errMsg = "네트워크가 불안정 합니다. 인터넷 연결 상태를 확인해 주세요";
+                ResponseErrorDialog responseErrorDialog = new ResponseErrorDialog(mContext, "알림", errMsg);
+                responseErrorDialog.show();
+            }else if(code == NOT_FOUND){
+                MyPreferenceManager.setString(mContext, "user_token", "");
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(intent);
             }
-            ResponseErrorDialog responseErrorDialog = new ResponseErrorDialog(mContext, "알림", errMsg);
-            responseErrorDialog.show();
+
 
 
         }
@@ -150,12 +159,38 @@ public class SplashActivity extends BaseActivity {
             String errMsg = msg;
             if (code == SERVER_ERROR) {
                 errMsg = "네트워크가 불안정 합니다. 인터넷 연결 상태를 확인해 주세요";
+                ResponseErrorDialog responseErrorDialog = new ResponseErrorDialog(mContext, "알림", errMsg);
+                responseErrorDialog.show();
+            }else{
+                startTimer();
             }
-            ResponseErrorDialog responseErrorDialog = new ResponseErrorDialog(mContext, "알림", errMsg);
-            responseErrorDialog.show();
+
         }
     };
-    //endregeion
+
+    private PhoneLoginCallback phoneLoginCallback = new PhoneLoginCallback() {
+        @Override
+        public void onSuccess(int code, String msg) {
+
+            MyPreferenceManager.setString(mContext, "user_token", MyInfo.instance.getUser_token() + "");
+            Intent intent = new Intent(mContext, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            startActivity(intent);
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+            setLoading(false);
+            MyPreferenceManager.setString(mContext, "user_token", "");
+            Intent intent = new Intent(mContext, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            startActivity(intent);
+        }
+    };
+
+    //endregion
 
 
     @Override

@@ -93,7 +93,7 @@ public class LoginPhoneActivity extends BaseActivity {
         switch (type) {
             case LOGIN_INPUT_PHONE_NUMBER:
                 layout_inputNumPad.setVisibility(View.INVISIBLE);
-                Animation numPadAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
+                Animation numPadAnim = AnimationUtils.loadAnimation(this, R.anim.numpad_up);
 
                 layout_inputNumPad.startAnimation(numPadAnim);
 
@@ -126,7 +126,7 @@ public class LoginPhoneActivity extends BaseActivity {
 
             case LOGIN_INPUT_PASSWORD:
                 layout_inputNumPad.setVisibility(View.INVISIBLE);
-                Animation pwNumPadAnim = AnimationUtils.loadAnimation(this, R.anim.layout_up);
+                Animation pwNumPadAnim = AnimationUtils.loadAnimation(this, R.anim.numpad_up);
 
                 layout_inputNumPad.startAnimation(pwNumPadAnim);
 

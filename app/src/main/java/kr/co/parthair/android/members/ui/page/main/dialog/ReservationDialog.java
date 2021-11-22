@@ -63,9 +63,13 @@ public class ReservationDialog extends BaseDialog {
     }
     @OnClick(R.id.layout_reservationCall)
     public void layout_reservationCallClicked() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(RESERVATION_CALL_NUMBER));
-        mContext.startActivity(intent);
         dismiss();
+        CallDialog callDialog = new CallDialog(mContext, "전화로 예약하기내",
+                "코로나19 확산 방지를 위한 출입관리를 위해\n아래의 번호로 전화를 겁니다.\n\n080-205-0000\n\n안심콜(CALL) 등록을 하시겠습니까?",
+                RESERVATION_CALL_NUMBER);
+        callDialog.show();
+
+
     }
     @OnClick(R.id.btn_cancel)
     public void btn_cancelClicked() {

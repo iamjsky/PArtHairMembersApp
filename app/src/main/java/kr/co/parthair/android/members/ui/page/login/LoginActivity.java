@@ -219,9 +219,9 @@ public class LoginActivity extends BaseActivity {
 
     //region callback
 
-    public KakaoUserSignUpCallback kakaoSignUpCallback = new KakaoUserSignUpCallback() {
+    public KakaoUserSignUpCallback kakaoUserSignUpCallback = new KakaoUserSignUpCallback() {
         @Override
-        public void onSuccess(int code, String msg) {
+        public void onSuccess(int code, String msg, String userName) {
 
         }
 
@@ -339,7 +339,7 @@ public class LoginActivity extends BaseActivity {
            setLoading(false);
            if(code == NOT_FOUND){
                Intent intent = new Intent(mContext, SignUpSocialActivity.class);
-               intent.putExtra("login_type", 1);
+               intent.putExtra("login_type", LOGIN_TYPE_KAKAO);
                intent.putExtra("kakao_id", _kakao_id);
                intent.putExtra("kakao_nickname", _kakao_nickname);
                intent.putExtra("kakao_profile_img", _kakao_profile_img);

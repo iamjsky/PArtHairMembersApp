@@ -14,5 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
+    <TextView
+        android:id="@+id/tv_emptyNoticeList"
+        android:text="등록된 공지사항이 없습니다."
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

@@ -48,8 +48,7 @@ public class SignUpSocialActivity extends BaseActivity {
 
 
 
-    @BindView(R.id.layout_signUpFinish)
-    RelativeLayout layout_signUpFinish;
+
 
 
 
@@ -57,11 +56,11 @@ public class SignUpSocialActivity extends BaseActivity {
     @BindView(R.id.layout_kakao_signup_info)
     RelativeLayout layout_kakao_signup_info;
 
-    int login_type = 0;
+    int login_type = -1;
     String _kakao_id = "";
     String _kakao_nickname = "";
     String _kakao_profile_img = "";
-
+    String user_name = "";
     private static final int PERMISSIONS_REQUEST_CODE = 22;
     private boolean is_Permission = false;
 
@@ -75,7 +74,8 @@ public class SignUpSocialActivity extends BaseActivity {
         if(getIntent() != null){
             Intent intent = new Intent();
             intent = getIntent();
-            login_type = intent.getIntExtra("login_type", 0);
+            login_type = intent.getIntExtra("login_type", -1);
+            user_name = intent.getStringExtra("user_name");
             _kakao_id = intent.getStringExtra("kakao_id");
             _kakao_nickname = intent.getStringExtra("kakao_nickname");
             _kakao_profile_img = intent.getStringExtra("kakao_profile_img");
@@ -88,7 +88,7 @@ public class SignUpSocialActivity extends BaseActivity {
     void setSocialSignUpInterface(){
 
         Window w = getWindow();
-        if(login_type == 1){
+        if(login_type == LOGIN_TYPE_KAKAO){
             layout_kakao_signup_info.setVisibility(View.VISIBLE);
             w.setStatusBarColor(getResources().getColor(R.color.kakao));
         }else{
@@ -99,7 +99,6 @@ public class SignUpSocialActivity extends BaseActivity {
     void init(){
 
         setSocialSignUpInterface();
-        layout_signUpFinish.setVisibility(View.GONE);
 
 
         edtxt_userPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -255,12 +254,20 @@ public class SignUpSocialActivity extends BaseActivity {
         return true;
     }
 
-    void visibleSignUpFinish(){
+    void socialSignUpFinish(){
         Window w = getWindow();
-        if(login_type == 1) {
+        if(login_type == LOGIN_TYPE_KAKAO) {
             layout_kakao_signup_info.setVisibility(View.GONE);
             w.setStatusBarColor(getResources().getColor(R.color.ph_page_bg_color));
-            layout_signUpFinish.setVisibility(View.VISIBLE);
+
+
+
+            Intent intent = new Intent(mContext, SignUpFinishActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("login_type", LOGIN_TYPE_KAKAO);
+            intent.putExtra("user_profile_img", _kakao_profile_img);
+            intent.putExtra("user_name", user_name);
+            startActivity(intent);
 
 
         }
@@ -284,15 +291,14 @@ public class SignUpSocialActivity extends BaseActivity {
             String user_phone = edtxt_userPhoneNumber.getText().toString() + "";
             user_phone = user_phone.replace("-","");
             String phone_login_pw = edtxt_userPassword.getText().toString() + "";
+
+
             userApi.kakaoSignUp(kakao_id, user_nickname, user_profile_img, user_phone, phone_login_pw, kakaoUserSignUpCallback);
         }
 
     }
 
-    @OnClick(R.id.btn_goLogin)
-    public void btn_goLoginClicked(){
-        onBackPressed();
-    }
+
 
     //endregion
 
@@ -300,10 +306,10 @@ public class SignUpSocialActivity extends BaseActivity {
 
     private KakaoUserSignUpCallback kakaoUserSignUpCallback = new KakaoUserSignUpCallback() {
         @Override
-        public void onSuccess(int code, String msg) {
+        public void onSuccess(int code, String msg, String userName) {
             setLoading(false);
-
-            visibleSignUpFinish();
+            user_name = userName +"";
+            socialSignUpFinish();
 
 
         }

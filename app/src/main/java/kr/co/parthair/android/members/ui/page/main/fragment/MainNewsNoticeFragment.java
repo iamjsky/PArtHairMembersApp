@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,8 @@ public class MainNewsNoticeFragment extends BaseFragment {
 
     @BindView(R.id.recv_body)
     RecyclerView recv_body;
+    @BindView(R.id.tv_emptyNoticeList)
+    TextView tv_emptyNoticeList;
 
     private MainNewsNoticeAdapter mainNewsNoticeAdapter;
 
@@ -81,9 +84,14 @@ public class MainNewsNoticeFragment extends BaseFragment {
         @Override
         public void onSuccess(int code, String msg, @Nullable NewsDataModel data) {
             if(data.getNewsNoticeList().size() > 0){
+                tv_emptyNoticeList.setVisibility(View.GONE);
                 mainNewsNoticeAdapter = new MainNewsNoticeAdapter(data.getNewsNoticeList());
                 recv_body.setAdapter(mainNewsNoticeAdapter);
                 recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
+            }else{
+                recv_body.setVisibility(View.GONE);
+                tv_emptyNoticeList.setText("등록된 공지사항이 없습니다.");
+                tv_emptyNoticeList.setVisibility(View.VISIBLE);
             }
 
 
@@ -93,6 +101,9 @@ public class MainNewsNoticeFragment extends BaseFragment {
         @Override
         public void onError(int code, String msg) {
             LOG_E("onError? : " + code + "," +msg);
+            recv_body.setVisibility(View.GONE);
+            tv_emptyNoticeList.setText("공지사항 목록을 받아올 수 없습니다.");
+            tv_emptyNoticeList.setVisibility(View.VISIBLE);
         }
     };
 

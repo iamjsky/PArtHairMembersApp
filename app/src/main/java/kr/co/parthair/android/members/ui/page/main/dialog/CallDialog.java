@@ -20,7 +20,7 @@ import static kr.co.parthair.android.members.common.MyConstants.VISIT_CHECK_CALL
  * <p>
  * Description
  */
-public class VisitCallDialog extends BaseDialog {
+public class CallDialog extends BaseDialog {
 
 
     @BindView(R.id.tv_title)
@@ -29,10 +29,16 @@ public class VisitCallDialog extends BaseDialog {
     TextView tv_desc;
 
     Context mContext;
+    String title = "";
+    String desc = "";
+    String callNumber = "";
 
-    public VisitCallDialog(Context context) {
+    public CallDialog(Context context, String _title, String _desc, String _callNumber) {
         super(context);
         mContext = context;
+        title = _title;
+        desc = _desc;
+        callNumber = _callNumber;
     }
 
 
@@ -43,8 +49,8 @@ public class VisitCallDialog extends BaseDialog {
         setContentView(R.layout.dialog_visit_call);
         ButterKnife.bind(this);
 
-        tv_title.setText("출입관리 안심콜(CALL) 안내");
-        tv_desc.setText("코로나19 확산 방지를 위한 출입관리를 위해\n아래의 번호로 전화를 겁니다.\n\n080-205-0000\n\n안심콜(CALL) 등록을 하시겠습니까?");
+        tv_title.setText(title);
+        tv_desc.setText(desc);
 
     }
 
@@ -52,7 +58,7 @@ public class VisitCallDialog extends BaseDialog {
 
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(VISIT_CHECK_CALL_NUMBER));
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(callNumber));
         mContext.startActivity(intent);
         dismiss();
     }

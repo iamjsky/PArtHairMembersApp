@@ -11,6 +11,7 @@
     <color name="ph_gray_color_01">#404040</color>
     <color name="ph_gray_color_02">#5E5E5E</color>
     <color name="ph_light_gray_color_01">#A1A1A1</color>
+    <color name="ph_light_gray_color_06">#C6C6C6</color>
     <color name="ph_light_gray_color_02">#D6D6D6</color>
     <color name="ph_light_gray_color_04">#EDEDED</color>
     <color name="ph_light_gray_color_03">#F3F3F3</color>

@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
 
-            android:text="로그인 방법을 선택해 주세요."
+            android:text="피아트헤어를 시작해 볼까요~?"
             android:textColor="@color/ph_gray_color_02" />
 
 

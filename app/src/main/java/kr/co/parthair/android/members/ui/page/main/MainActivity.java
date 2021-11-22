@@ -55,9 +55,8 @@ import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleAdapter;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleSkeletonAdapter;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainNoticeImageSliderAdapter;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
-import kr.co.parthair.android.members.ui.page.login.LoginActivityBack;
+import kr.co.parthair.android.members.ui.page.main.dialog.CallDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.ReservationDialog;
-import kr.co.parthair.android.members.ui.page.main.dialog.VisitCallDialog;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
@@ -530,8 +529,10 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.layout_callVisitCheck)
     public void layout_callVisitCheckClicked() {
-        VisitCallDialog visitCallDialog = new VisitCallDialog(this);
-        visitCallDialog.show();
+        CallDialog callDialog = new CallDialog(this, "출입관리 안심콜(CALL) 안내",
+                "코로나19 확산 방지를 위한 출입관리를 위해\n아래의 번호로 전화를 겁니다.\n\n080-205-0000\n\n안심콜(CALL) 등록을 하시겠습니까?",
+                VISIT_CHECK_CALL_NUMBER);
+        callDialog.show();
 
     }
 
@@ -602,13 +603,13 @@ public class MainActivity extends BaseActivity {
 
             if (!userProfileImgUrl.equals("")) {
                 Glide.with(mContext).load(MyInfo.instance.getUserInfo()
-                        .getUserProfileImg()).error(R.drawable.ic_launcher_background)
+                        .getUserProfileImg()).error(R.color.ph_main_color)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .override(100, 100)
                         .skipMemoryCache(true)
                         .into(iv_userInfo_userProfileImg);
             } else {
-                Glide.with(mContext).load(R.drawable.ic_launcher_background)
+                Glide.with(mContext).load(R.color.ph_main_color)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .override(100, 100)
                         .skipMemoryCache(true)

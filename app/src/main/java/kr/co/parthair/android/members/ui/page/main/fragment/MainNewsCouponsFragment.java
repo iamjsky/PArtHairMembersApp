@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,8 @@ public class MainNewsCouponsFragment extends BaseFragment {
 
     @BindView(R.id.recv_body)
     RecyclerView recv_body;
+    @BindView(R.id.tv_emptyCouponList)
+    TextView tv_emptyCouponList;
 
     private MainNewsCouponsAdapter mainNewsCouponsAdapter;
     private int spanCount = 1;
@@ -77,9 +80,14 @@ public class MainNewsCouponsFragment extends BaseFragment {
         @Override
         public void onSuccess(int code, String msg, @Nullable List<Coupons.CouponList> data) {
             if(data.size() > 0){
+                tv_emptyCouponList.setVisibility(View.GONE);
                 mainNewsCouponsAdapter = new MainNewsCouponsAdapter(data);
                 recv_body.setAdapter(mainNewsCouponsAdapter);
                 recv_body.setLayoutManager(new GridLayoutManager(mParent, spanCount, RecyclerView.HORIZONTAL, false));	// 가로
+            }else{
+                recv_body.setVisibility(View.GONE);
+                tv_emptyCouponList.setText("발급 가능한 쿠폰이 없습니다.");
+                tv_emptyCouponList.setVisibility(View.VISIBLE);
             }
 
 
@@ -88,6 +96,9 @@ public class MainNewsCouponsFragment extends BaseFragment {
         @Override
         public void onError(int code, String msg) {
             LOG_E("onError? : " + code + "," +msg);
+            recv_body.setVisibility(View.GONE);
+            tv_emptyCouponList.setText("쿠폰 목록을 받아올 수 없습니다.");
+            tv_emptyCouponList.setVisibility(View.VISIBLE);
         }
     };
 

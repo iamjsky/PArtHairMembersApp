@@ -41,6 +41,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:ems="8"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:id="@+id/tv_drawerUserName"
                         android:layout_weight="1"
                         android:fontFamily="@font/pretendard_bold"
@@ -49,6 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:textSize="@dimen/_20sdp"
 
                         android:text="고객님 안녕하세요."

@@ -8,6 +8,7 @@ import androidx.core.widget.NestedScrollView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -66,8 +68,7 @@ public class SignUpPhoneActivity extends BaseActivity {
     @BindView(R.id.layout_topMenu)
     LinearLayout layout_topMenu;
 
-    @BindView(R.id.layout_signUpFinish)
-    RelativeLayout layout_signUpFinish;
+
 
 
     @BindView(R.id.sv_policyBody)
@@ -83,7 +84,12 @@ public class SignUpPhoneActivity extends BaseActivity {
 
     private static final int PERMISSIONS_REQUEST_CODE = 22;
     private boolean is_Permission = false;
-    
+
+    String user_phone = "";
+    String phone_login_pw = "";
+    String user_name = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +100,6 @@ public class SignUpPhoneActivity extends BaseActivity {
     }
 
     void init(){
-        layout_signUpFinish.setVisibility(View.GONE);
         layout_policy.setVisibility(View.VISIBLE);
 
         edtxt_userPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -108,48 +113,38 @@ public class SignUpPhoneActivity extends BaseActivity {
                     edtxt_userPhoneNumber.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
-                    tv_userPhoneNumber.setTextColor(getColor(R.color.ph_main_color));
+                    String userPhoneNumber = edtxt_userPhoneNumber.getText().toString() + "";
+                    if(userPhoneNumber.length() > 0){
+                        tv_userPhoneNumber.setTextColor(getColor(R.color.ph_main_color));
+                    }else{
+                        tv_userPhoneNumber.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    }
+
                     edtxt_userPhoneNumber.setTextColor(getColor(R.color.ph_main_color));
                     String phoneNum = PhoneNumberUtils.formatNumber(edtxt_userPhoneNumber.getText()+"", Locale.getDefault().getCountry()) + "";
                     edtxt_userPhoneNumber.setText(phoneNum);
                 }
             }
         });
-        edtxt_userName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    tv_userName.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userName.setTextColor(getColor(R.color.ebay_blue));
 
-                }else{
-                    tv_userName.setTextColor(getColor(R.color.ph_main_color));
-                    edtxt_userName.setTextColor(getColor(R.color.ph_main_color));
-                }
-            }
-        });
-        edtxt_userEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    tv_userEmail.setTextColor(getColor(R.color.ebay_blue));
-                    edtxt_userEmail.setTextColor(getColor(R.color.ebay_blue));
+        edtxt_userPhoneNumber.requestFocus();
 
-                }else{
-                    tv_userEmail.setTextColor(getColor(R.color.ph_main_color));
-                    edtxt_userEmail.setTextColor(getColor(R.color.ph_main_color));
-                }
-            }
-        });
-        edtxt_userPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+          edtxt_userPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
+
                     tv_userPassword.setTextColor(getColor(R.color.ebay_blue));
                     edtxt_userPassword.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
-                    tv_userPassword.setTextColor(getColor(R.color.ph_main_color));
+                    String userPassword = edtxt_userPassword.getText().toString() + "";
+
+                    if(userPassword.length() > 0){
+                        tv_userPassword.setTextColor(getColor(R.color.ph_main_color));
+                    }else{
+                        tv_userPassword.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    }
                     edtxt_userPassword.setTextColor(getColor(R.color.ph_main_color));
                 }
             }
@@ -162,11 +157,66 @@ public class SignUpPhoneActivity extends BaseActivity {
                     edtxt_userPasswordChk.setTextColor(getColor(R.color.ebay_blue));
 
                 }else{
-                    tv_userPasswordChk.setTextColor(getColor(R.color.ph_main_color));
+                    String userPasswordChk = edtxt_userPasswordChk.getText().toString() + "";
+                    if(userPasswordChk.length() > 0){
+                        tv_userPasswordChk.setTextColor(getColor(R.color.ph_main_color));
+                    }else{
+                        tv_userPasswordChk.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    }
                     edtxt_userPasswordChk.setTextColor(getColor(R.color.ph_main_color));
                 }
             }
         });
+        edtxt_userName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                     sv_body.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            sv_body.scrollTo(0, sv_body.getBottom());
+                        }
+                    });
+                    tv_userName.setTextColor(getColor(R.color.ebay_blue));
+                    edtxt_userName.setTextColor(getColor(R.color.ebay_blue));
+
+                }else{
+                    String userName = edtxt_userName.getText().toString() + "";
+                    if(userName.length() > 0){
+                        tv_userName.setTextColor(getColor(R.color.ph_main_color));
+                    }else{
+                        tv_userName.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    }
+                    edtxt_userName.setTextColor(getColor(R.color.ph_main_color));
+                }
+            }
+        });
+        edtxt_userEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    sv_body.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            sv_body.scrollTo(0, sv_body.getBottom());
+                        }
+                    });
+                    tv_userEmail.setTextColor(getColor(R.color.ebay_blue));
+                    edtxt_userEmail.setTextColor(getColor(R.color.ebay_blue));
+
+                }else{
+                    String userEmail = edtxt_userEmail.getText().toString() + "";
+                    if(userEmail.length() > 0){
+                        tv_userEmail.setTextColor(getColor(R.color.ph_main_color));
+                    }else{
+                        tv_userEmail.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    }
+                    edtxt_userEmail.setTextColor(getColor(R.color.ph_main_color));
+                }
+            }
+        });
+
+
         sv_body.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -320,11 +370,17 @@ public class SignUpPhoneActivity extends BaseActivity {
         }
         if (!String_IsNotNull(phoneSignUpName)) {
 
-            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "이름를 입력해 주세요.");
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "이름을 입력해 주세요.");
             loginMessageDialog.show();
             return false;
 
         }
+        if(!phoneSignUpName.matches("[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝| ]*")) {
+            LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "이름을 올바르게 입력해 주세요.");
+            loginMessageDialog.show();
+            return false;
+        }
+        
         if (!String_IsNotNull(phoneSignUpEmail)) {
 
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", "아이디 / 비밀번호 찾기에 사용할\n이메일을 입력해 주세요.");
@@ -412,15 +468,16 @@ public class SignUpPhoneActivity extends BaseActivity {
             String phoneSignUpPassword = edtxt_userPassword.getText().toString() + "";
             String phoneSignUpName = edtxt_userName.getText().toString() + "";
             String phoneSignUpEmail = edtxt_userEmail.getText().toString() + "";
+            user_phone = phoneSignUpPhoneNumber + "";
+            phone_login_pw = phoneSignUpPassword + "";
+            user_name = phoneSignUpName + "";
+
             userApi.phoneSignUp(phoneSignUpPhoneNumber, phoneSignUpPassword, phoneSignUpName, phoneSignUpEmail, phoneSignUpCallback);
         }
 
     }
 
-    @OnClick(R.id.btn_goLogin)
-    public void btn_goLoginClicked(){
-        onBackPressed();
-    }
+
 
     //endregion
 
@@ -430,14 +487,24 @@ public class SignUpPhoneActivity extends BaseActivity {
         @Override
         public void onSuccess(int code, String msg) {
             setLoading(false);
-            layout_signUpFinish.setVisibility(View.VISIBLE);
 
+            Intent intent = new Intent(mContext, SignUpFinishActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("login_type", LOGIN_TYPE_PHONE);
+            intent.putExtra("user_phone", user_phone);
+            intent.putExtra("user_name", user_name);
+            intent.putExtra("phone_login_pw", phone_login_pw);
+
+            startActivity(intent);
 
         }
 
         @Override
         public void onError(int code, String msg) {
             setLoading(false);
+            user_phone = "";
+            phone_login_pw = "";
+            user_name = "";
             LoginMessageDialog loginMessageDialog = new LoginMessageDialog(mContext, "알림", msg);
             loginMessageDialog.show();
         }

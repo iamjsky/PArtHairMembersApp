@@ -55,7 +55,6 @@
                 android:paddingRight="@dimen/_10sdp"
 
                 android:id="@+id/tv_tags"
-                android:text="#aaaaa, #bbbbb#aaaaa, #bbbbb#aaaaa, #bbbbb#aaaaa, #bbbbb#aaaaa, #bbbbb#aaaaa, #bbbbb"
 
 
                 android:gravity="top|left"
