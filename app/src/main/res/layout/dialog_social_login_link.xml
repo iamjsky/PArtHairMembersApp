@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_80"
+    android:paddingTop="@dimen/_44sdp"
+    android:paddingBottom="@dimen/_44sdp"
+    android:paddingLeft="@dimen/_20sdp"
+    android:paddingRight="@dimen/_20sdp">
+
+    <LinearLayout
+        android:padding="@dimen/_20sdp"
+        android:background="@drawable/bg_rounded_01"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp">
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:textColor="@color/ph_main_color"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:id="@+id/btn_cancel"
+                android:text="다음에 하기"
+                android:background="@drawable/selector_button_rounded_02"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_confirm"
+                android:text="연결 하기"
+                android:background="@drawable/selector_button_rounded_01"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

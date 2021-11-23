@@ -74,6 +74,7 @@ public class SplashActivity extends BaseActivity {
             timer.cancel();
             String user_token = MyPreferenceManager.getString(this, "user_token") + "";
             LOG_E("user_token>>" + user_token);
+            LOG_E("user_token>>" + MyInfo.instance.getUser_token());
             if (!user_token.equals("")) {
                 MyInfo.instance.setUser_token(user_token);
                 userApi.getUserInfo(getUserInfoCallback);

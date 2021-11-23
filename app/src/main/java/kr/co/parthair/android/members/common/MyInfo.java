@@ -19,4 +19,15 @@ public class MyInfo implements MyConstants {
 
     private GetUserInfo.UserInfo userInfo;
 
+    public boolean isLogin(){
+        boolean value = false;
+
+        if(user_token != null && !user_token.equals("") && !user_token.equals("null")){
+            value = true;
+        }else{
+            value = false;
+        }
+        return value;
+    }
+
 }

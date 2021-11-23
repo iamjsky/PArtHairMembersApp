@@ -1,6 +1,9 @@
 package kr.co.parthair.android.members.ui.page.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -8,6 +11,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,6 +38,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.List;
 
@@ -57,10 +66,13 @@ import kr.co.parthair.android.members.ui.page.main.adapter.MainNoticeImageSlider
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.main.dialog.CallDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.ReservationDialog;
+import kr.co.parthair.android.members.ui.page.main.dialog.SocialLoginLinkDialog;
+import kr.co.parthair.android.members.ui.page.main.dialog.UserBarcodeDialog;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
 import kr.co.parthair.android.members.ui.page.splash.SplashActivity;
+import kr.co.parthair.android.members.utils.NullCheckUtil;
 
 import static kr.co.parthair.android.members.utils.DateUtil.formatDateRemoveTime;
 
@@ -326,6 +338,38 @@ public class MainActivity extends BaseActivity {
 
     //endregion
 
+    //region userBarcode
+
+    @BindView(R.id.layout_userBarcode)
+    RelativeLayout layout_userBarcode;
+
+    @BindView(R.id.iv_userBarcode)
+    ImageView iv_userBarcode;
+    @BindView(R.id.tv_userBarcode)
+    TextView tv_userBarcode;
+
+    //endregion
+
+    //region userReservation
+
+    @BindView(R.id.layout_userReservationEmpty)
+    LinearLayout layout_userReservationEmpty;
+    @BindView(R.id.layout_userReservationContainer)
+    LinearLayout layout_userReservationContainer;
+    @BindView(R.id.tv_userReservationMsg)
+    TextView tv_userReservationMsg;
+    @BindView(R.id.tv_userReservationDate)
+    TextView tv_userReservationDate;
+    @BindView(R.id.tv_userReservationTime)
+    TextView tv_userReservationTime;
+    @BindView(R.id.tv_userReservationStyle)
+    TextView tv_userReservationStyle;
+    @BindView(R.id.tv_userReservationDesigner)
+    TextView tv_userReservationDesigner;
+
+
+    //endregion
+
     private long closeAppTime = 0;
 
 
@@ -335,6 +379,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         LOG_E("MyInfo.instance.getUser_token()>>" + MyInfo.instance.getUser_token());
+//        SocialLoginLinkDialog socialLoginLinkDialog = new SocialLoginLinkDialog(this);
+//        socialLoginLinkDialog.show();
+
         init();
 
     }
@@ -431,16 +478,16 @@ public class MainActivity extends BaseActivity {
     }
 
     void refreshUserInfo() {
-
-        if (MyInfo.instance.getUser_token().equals("")) {
+        LOG_E("MyInfo.instance.isLogin() : " + MyInfo.instance.isLogin());
+        if (!MyInfo.instance.isLogin()) {
 
             layout_userLogged.setVisibility(View.GONE);
             layout_userNotLogged.setVisibility(View.VISIBLE);
 
             layout_drawerUserLogged.setVisibility(View.GONE);
             layout_drawerUserNotLogged.setVisibility(View.VISIBLE);
-
-
+            setReservationContainer();
+            layout_userBarcode.setVisibility(View.GONE);
 
             return;
         } else {
@@ -515,9 +562,29 @@ public class MainActivity extends BaseActivity {
 
     public void userLogout(){
         MyPreferenceManager.setString(this, "user_token", "");
+        LOG_E("MyInfo.instance.getUser_token() : " + MyInfo.instance.getUser_token());
         MyInfo.instance.setUser_token("");
+        MyPreferenceManager.setBoolean(mContext, "social_login_link_visible", false);
+        LOG_E("MyInfo.instance.isLogin() : " + MyInfo.instance.isLogin());
+        LOG_E("MyInfo.instance.getUser_token() : " + MyInfo.instance.getUser_token());
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
+    }
+
+    public void setReservationContainer(){
+
+
+            LOG_E("MyInfo.instance.isLogin()!!!!" + MyInfo.instance.isLogin());
+        if(MyInfo.instance.isLogin()){
+            layout_userReservationContainer.setVisibility(View.VISIBLE);
+            layout_userReservationEmpty.setVisibility(View.GONE);
+        }else{
+            layout_userReservationContainer.setVisibility(View.GONE);
+            layout_userReservationEmpty.setVisibility(View.VISIBLE);
+            tv_userReservationMsg.setText("로그인 후 예약 내역을 확인할 수 있습니다.");
+
+        }
+
     }
     //region onClick
 
@@ -547,7 +614,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.tv_drawerUserLogout)
     public void tv_drawerUserLogout() {
-        if(MyInfo.instance.getUser_token().equals("")){
+        if(!MyInfo.instance.isLogin()){
             layout_goLoginClicked();
         }else{
             userLogout();
@@ -591,6 +658,21 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.layout_userBarcode)
+    public void layout_userBarcodeClicked(){
+        String userName = MyInfo.instance.getUserInfo().getUserName() + "";
+        String userBarcodeNumber = MyInfo.instance.getUserInfo().getUserBarcode() + "";
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        UserBarcodeDialog userBarcodeDialog = new UserBarcodeDialog(this, userName, userBarcodeNumber);
+        userBarcodeDialog.show();
+        userBarcodeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+        });
+    }
+
 
     //endregion
 
@@ -599,42 +681,87 @@ public class MainActivity extends BaseActivity {
     GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {
         @Override
         public void onSuccess(int code, String msg) {
-            String userProfileImgUrl = MyInfo.instance.getUserInfo().getUserProfileImg() + "";
+            if(MyInfo.instance.isLogin()){
+                String userProfileImgUrl = MyInfo.instance.getUserInfo().getUserProfileImg() + "";
 
-            if (!userProfileImgUrl.equals("")) {
-                Glide.with(mContext).load(MyInfo.instance.getUserInfo()
-                        .getUserProfileImg()).error(R.color.ph_main_color)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .override(100, 100)
-                        .skipMemoryCache(true)
-                        .into(iv_userInfo_userProfileImg);
-            } else {
-                Glide.with(mContext).load(R.color.ph_main_color)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .override(100, 100)
-                        .skipMemoryCache(true)
-                        .into(iv_userInfo_userProfileImg);
+                if (!userProfileImgUrl.equals("")) {
+                    Glide.with(mContext).load(MyInfo.instance.getUserInfo()
+                            .getUserProfileImg()).error(R.color.ph_main_color)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .override(100, 100)
+                            .skipMemoryCache(true)
+                            .into(iv_userInfo_userProfileImg);
+                } else {
+                    Glide.with(mContext).load(R.color.ph_main_color)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .override(100, 100)
+                            .skipMemoryCache(true)
+                            .into(iv_userInfo_userProfileImg);
+                }
+                layout_userBarcode.setVisibility(View.VISIBLE);
+                String userBarcodeNumber = MyInfo.instance.getUserInfo().getUserBarcode() + "";
+                if(NullCheckUtil.String_IsNotNull(userBarcodeNumber)){
+                    Bitmap barcodeBitmap = null;
+                    MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                    try {
+                        float barcodeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 230f, getResources().getDisplayMetrics());
+                        float barcodeHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40f, getResources().getDisplayMetrics());
+                        BitMatrix bitMatrix = multiFormatWriter.encode(userBarcodeNumber, BarcodeFormat.CODE_128, (int)barcodeWidth, (int)barcodeHeight);
+                        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                        barcodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
+                        Glide.with(mContext).load(barcodeBitmap).error(R.color.ph_main_color)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .override((int)barcodeWidth, (int)barcodeHeight)
+                                .skipMemoryCache(true)
+                                .into(iv_userBarcode);
+                        tv_userBarcode.setText(userBarcodeNumber);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    tv_userBarcode.setText("");
+                }
+
+
+
+
+                String createdDate = MyInfo.instance.getUserInfo().getCreatedDate() + "";
+                String lastVisitDate = MyInfo.instance.getUserInfo().getLastVisitDate() + "";
+                String userCreatedDate = formatDateRemoveTime(createdDate);
+                String userLastVisitDate = formatDateRemoveTime(lastVisitDate);
+
+                tv_userInfo_userName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
+                tv_userInfo_userCreatedDate.setText(userCreatedDate + "");
+                tv_userInfo_userLastVisitDate.setText(userLastVisitDate + "");
+                tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
+
+                tv_userInfo_userCoupons.setText("0");
+
+                tv_drawerUserName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
+                tv_drawerHavePoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
+
+                //social linked check
+                if(!MyPreferenceManager.getBoolean(mContext, "social_login_link_visible")){
+                    if(!NullCheckUtil.String_IsNotNull(MyInfo.instance.getUserInfo().getKakaoId()) || MyInfo.instance.getUserInfo().getKakaoId().equals("-1")){
+                        MyPreferenceManager.setBoolean(mContext, "social_login_link_visible", true);
+                        SocialLoginLinkDialog socialLoginLinkDialog = new SocialLoginLinkDialog(mContext);
+                        socialLoginLinkDialog.show();
+                    }
+                }
+
+
+            } else{
+                layout_userBarcode.setVisibility(View.GONE);
+                setReservationContainer();
             }
 
-            String createdDate = MyInfo.instance.getUserInfo().getCreatedDate() + "";
-            String lastVisitDate = MyInfo.instance.getUserInfo().getLastVisitDate() + "";
-            String userCreatedDate = formatDateRemoveTime(createdDate);
-            String userLastVisitDate = formatDateRemoveTime(lastVisitDate);
 
-            tv_userInfo_userName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
-            tv_userInfo_userCreatedDate.setText(userCreatedDate + "");
-            tv_userInfo_userLastVisitDate.setText(userLastVisitDate + "");
-            tv_userInfo_userPoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
 
-            tv_userInfo_userCoupons.setText("0");
-
-            tv_drawerUserName.setText(MyInfo.instance.getUserInfo().getUserName() + "");
-            tv_drawerHavePoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
         }
 
         @Override
         public void onError(int code, String msg) {
-
+            layout_userBarcode.setVisibility(View.GONE);
         }
     };
 

@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/ph_page_bg_color">
 
     <androidx.core.widget.NestedScrollView
@@ -14,10 +14,10 @@
         android:background="@color/ph_page_bg_color_02">
 
         <LinearLayout
-            android:paddingBottom="@dimen/_40sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_40sdp">
 
             <LinearLayout
 
@@ -45,12 +45,12 @@
                         android:padding="@dimen/_16sdp">
 
                         <ImageView
-                            android:padding="@dimen/_4sdp"
-                            android:background="@drawable/bg_rounded_hamburger_01"
                             android:id="@+id/iv_openDrawer"
                             android:layout_width="@dimen/_28sdp"
                             android:layout_height="@dimen/_28sdp"
                             android:adjustViewBounds="true"
+                            android:background="@drawable/bg_rounded_hamburger_01"
+                            android:padding="@dimen/_4sdp"
                             android:src="@drawable/ico_hamburger_04" />
 
                     </LinearLayout>
@@ -62,9 +62,10 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:id="@+id/layout_userLogged"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_180sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
 
@@ -82,9 +83,9 @@
 
 
                     <LinearLayout
-                        android:layout_marginRight="@dimen/_10sdp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -96,19 +97,18 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:ems="8"
-                                android:ellipsize="end"
-                                android:maxLines="1"
                                 android:id="@+id/tv_userInfo_userName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:ems="8"
                                 android:fontFamily="@font/pretendard_bold"
+                                android:maxLines="1"
                                 android:text=""
                                 android:textColor="@color/paypal_blue"
                                 android:textSize="@dimen/_20sdp" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/_4sdp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="고객님 안녕하세요."
@@ -124,18 +124,17 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:orientation="horizontal"
 
-                                android:orientation="horizontal">
+                                android:visibility="gone">
 
                                 <TextView
 
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="가입날짜"
-                              />
+                                    android:text="가입날짜" />
 
                                 <TextView
 
@@ -143,8 +142,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/_4sdp"
-                                    android:text="2021-10-07"
-                                  />
+                                    android:text="2021-10-07" />
 
 
                             </LinearLayout>
@@ -159,16 +157,14 @@
 
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="최근방문"
-                                   />
+                                    android:text="최근방문" />
 
                                 <TextView
                                     android:id="@+id/tv_userInfo_userLastVisitDate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/_4sdp"
-                                    android:text="2021-10-07"
-                                  />
+                                    android:text="2021-10-07" />
 
 
                             </LinearLayout>
@@ -213,14 +209,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_2sdp"
-                            android:text="안심콜"
-                          />
+                            android:text="안심콜" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="전화하기"
-                            />
+                            android:text="전화하기" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -243,14 +237,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_2sdp"
-                            android:text="네이버 예약"
-                          />
+                            android:text="네이버 예약" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="바로가기"
-                    />
+                            android:text="바로가기" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -273,16 +265,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_2sdp"
-                            android:text="포인트"
-                          />
+                            android:text="포인트" />
 
                         <TextView
                             android:id="@+id/tv_userInfo_userPoints"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/pretendard_bold"
-                            android:text="100000"
-                           />
+                            android:text="100000" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -306,31 +296,89 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_2sdp"
-                            android:text="쿠폰"
-                     />
+                            android:text="쿠폰" />
 
                         <TextView
                             android:id="@+id/tv_userInfo_userCoupons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/pretendard_bold"
-                            android:text="1"
-                           />
+                            android:text="1" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
+
             </LinearLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/layout_userBarcode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_rounded_01"
+                android:elevation="@dimen/_4sdp"
+                android:orientation="vertical"
+                android:outlineAmbientShadowColor="@color/ph_light_gray_color_01"
+                android:outlineSpotShadowColor="@color/ph_light_gray_color_01"
+                android:padding="@dimen/_10sdp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ico_zoom_02" />
+
+                    <TextView
+                        android:id="@+id/tv_userBarcodeExpand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+
+                        android:text="크게 보기"
+                        android:textColor="@color/ph_light_gray_color_01"
+                        android:textSize="@dimen/_10sdp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_userBarcode"
+
+                    android:layout_width="@dimen/_230sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true" />
+
+                <TextView
+                    android:id="@+id/tv_userBarcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/ph_light_gray_color_01" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/layout_userNotLogged"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_180sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical"
-                android:padding="@dimen/_20sdp">
+                android:padding="@dimen/_20sdp"
+                android:visibility="gone">
 
 
                 <LinearLayout
@@ -359,8 +407,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:text="로그인 후 고객님의 혜택을 확인할 수 있습니다."
-                 />
+                    android:text="로그인 후 고객님의 혜택을 확인할 수 있습니다." />
 
                 <LinearLayout
                     android:id="@+id/layout_goLogin"
@@ -404,46 +451,45 @@
 
 
             <LinearLayout
-
-                android:padding="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="horizontal"
-              >
+                android:padding="@dimen/_20sdp">
 
                 <LinearLayout
                     android:id="@+id/layout_noticeMore"
-                    android:gravity="center"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/_12sdp"
                         android:fontFamily="@font/pretendard_bold"
-                        android:textColor="@color/ph_gray_color_01"
-                        android:text="알림"
                         android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:text="알림"
+                        android:textColor="@color/ph_gray_color_01" />
+
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textColor="@color/ph_gray_color_01"
-                        android:text="9월 27일, 28일 백신접종으로 인한 휴무입니다!! 쉽니다!! 알겠습니까? 나도 쉴꺼에요"
                         android:gravity="center|left"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
+                        android:maxLines="1"
+                        android:text="9월 27일, 28일 백신접종으로 인한 휴무입니다!! 쉽니다!! 알겠습니까? 나도 쉴꺼에요"
+                        android:textColor="@color/ph_gray_color_01" />
 
                     <ImageView
-                        android:padding="@dimen/_4sdp"
-
                         android:layout_width="@dimen/_16sdp"
+
                         android:layout_height="@dimen/_16sdp"
                         android:adjustViewBounds="true"
+                        android:padding="@dimen/_4sdp"
                         android:src="@drawable/ico_more_02" />
 
                 </LinearLayout>
@@ -451,28 +497,242 @@
 
             </LinearLayout>
 
+
+
+
+
             <LinearLayout
-                android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
-                android:orientation="vertical"
-               >
+                android:orientation="vertical">
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_20sdp">
+
+                    <TextView
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center|left"
+                        android:text="예약 내역"
+                        android:textSize="@dimen/_20sdp" />
+
+
+
+                </LinearLayout>
+
 
 
                 <LinearLayout
 
-                    android:padding="@dimen/_20sdp"
-
-                    android:gravity="center|bottom"
-                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:visibility="visible"
+                        android:id="@+id/layout_userReservationEmpty"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_80sdp">
+
+                        <TextView
+                            android:textColor="@color/ph_light_gray_color_01"
+                            android:gravity="center"
+                            android:id="@+id/tv_userReservationMsg"
+                            android:text="예약 내역이 없습니다."
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:id="@+id/layout_userReservationContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ico_user_04"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"/>
+                            <TextView
+                                android:gravity="center"
+                                android:fontFamily="@font/pretendard_bold"
+                                android:text="날짜"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tv_userReservationDate"
+                                android:gravity="center|right"
+                                android:text="2021-11-23 (화)"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ico_user_04"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"/>
+                            <TextView
+                                android:gravity="center"
+                                android:fontFamily="@font/pretendard_bold"
+                                android:text="시간"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tv_userReservationTime"
+                                android:gravity="center|right"
+                                android:text="13:00"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ico_user_04"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"/>
+                            <TextView
+                                android:gravity="center"
+                                android:fontFamily="@font/pretendard_bold"
+                                android:text="스타일"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tv_userReservationStyle"
+                                android:gravity="center|right"
+                                android:text="남성 컷"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ico_user_04"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"/>
+                            <TextView
+                                android:gravity="center"
+                                android:fontFamily="@font/pretendard_bold"
+                                android:text="디자이너"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tv_userReservationDesigner"
+                                android:gravity="center|right"
+                                android:text="소연 원장"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <Button
+                                android:text="자세히 보기"
+                                android:textColor="@color/ph_main_color"
+                                android:background="@drawable/selector_button_rounded_02"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:id="@+id/btn_userReservationMore"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_40sdp"/>
+                            <Button
+                                android:text="예약 변경"
+                                android:textColor="@color/ph_main_color"
+                                android:background="@drawable/selector_button_rounded_02"
+                                android:layout_weight="1"
+                                android:id="@+id/btn_userReservationModify"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_40sdp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/ph_page_bg_color"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_20sdp">
+
                     <TextView
 
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
                         android:text="새소식"
@@ -480,25 +740,26 @@
 
                     <LinearLayout
                         android:id="@+id/layout_newsMore"
-                        android:gravity="center"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/ph_gray_color_02"
                             android:gravity="center"
                             android:text="더보기"
-                            />
+                            android:textColor="@color/ph_gray_color_02" />
+
                         <ImageView
 
-                            android:paddingLeft="@dimen/_4sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:paddingTop="@dimen/_4sdp"
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
                             android:adjustViewBounds="true"
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp"
                             android:src="@drawable/ico_more_02" />
 
                     </LinearLayout>
@@ -506,42 +767,45 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:paddingLeft="@dimen/_20sdp"
-
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_20sdp">
+
                     <Button
                         android:id="@+id/btn_news_coupons"
-                        android:focusable="true"
+                        android:layout_width="wrap_content"
 
-                        android:paddingRight="@dimen/_14sdp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_main_tab_01"
+                        android:focusable="true"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:paddingLeft="@dimen/_14sdp"
                         android:paddingTop="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_14sdp"
                         android:paddingBottom="@dimen/_10sdp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:textColor="@color/ph_main_color"
-                        android:background="@drawable/selector_main_tab_01"
                         android:text="쿠폰"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/ph_main_color" />
+
                     <Button
                         android:id="@+id/btn_news_events"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_8sdp"
                         android:layout_marginRight="@dimen/_8sdp"
+                        android:background="@drawable/selector_main_tab_01"
                         android:focusable="true"
-                        android:paddingRight="@dimen/_14sdp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:paddingLeft="@dimen/_14sdp"
                         android:paddingTop="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_14sdp"
                         android:paddingBottom="@dimen/_10sdp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:textColor="@color/ph_main_color"
-                        android:background="@drawable/selector_main_tab_01"
                         android:text="이벤트"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/ph_main_color" />
+
                     <Button
 
                         android:id="@+id/btn_news_notice"
@@ -560,39 +824,39 @@
                         android:textStyle="bold" />
 
 
-
                 </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/layout_news"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp"/>
+                    android:layout_height="@dimen/_160sdp" />
 
 
             </LinearLayout>
 
             <LinearLayout
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:paddingTop="@dimen/_20sdp"
-                    android:paddingLeft="@dimen/_20sdp"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center|bottom"
                     android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_10sdp">
+
                     <TextView
 
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
                         android:text="헤어스타일, 시술"
@@ -600,80 +864,86 @@
 
                     <LinearLayout
                         android:id="@+id/layout_hairStyleMore"
-                        android:gravity="center"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/ph_gray_color_02"
                             android:gravity="center"
                             android:text="더보기"
-                            />
+                            android:textColor="@color/ph_gray_color_02" />
+
                         <ImageView
 
-                            android:paddingLeft="@dimen/_4sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:paddingTop="@dimen/_4sdp"
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
                             android:adjustViewBounds="true"
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp"
                             android:src="@drawable/ico_more_02" />
 
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <RelativeLayout
-                    android:layout_marginBottom="@dimen/_20sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_300sdp">
+                    android:layout_height="@dimen/_300sdp"
+                    android:layout_marginBottom="@dimen/_20sdp">
+
                     <androidx.recyclerview.widget.RecyclerView
 
+                        android:id="@+id/recv_hairStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingRight="@dimen/_10sdp"
-                        android:clipToPadding="false"
-                        android:id="@+id/recv_hairStyle"
-                        tools:listitem="@layout/item_main_hair_style"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        tools:listitem="@layout/item_main_hair_style" />
+
                     <LinearLayout
                         android:id="@+id/layout_mainHairStyleEmpty"
-                        android:visibility="gone"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
-                            android:gravity="center"
-                            android:text="데이터가 없습니다."
+                            android:textColor="@color/ph_light_gray_color_01"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="헤어스타일 목록이 없습니다." />
                     </LinearLayout>
 
                 </RelativeLayout>
 
 
-
             </LinearLayout>
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:padding="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center|bottom"
                     android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:padding="@dimen/_20sdp">
+
                     <TextView
 
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
                         android:text="포인트 샵"
@@ -681,25 +951,26 @@
 
                     <LinearLayout
                         android:id="@+id/layout_pointShopMore"
-                        android:gravity="center"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/ph_gray_color_02"
                             android:gravity="center"
                             android:text="더보기"
-                            />
+                            android:textColor="@color/ph_gray_color_02" />
+
                         <ImageView
 
-                            android:paddingLeft="@dimen/_4sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:paddingTop="@dimen/_4sdp"
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
                             android:adjustViewBounds="true"
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp"
                             android:src="@drawable/ico_more_02" />
 
                     </LinearLayout>
@@ -715,13 +986,13 @@
 
 
     <LinearLayout
-        android:fitsSystemWindows="true"
         android:id="@+id/layout_topMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/ph_menu_tab_color_01"
         android:clickable="true"
+        android:fitsSystemWindows="true"
         android:gravity="bottom"
         android:orientation="vertical"
         android:visibility="gone">

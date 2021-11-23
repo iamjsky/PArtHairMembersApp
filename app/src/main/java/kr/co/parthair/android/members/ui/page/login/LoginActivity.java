@@ -357,9 +357,9 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onSuccess(int code, String msg) {
             // Toast.makeText(mParent, msg, Toast.LENGTH_SHORT).show();
-            if (!MyInfo.instance.getUser_token().equals("")) {
+
                 MyPreferenceManager.setString(mContext, "user_token", MyInfo.instance.getUser_token() + "");
-            }
+
 
             setLoading(false);
             LOG_I(MyInfo.instance.getUserInfo().toString());

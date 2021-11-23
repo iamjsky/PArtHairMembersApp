@@ -15,6 +15,7 @@
         android:layout_height="match_parent"/>
 
     <TextView
+        android:textColor="@color/ph_light_gray_color_01"
         android:id="@+id/tv_emptyCouponList"
         android:gravity="center"
         android:text="발급 가능한 쿠폰이 없습니다."

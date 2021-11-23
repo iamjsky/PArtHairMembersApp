@@ -75,6 +75,9 @@ public class GetUserInfo {
         @SerializedName("last_visit_date")
         @Expose
         public String lastVisitDate;
+        @SerializedName("user_barcode")
+        @Expose
+        public String userBarcode;
 
 
     }

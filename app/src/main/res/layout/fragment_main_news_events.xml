@@ -15,6 +15,7 @@
         android:layout_height="match_parent"/>
 
     <TextView
+        android:textColor="@color/ph_light_gray_color_01"
         android:id="@+id/tv_emptyEventList"
         android:text="진행중인 이벤트가 없습니다."
         android:gravity="center"

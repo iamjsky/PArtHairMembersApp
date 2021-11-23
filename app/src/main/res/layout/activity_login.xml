@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
 
-            android:text="피아트헤어를 시작해 볼까요~?"
+            android:text="피아트헤어를 이용하기 위해 로그인을 해주세요."
             android:textColor="@color/ph_gray_color_02" />
 
 
