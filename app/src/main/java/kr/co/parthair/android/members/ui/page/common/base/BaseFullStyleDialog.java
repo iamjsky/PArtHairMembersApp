@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.common.MyConstants;
 
 /**
  * ClassName            BaseDialog
@@ -16,7 +17,7 @@ import kr.co.parthair.android.members.R;
  * <p>
  * Description
  */
-public class BaseFullStyleDialog extends Dialog {
+public class BaseFullStyleDialog extends Dialog implements MyConstants {
     protected Context mContext;
     public BaseFullStyleDialog(Context context){
         super(context, R.style.FullScreenDialog );

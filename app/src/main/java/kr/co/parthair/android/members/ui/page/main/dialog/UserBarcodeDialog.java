@@ -35,8 +35,15 @@ public class UserBarcodeDialog extends BaseFullStyleDialog {
 
     @BindView(R.id.iv_userBarcode)
     ImageView iv_userBarcode;
-    @BindView(R.id.tv_userBarcode)
-    TextView tv_userBarcode;
+    @BindView(R.id.tv_userBarcode_01)
+    TextView tv_userBarcode_01;
+    @BindView(R.id.tv_userBarcode_02)
+    TextView tv_userBarcode_02;
+    @BindView(R.id.tv_userBarcode_03)
+    TextView tv_userBarcode_03;
+    @BindView(R.id.tv_userBarcode_04)
+    TextView tv_userBarcode_04;
+
     @BindView(R.id.tv_userName)
     TextView tv_userName;
 
@@ -45,6 +52,7 @@ public class UserBarcodeDialog extends BaseFullStyleDialog {
 
     public UserBarcodeDialog(Context context, String userName, String userBarcodeNumber) {
         super(context);
+
         this.userBarcodeNumber = userBarcodeNumber;
         this.userName = userName;
     }
@@ -68,14 +76,20 @@ public class UserBarcodeDialog extends BaseFullStyleDialog {
                         .skipMemoryCache(true)
                         .into(iv_userBarcode);
                 tv_userName.setText(userName);
-                tv_userBarcode.setText(userBarcodeNumber);
+                tv_userBarcode_01.setText(userBarcodeNumber.substring(0, 4));
+                tv_userBarcode_02.setText(userBarcodeNumber.substring(4, 8));
+                tv_userBarcode_03.setText(userBarcodeNumber.substring(8, 12));
+                tv_userBarcode_04.setText(userBarcodeNumber.substring(12, 16));
 
             } catch (WriterException e) {
                 e.printStackTrace();
             }
         }else{
             tv_userName.setText("");
-            tv_userBarcode.setText("");
+            tv_userBarcode_01.setText("");
+            tv_userBarcode_02.setText("");
+            tv_userBarcode_03.setText("");
+            tv_userBarcode_04.setText("");
         }
     }
 

@@ -7,6 +7,7 @@ import kr.co.parthair.android.members.model.KakaoUserLogin;
 import kr.co.parthair.android.members.model.KakaoUserSignUp;
 import kr.co.parthair.android.members.model.MainHairStyle;
 import kr.co.parthair.android.members.model.MainNoticeImage;
+import kr.co.parthair.android.members.model.MyReservation;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.model.PhoneUserLogin;
 import kr.co.parthair.android.members.model.PhoneUserSignUp;
@@ -119,5 +120,10 @@ public interface ApiService {
     );
     @GET("tagList.php")
     Call<TagListModel> getTagList(
+    );
+    @FormUrlEncoded
+    @POST("myReservation.php")
+    Call<MyReservation> getMyReservation(
+            @Field("user_token") String user_token
     );
 }

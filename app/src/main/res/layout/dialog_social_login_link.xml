@@ -4,25 +4,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_80"
-    android:paddingTop="@dimen/_44sdp"
-    android:paddingBottom="@dimen/_44sdp"
+
     android:paddingLeft="@dimen/_20sdp"
     android:paddingRight="@dimen/_20sdp">
 
     <LinearLayout
+        android:id="@+id/layout_socialLinkMsg"
+        android:layout_centerInParent="true"
         android:padding="@dimen/_20sdp"
         android:background="@drawable/bg_rounded_01"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp">
+        android:layout_height="@dimen/_280sdp">
 
         <LinearLayout
+            android:gravity="center|top"
             android:layout_marginBottom="@dimen/_20sdp"
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@color/ph_main_color"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"/>
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/ico_refresh_01"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"/>
+                <ImageView
+                    android:src="@drawable/ico_kakao_01"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:textSize="@dimen/_16sdp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="간편 로그인을 이용해 보세요!"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:lineSpacingExtra="@dimen/_2sdp"
+                android:textColor="@color/ph_light_gray_color_01"
+                android:gravity="center"
+                android:text="피아트헤어 아이디를 카카오 계정으로\n간편하게 로그인 할 수 있습니다."
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
         <LinearLayout
@@ -41,7 +82,7 @@
             <Button
                 android:layout_weight="1"
                 android:id="@+id/btn_confirm"
-                android:text="연결 하기"
+                android:text="연결하기"
                 android:background="@drawable/selector_button_rounded_01"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"/>
@@ -50,5 +91,100 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/layout_linkedFinish"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/_20sdp"
+        android:background="@drawable/bg_rounded_01"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_280sdp">
+
+        <LinearLayout
+            android:gravity="center|top"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@color/ph_main_color"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"/>
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/ico_refresh_01"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"/>
+                <ImageView
+                    android:src="@drawable/ico_kakao_01"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:textSize="@dimen/_16sdp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="간편 로그인 연결 완료!"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:lineSpacingExtra="@dimen/_2sdp"
+                android:textColor="@color/ph_light_gray_color_01"
+                android:gravity="center"
+                android:text="카카오 계정이 연결 되었습니다.\n이제 카카오 간편 로그인을 할 수 있습니다."
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_finish"
+            android:text="완료"
+            android:background="@drawable/selector_button_rounded_01"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:visibility="gone"
+        android:background="@color/black_80"
+        android:translationZ="90dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+
+            android:id="@+id/pb_finishLoading"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:indeterminateTint="@color/white" />
+
+    </LinearLayout>
+
+
+
+
+
 
 </RelativeLayout>

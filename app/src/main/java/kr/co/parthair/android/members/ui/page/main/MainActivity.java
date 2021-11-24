@@ -55,9 +55,11 @@ import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.common.MyPreferenceManager;
 import kr.co.parthair.android.members.model.MainHairStyle;
 import kr.co.parthair.android.members.model.MainNoticeImage;
+import kr.co.parthair.android.members.model.MyReservation;
 import kr.co.parthair.android.members.model.TagListModel;
 import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainNoticeImageCallback;
+import kr.co.parthair.android.members.net.api.callback.GetMyReservationCallback;
 import kr.co.parthair.android.members.net.api.callback.GetUserInfoCallback;
 import kr.co.parthair.android.members.ui.page.login.LoginActivity;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleAdapter;
@@ -71,6 +73,7 @@ import kr.co.parthair.android.members.ui.page.main.dialog.UserBarcodeDialog;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
+import kr.co.parthair.android.members.ui.page.reservation.ReservationActivity;
 import kr.co.parthair.android.members.ui.page.splash.SplashActivity;
 import kr.co.parthair.android.members.utils.NullCheckUtil;
 
@@ -93,7 +96,31 @@ public class MainActivity extends BaseActivity {
     LinearLayout layout_drawerUserLogged;
     @BindView(R.id.tv_drawerUserLogout)
     TextView tv_drawerUserLogout;
+    @BindView(R.id.iv_drawerGoTop)
+    ImageView iv_drawerGoTop;
+    @BindView(R.id.iv_drawerGoDown)
+    ImageView iv_drawerGoDown;
 
+    @OnClick(R.id.iv_drawerGoTop)
+    public void iv_drawerGoTopClicked() {
+        sv_drawerBody.post(new Runnable() {
+            @Override
+            public void run() {
+                sv_drawerBody.scrollTo(0,0);
+            }
+        });
+
+    }
+    @OnClick(R.id.iv_drawerGoDown)
+    public void iv_drawerGoDownClicked() {
+        sv_drawerBody.post(new Runnable() {
+            @Override
+            public void run() {
+                sv_drawerBody.scrollTo(0,sv_drawerBody.getBottom());
+            }
+        });
+
+    }
 
     @OnClick(R.id.layout_drawer)
     public void layout_drawerClicked() {
@@ -160,6 +187,13 @@ public class MainActivity extends BaseActivity {
         }
 
 
+    }
+
+
+    @OnClick(R.id.layout_drawerReservation)
+    public void layout_drawerReservationClicked(){
+        Intent intent = new Intent(this, ReservationActivity.class);
+        startActivity(intent);
     }
 
 
@@ -313,14 +347,24 @@ public class MainActivity extends BaseActivity {
     //endregion
 
 
+    //region coupons
+
+    @BindView(R.id.layout_couponContainer)
+    FrameLayout layout_couponContainer;
+    public Fragment couponFragmentPage;
+
+    //endregion
+
     //region news
 
-    @BindViews({R.id.btn_news_coupons, R.id.btn_news_events, R.id.btn_news_notice})
+    @BindViews({R.id.btn_news_events, R.id.btn_news_notice})
     Button[] btn_news_buttons;
 
     @BindView(R.id.layout_news)
     FrameLayout layout_news;
     public Fragment newsFragmentPage;
+
+
 
 
     //endregion
@@ -345,8 +389,14 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.iv_userBarcode)
     ImageView iv_userBarcode;
-    @BindView(R.id.tv_userBarcode)
-    TextView tv_userBarcode;
+    @BindView(R.id.tv_userBarcode_01)
+    TextView tv_userBarcode_01;
+    @BindView(R.id.tv_userBarcode_02)
+    TextView tv_userBarcode_02;
+    @BindView(R.id.tv_userBarcode_03)
+    TextView tv_userBarcode_03;
+    @BindView(R.id.tv_userBarcode_04)
+    TextView tv_userBarcode_04;
 
     //endregion
 
@@ -466,6 +516,7 @@ public class MainActivity extends BaseActivity {
         recv_hairStyle.setAdapter(mainHairStyleSkeletonAdapter);
 
         btn_news_buttonsClicked(btn_news_buttons[0]);
+        setCouponFragmentPage();
         refreshData();
 
 
@@ -475,22 +526,30 @@ public class MainActivity extends BaseActivity {
         refreshUserInfo();
         refreshMainNoticeImage();
         refreshMainHairStyle();
+
     }
 
     void refreshUserInfo() {
-        LOG_E("MyInfo.instance.isLogin() : " + MyInfo.instance.isLogin());
-        if (!MyInfo.instance.isLogin()) {
 
+
+
+        if (!MyInfo.instance.isLogin()) {
+            LOG_E("MyInfo.instance.isLogin() chchchcheck : " + MyInfo.instance.isLogin());
+            layout_userReservationContainer.setVisibility(View.GONE);
+            layout_userReservationEmpty.setVisibility(View.VISIBLE);
+            tv_userReservationMsg.setText("로그인 후 예약 내역을 확인할 수 있습니다.");
             layout_userLogged.setVisibility(View.GONE);
             layout_userNotLogged.setVisibility(View.VISIBLE);
 
             layout_drawerUserLogged.setVisibility(View.GONE);
             layout_drawerUserNotLogged.setVisibility(View.VISIBLE);
-            setReservationContainer();
+
             layout_userBarcode.setVisibility(View.GONE);
 
             return;
         } else {
+
+
             layout_userLogged.setVisibility(View.VISIBLE);
             layout_userNotLogged.setVisibility(View.GONE);
             layout_drawerUserLogged.setVisibility(View.VISIBLE);
@@ -529,6 +588,26 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    public void setCouponFragmentPage() {
+        String tag = "";
+
+
+                couponFragmentPage = new MainNewsCouponsFragment();
+
+                tag = FRAGMENT_MAIN_COUPONS + "";
+
+
+
+
+
+        if (couponFragmentPage != null) {
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(layout_couponContainer.getId(), couponFragmentPage, tag);
+            transaction.commitAllowingStateLoss();
+
+        }
+    }
 
     public void setNewsFragmentPage(int page) {
         String tag = "";
@@ -543,11 +622,7 @@ public class MainActivity extends BaseActivity {
 
                 tag = FRAGMENT_MAIN_NEWS_EVENTS + "";
                 break;
-            case FRAGMENT_MAIN_NEWS_COUPONS:
-                newsFragmentPage = new MainNewsCouponsFragment();
 
-                tag = FRAGMENT_MAIN_NEWS_COUPONS + "";
-                break;
 
 
         }
@@ -565,25 +640,28 @@ public class MainActivity extends BaseActivity {
         LOG_E("MyInfo.instance.getUser_token() : " + MyInfo.instance.getUser_token());
         MyInfo.instance.setUser_token("");
         MyPreferenceManager.setBoolean(mContext, "social_login_link_visible", false);
+        LOG_E("getBoolean: " + MyPreferenceManager.getBoolean(mContext, "social_login_link_visible"));
         LOG_E("MyInfo.instance.isLogin() : " + MyInfo.instance.isLogin());
         LOG_E("MyInfo.instance.getUser_token() : " + MyInfo.instance.getUser_token());
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
     }
 
-    public void setReservationContainer(){
-
-
-            LOG_E("MyInfo.instance.isLogin()!!!!" + MyInfo.instance.isLogin());
+    public void getMyReservation(){
+        LOG_E("MyInfo.instance.isLogin()!!!!" + MyInfo.instance.isLogin());
         if(MyInfo.instance.isLogin()){
-            layout_userReservationContainer.setVisibility(View.VISIBLE);
-            layout_userReservationEmpty.setVisibility(View.GONE);
+
+            reservationApi.getMyReservation(getMyReservationCallback);
+
         }else{
             layout_userReservationContainer.setVisibility(View.GONE);
             layout_userReservationEmpty.setVisibility(View.VISIBLE);
             tv_userReservationMsg.setText("로그인 후 예약 내역을 확인할 수 있습니다.");
 
         }
+
+
+
 
     }
     //region onClick
@@ -624,7 +702,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_news_notice, R.id.btn_news_events, R.id.btn_news_coupons})
+    @OnClick({R.id.btn_news_notice, R.id.btn_news_events})
     public void btn_news_buttonsClicked(View view) {
 
 
@@ -650,9 +728,7 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_news_events:
                 setNewsFragmentPage(FRAGMENT_MAIN_NEWS_EVENTS);
                 break;
-            case R.id.btn_news_coupons:
-                setNewsFragmentPage(FRAGMENT_MAIN_NEWS_COUPONS);
-                break;
+
 
         }
 
@@ -672,6 +748,7 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
 
 
     //endregion
@@ -714,12 +791,18 @@ public class MainActivity extends BaseActivity {
                                 .override((int)barcodeWidth, (int)barcodeHeight)
                                 .skipMemoryCache(true)
                                 .into(iv_userBarcode);
-                        tv_userBarcode.setText(userBarcodeNumber);
+                        tv_userBarcode_01.setText(userBarcodeNumber.substring(0, 4));
+                        tv_userBarcode_02.setText(userBarcodeNumber.substring(4, 8));
+                        tv_userBarcode_03.setText(userBarcodeNumber.substring(8, 12));
+                        tv_userBarcode_04.setText(userBarcodeNumber.substring(12, 16));
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }
                 }else{
-                    tv_userBarcode.setText("");
+                    tv_userBarcode_01.setText("");
+                    tv_userBarcode_02.setText("");
+                    tv_userBarcode_03.setText("");
+                    tv_userBarcode_04.setText("");
                 }
 
 
@@ -741,6 +824,7 @@ public class MainActivity extends BaseActivity {
                 tv_drawerHavePoints.setText(MyInfo.instance.getUserInfo().getUserPoints() + "");
 
                 //social linked check
+                LOG_E("getBoolean22: " + MyPreferenceManager.getBoolean(mContext, "social_login_link_visible"));
                 if(!MyPreferenceManager.getBoolean(mContext, "social_login_link_visible")){
                     if(!NullCheckUtil.String_IsNotNull(MyInfo.instance.getUserInfo().getKakaoId()) || MyInfo.instance.getUserInfo().getKakaoId().equals("-1")){
                         MyPreferenceManager.setBoolean(mContext, "social_login_link_visible", true);
@@ -748,11 +832,10 @@ public class MainActivity extends BaseActivity {
                         socialLoginLinkDialog.show();
                     }
                 }
-
-
+                getMyReservation();
             } else{
                 layout_userBarcode.setVisibility(View.GONE);
-                setReservationContainer();
+
             }
 
 
@@ -805,6 +888,24 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onError(int code, String msg) {
 
+        }
+    };
+
+    GetMyReservationCallback getMyReservationCallback = new GetMyReservationCallback() {
+        @Override
+        public void onSuccess(int code, String msg, @Nullable List<MyReservation.MyReservationData> data) {
+
+                layout_userReservationContainer.setVisibility(View.VISIBLE);
+                layout_userReservationEmpty.setVisibility(View.GONE);
+
+
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+            layout_userReservationContainer.setVisibility(View.GONE);
+            layout_userReservationEmpty.setVisibility(View.VISIBLE);
+            tv_userReservationMsg.setText(msg);
         }
     };
 

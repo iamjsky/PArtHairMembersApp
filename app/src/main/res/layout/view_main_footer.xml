@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_marginTop="@dimen/_10sdp"
+    android:background="@color/ph_footer_color_01"
+    android:id="@+id/layout_footer"
+    android:padding="@dimen/_20sdp"
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+
+
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ico_googleplay_01"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:adjustViewBounds="true"
+                android:id="@+id/iv_goGooglePlay"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"/>
+            <ImageView
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ico_appstore_01"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:adjustViewBounds="true"
+                android:id="@+id/iv_goAppStore"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"/>
+            <ImageView
+                android:paddingBottom="@dimen/_4sdp"
+                android:paddingRight="@dimen/_4sdp"
+                android:paddingLeft="@dimen/_4sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:src="@drawable/ico_instagram_02"
+                android:adjustViewBounds="true"
+                android:id="@+id/iv_goInstagram"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center|top"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+
+                android:layout_marginRight="@dimen/_20sdp"
+                android:src="@color/ph_main_color"
+                android:adjustViewBounds="true"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"/>
+
+            <LinearLayout
+                android:gravity="center|left"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/ph_gray_color_02"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:text="상호: 피아트헤어 / 대표자 박소연"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/ph_gray_color_02"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:text="주소: 부산광역시 사하구 승학로 45-1 1층"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textColor="@color/ph_gray_color_02"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:text="연락처: 051-271-6871"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textColor="@color/ph_gray_color_02"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:text="E-Mail: parthair@naver.com"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textColor="@color/ph_gray_color_02"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="사업자등록번호: 000-00-00000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textColor="@color/ph_gray_color_01"
+                    android:text="COPYRIGHT 2021 피아트헤어 ALL RIGHTS RESERVED."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:gravity="center|right"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ico_visacard_01"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"/>
+        <ImageView
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ico_mastercard_01"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

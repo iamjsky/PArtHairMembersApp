@@ -80,6 +80,7 @@
             android:textColor="@color/ph_gray_color_02" />
 
         <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center|top"
             android:layout_weight="1"
             android:layout_width="match_parent"

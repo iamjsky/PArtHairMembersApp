@@ -55,10 +55,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:text=""
                     android:textColor="@color/ph_light_gray_color_01"
-                    android:id="@+id/tv_userBarcode"
+                    android:id="@+id/tv_userBarcode_01"
+                    android:gravity="center|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:text=""
+                    android:textColor="@color/ph_light_gray_color_01"
+                    android:id="@+id/tv_userBarcode_02"
+                    android:gravity="center|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:text=""
+                    android:textColor="@color/ph_light_gray_color_01"
+                    android:id="@+id/tv_userBarcode_03"
+                    android:gravity="center|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:text=""
+                    android:textColor="@color/ph_light_gray_color_01"
+                    android:id="@+id/tv_userBarcode_04"
                     android:gravity="center|bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

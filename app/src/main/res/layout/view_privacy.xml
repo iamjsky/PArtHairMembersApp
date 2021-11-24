@@ -89,6 +89,7 @@
             android:textColor="@color/ph_gray_color_02" />
 
   <LinearLayout
+      android:layout_marginTop="@dimen/_20sdp"
     android:background="@drawable/bg_rounded_04"
     android:padding="@dimen/_20sdp"
     android:orientation="vertical"

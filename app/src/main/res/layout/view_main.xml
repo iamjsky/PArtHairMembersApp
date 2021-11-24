@@ -16,8 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/_40sdp">
+            android:orientation="vertical">
 
             <LinearLayout
 
@@ -335,6 +334,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_marginRight="@dimen/_2sdp"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
                         android:adjustViewBounds="true"
@@ -359,13 +359,52 @@
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true" />
 
-                <TextView
-                    android:id="@+id/tv_userBarcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
-                    android:textColor="@color/ph_light_gray_color_01" />
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:gravity="center|bottom"
+                        android:textColor="@color/ph_light_gray_color_01"
+                        android:text="회원번호"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginRight="@dimen/_6sdp"
+                        android:id="@+id/tv_userBarcode_01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0000"
+                        android:gravity="center"
+                        android:textColor="@color/ph_light_gray_color_01" />
+                    <TextView
+                        android:text="0000"
+                        android:layout_marginRight="@dimen/_6sdp"
+                        android:id="@+id/tv_userBarcode_02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/ph_light_gray_color_01" />
+                    <TextView
+                        android:text="0000"
+                        android:layout_marginRight="@dimen/_6sdp"
+                        android:id="@+id/tv_userBarcode_03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/ph_light_gray_color_01" />
+                    <TextView
+                        android:text="0000"
+                        android:id="@+id/tv_userBarcode_04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/ph_light_gray_color_01" />
+                </LinearLayout>
+
 
             </RelativeLayout>
 
@@ -503,7 +542,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_250sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical">
@@ -523,7 +562,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center|left"
-                        android:text="예약 내역"
+                        android:text="예약내역"
                         android:textSize="@dimen/_20sdp" />
 
 
@@ -539,14 +578,14 @@
                     android:paddingBottom="@dimen/_20sdp"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:visibility="visible"
                         android:id="@+id/layout_userReservationEmpty"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_80sdp">
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:textColor="@color/ph_light_gray_color_01"
@@ -562,7 +601,7 @@
                         android:visibility="gone"
                         android:id="@+id/layout_userReservationContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
                         <LinearLayout
                             android:gravity="center"
                             android:layout_marginBottom="@dimen/_6sdp"
@@ -709,7 +748,72 @@
 
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/ph_page_bg_color"
+                android:orientation="vertical">
 
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_20sdp">
+
+                    <TextView
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center|left"
+                        android:text="쿠폰"
+                        android:textSize="@dimen/_20sdp" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_couponsMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="더보기"
+                            android:textColor="@color/ph_gray_color_02" />
+
+                        <ImageView
+
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:adjustViewBounds="true"
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:src="@drawable/ico_more_02" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+                <FrameLayout
+                    android:id="@+id/layout_couponContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_160sdp" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -773,27 +877,12 @@
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/_20sdp">
 
-                    <Button
-                        android:id="@+id/btn_news_coupons"
-                        android:layout_width="wrap_content"
 
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_main_tab_01"
-                        android:focusable="true"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingLeft="@dimen/_14sdp"
-                        android:paddingTop="@dimen/_10sdp"
-                        android:paddingRight="@dimen/_14sdp"
-                        android:paddingBottom="@dimen/_10sdp"
-                        android:text="쿠폰"
-                        android:textColor="@color/ph_main_color" />
 
                     <Button
                         android:id="@+id/btn_news_events"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_8sdp"
                         android:layout_marginRight="@dimen/_8sdp"
                         android:background="@drawable/selector_main_tab_01"
                         android:focusable="true"
@@ -928,7 +1017,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical">
 
@@ -979,6 +1067,10 @@
 
 
             </LinearLayout>
+
+
+        <include layout="@layout/view_main_footer"></include>
+
         </LinearLayout>
 
 

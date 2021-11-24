@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PArtHairMembersApp">
-        <activity android:name=".ui.page.news.NewsActivity"></activity>
+        <activity android:name=".ui.page.reservation.ReservationActivity"></activity>
+        <activity android:name=".ui.page.reservation.MyReservationActivity" />
+        <activity android:name=".ui.page.news.NewsActivity" />
         <activity
             android:name=".ui.page.login.SignUpFinishActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

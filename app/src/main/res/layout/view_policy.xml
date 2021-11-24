@@ -87,7 +87,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-
             android:text="회원가입을 위해 이용약관에 동의해 주세요."
             android:textColor="@color/ph_gray_color_02" />
 
@@ -95,6 +94,7 @@
 
 
 <LinearLayout
+    android:layout_marginTop="@dimen/_20sdp"
     android:background="@drawable/bg_rounded_04"
     android:padding="@dimen/_20sdp"
     android:orientation="vertical"
