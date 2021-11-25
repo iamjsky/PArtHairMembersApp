@@ -4,8 +4,6 @@
 
 
     <item android:drawable="@drawable/bg_rounded_04" android:state_focused="false" />
-
-
     <item android:drawable="@drawable/bg_rounded_08" android:state_focused="true"/>
 
 </selector>

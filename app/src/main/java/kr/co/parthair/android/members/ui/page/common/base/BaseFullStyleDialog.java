@@ -10,6 +10,11 @@ import android.view.WindowManager;
 
 import kr.co.parthair.android.members.R;
 import kr.co.parthair.android.members.common.MyConstants;
+import kr.co.parthair.android.members.net.api.EtcApi;
+import kr.co.parthair.android.members.net.api.MainApi;
+import kr.co.parthair.android.members.net.api.ReservationApi;
+import kr.co.parthair.android.members.net.api.UserApi;
+import kr.co.parthair.android.members.ui.page.common.dialog.LoadingDialog;
 
 /**
  * ClassName            BaseDialog
@@ -19,6 +24,10 @@ import kr.co.parthair.android.members.common.MyConstants;
  */
 public class BaseFullStyleDialog extends Dialog implements MyConstants {
     protected Context mContext;
+    protected UserApi userApi = new UserApi();
+    protected MainApi mainApi = new MainApi();
+    protected EtcApi etcApi = new EtcApi();
+    protected ReservationApi reservationApi = new ReservationApi();
     public BaseFullStyleDialog(Context context){
         super(context, R.style.FullScreenDialog );
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);

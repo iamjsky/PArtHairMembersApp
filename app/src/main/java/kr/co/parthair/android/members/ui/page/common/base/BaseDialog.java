@@ -9,6 +9,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.net.api.EtcApi;
+import kr.co.parthair.android.members.net.api.MainApi;
+import kr.co.parthair.android.members.net.api.ReservationApi;
+import kr.co.parthair.android.members.net.api.UserApi;
 
 /**
  * ClassName            BaseDialog
@@ -18,6 +22,10 @@ import kr.co.parthair.android.members.R;
  */
 public class BaseDialog extends Dialog {
     protected Context mContext;
+    protected UserApi userApi = new UserApi();
+    protected MainApi mainApi = new MainApi();
+    protected EtcApi etcApi = new EtcApi();
+    protected ReservationApi reservationApi = new ReservationApi();
     public BaseDialog(Context context){
         super( context );
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -108,13 +108,13 @@
                     android:orientation="vertical">
 
                     <TextView
-
+                        android:textColor="@color/ph_light_gray_color_06"
                         android:id="@+id/tv_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:text="예약 날짜"
-                        android:textColor="@color/ph_light_gray_color_06" />
+                    />
 
 
                     <LinearLayout
@@ -125,18 +125,18 @@
                         <TextView
                             android:paddingLeft="@dimen/_14sdp"
                             android:paddingRight="@dimen/_14sdp"
-                            android:text="2021-11-14 오후 6시"
+                            android:text=""
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_weight="1"
                             android:id="@+id/tv_dateInput"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/selector_edit_text_01"
-                            android:fontFamily="@font/pretendard_bold"
+                            android:background="@drawable/bg_rounded_04"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp" />
+                            />
 
                         <Button
+                            android:enabled="false"
                             android:background="@drawable/selector_button_rounded_01"
                             android:id="@+id/btn_dateSelect"
                             android:layout_width="@dimen/_70sdp"
@@ -172,18 +172,18 @@
                         <TextView
                             android:paddingLeft="@dimen/_14sdp"
                             android:paddingRight="@dimen/_14sdp"
-                            android:text="소연 원장"
+                            android:text=""
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_weight="1"
                             android:id="@+id/tv_designerInput"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/selector_edit_text_01"
-                            android:fontFamily="@font/pretendard_bold"
+                            android:background="@drawable/bg_rounded_04"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp" />
+                     />
 
                         <Button
+                            android:enabled="false"
                             android:background="@drawable/selector_button_rounded_01"
                             android:id="@+id/btn_designerSelect"
                             android:layout_width="@dimen/_70sdp"
@@ -222,18 +222,18 @@
                             android:ems="8"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="시크릿 투톤, 이어링 컬러sdsdsdsdsdsd"
+                            android:text=""
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_weight="1"
                             android:id="@+id/tv_styleInput"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/selector_edit_text_01"
-                            android:fontFamily="@font/pretendard_bold"
+                            android:background="@drawable/bg_rounded_04"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp" />
+                      />
 
                         <Button
+                            android:enabled="false"
                             android:background="@drawable/selector_button_rounded_01"
                             android:id="@+id/btn_styleSelect"
                             android:layout_width="@dimen/_70sdp"

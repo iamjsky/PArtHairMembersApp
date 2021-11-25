@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/layout_item"
+    android:clipToPadding="false"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_marginTop="@dimen/_1sdp"
+    android:clipToPadding="false"
+    android:outlineAmbientShadowColor="@color/ph_gray_color_02"
+    android:outlineSpotShadowColor="@color/ph_gray_color_02"
+    android:orientation="vertical"
+    android:background="@drawable/bg_rounded_01"
+    android:layout_marginLeft="@dimen/_20sdp"
+    android:layout_marginRight="@dimen/_20sdp"
+    android:layout_marginBottom="@dimen/_20sdp"
+
+    android:elevation="@dimen/_4sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginRight="@dimen/_14sdp"
+        android:layout_marginLeft="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginBottom="@dimen/_14sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+
+            android:src="@drawable/ico_go_down_01"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"/>
+        <TextView
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:id="@+id/tv_styleItemTitle"
+            android:text="asdasd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <Button
+
+            android:background="@drawable/selector_button_rounded_01"
+            android:id="@+id/btn_select"
+            android:text="선택"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_40sdp"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+
+        android:visibility="gone"
+        android:gravity="center"
+        android:id="@+id/layout_expandable"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:gravity="center"
+            android:text="adasdasdasdsadasd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_300sdp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+
+
+
+
+</LinearLayout>
