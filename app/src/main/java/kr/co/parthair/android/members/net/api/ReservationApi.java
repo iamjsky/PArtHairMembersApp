@@ -3,11 +3,15 @@ package kr.co.parthair.android.members.net.api;
 import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.common.MyInfo;
+import kr.co.parthair.android.members.model.BusinessHour;
 import kr.co.parthair.android.members.model.MyReservation;
 import kr.co.parthair.android.members.model.NewsDataModel;
+import kr.co.parthair.android.members.model.ReservationInfo;
 import kr.co.parthair.android.members.net.RetrofitGenerator;
+import kr.co.parthair.android.members.net.api.callback.GetBusinessHourCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMyReservationCallback;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
+import kr.co.parthair.android.members.net.api.callback.GetReservationInfoCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +25,48 @@ import retrofit2.Response;
 public class ReservationApi implements MyConstants, HttpResponseCode {
     private RetrofitGenerator retrofitGenerator = new RetrofitGenerator();
     private ApiService apiService = retrofitGenerator.getApiService();
+
+
+    public void getReservationInfo(GetReservationInfoCallback callback) {
+
+
+        apiService.getReservationInfo().enqueue(new Callback<ReservationInfo>() {
+            @Override
+            public void onResponse(Call<ReservationInfo> call, Response<ReservationInfo> response) {
+                if (response.isSuccessful()) {
+                    ReservationInfo resData = response.body();
+                    int code = resData.getHeader().getCode();
+                    String msg = resData.getHeader().getMessage();
+
+                    switch (code) {
+                        case OK:
+
+                            callback.onSuccess(code, msg, resData.getReservationDataList(), resData.getBlockTimeDataList());
+
+                            break;
+                        case NO_CONTENT:
+                        case NOT_FOUND:
+                        case ERROR:
+                            callback.onError(code, msg);
+                            break;
+
+
+                    }
+
+
+                } else {
+                    callback.onError(SERVER_ERROR, "getReservationInfo()>>" + "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReservationInfo> call, Throwable t) {
+                callback.onError(SERVER_ERROR, "getReservationInfo()>>" + t.toString());
+            }
+        });
+
+
+    }
 
     public void getMyReservation(GetMyReservationCallback callback) {
         String user_token = MyInfo.instance.getUser_token()+"";
@@ -72,6 +118,47 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
             @Override
             public void onFailure(Call<MyReservation> call, Throwable t) {
                 callback.onError(SERVER_ERROR, "getMyReservation()>>" + t.toString());
+            }
+        });
+
+
+    }
+
+    public void getBusinessHour(GetBusinessHourCallback callback) {
+
+
+        apiService.getBusinessHour().enqueue(new Callback<BusinessHour>() {
+            @Override
+            public void onResponse(Call<BusinessHour> call, Response<BusinessHour> response) {
+                if (response.isSuccessful()) {
+                    BusinessHour resData = response.body();
+                    int code = resData.getHeader().getCode();
+                    String msg = resData.getHeader().getMessage();
+
+                    switch (code) {
+                        case OK:
+
+                            callback.onSuccess(code, msg, resData.getBusinessHourDataList());
+
+                            break;
+                        case NO_CONTENT:
+                        case NOT_FOUND:
+                        case ERROR:
+                            callback.onError(code, msg);
+                            break;
+
+
+                    }
+
+
+                } else {
+                    callback.onError(SERVER_ERROR, "getBusinessHour()>>" + "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BusinessHour> call, Throwable t) {
+                callback.onError(SERVER_ERROR, "getBusinessHour()>>" + t.toString());
             }
         });
 

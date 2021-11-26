@@ -127,6 +127,12 @@ dependencies {
     //animation recyclerview
     implementation "com.mlsdev.animatedrv:library:2.0.0"
 
+    //calender
+    implementation "com.github.prolificinteractive:material-calendarview:2.0.1"
+
+    //flexbox
+    implementation "com.google.android:flexbox:2.0.1"
+
 //    // Import the BoM for the Firebase platform
 //    implementation platform('com.google.firebase:firebase-bom:28.3.1')
 //

@@ -1,5 +1,6 @@
 package kr.co.parthair.android.members.net.api;
 
+import kr.co.parthair.android.members.model.BusinessHour;
 import kr.co.parthair.android.members.model.CheckSignUp;
 import kr.co.parthair.android.members.model.Coupons;
 import kr.co.parthair.android.members.model.HaveCoupons;
@@ -12,6 +13,7 @@ import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.model.PhoneUserLogin;
 import kr.co.parthair.android.members.model.PhoneUserSignUp;
 import kr.co.parthair.android.members.model.GetUserInfo;
+import kr.co.parthair.android.members.model.ReservationInfo;
 import kr.co.parthair.android.members.model.TagListModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -121,6 +123,13 @@ public interface ApiService {
     @GET("tagList.php")
     Call<TagListModel> getTagList(
     );
+    @GET("businessHour.php")
+    Call<BusinessHour> getBusinessHour(
+    );
+    @GET("reservationInfo.php")
+    Call<ReservationInfo> getReservationInfo(
+    );
+
     @FormUrlEncoded
     @POST("myReservation.php")
     Call<MyReservation> getMyReservation(

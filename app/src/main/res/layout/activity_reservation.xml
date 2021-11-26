@@ -136,7 +136,7 @@
                             />
 
                         <Button
-                            android:enabled="false"
+                            android:enabled="true"
                             android:background="@drawable/selector_button_rounded_01"
                             android:id="@+id/btn_dateSelect"
                             android:layout_width="@dimen/_70sdp"
