@@ -53,6 +53,9 @@ public class MyReservation {
         @SerializedName("reservation_date")
         @Expose
         public String reservationDate;
+        @SerializedName("reservation_time")
+        @Expose
+        public String reservation_time;
         @SerializedName("hs_idx")
         @Expose
         public Integer hsIdx;

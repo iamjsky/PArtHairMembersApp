@@ -45,6 +45,7 @@ import kr.co.parthair.android.members.net.api.ReservationApi;
 import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.net.api.callback.GetReservationInfoCallback;
 import kr.co.parthair.android.members.ui.page.reservation.ReservationActivity;
+import kr.co.parthair.android.members.utils.NullCheckUtil;
 
 /**
  * ClassName            ReservationInfoDialog
@@ -69,14 +70,20 @@ public class ReservationInfoDialog extends Dialog {
             R.id.btn_1900})
     Button[] btn_times;
 
+    @BindView(R.id.tv_reservationDateInfo)
+            TextView tv_reservationDateInfo;
+    @BindView(R.id.tv_reservationTimeInfo)
+    TextView tv_reservationTimeInfo;
+
     String selectedTime = "";
     String selectedDate = "";
     Context mContext;
+    int des_idx = -1;
 
-    public ReservationInfoDialog(Context context) {
+    public ReservationInfoDialog(Context context, int des_idx) {
         super(context, R.style.FullScreenDialog_visibleSystemUi);
         mContext = context;
-
+        this.des_idx = des_idx;
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,34 +99,48 @@ public class ReservationInfoDialog extends Dialog {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date selectDate = null;
                 try {
                     selectDate = sdf.parse(date.getYear()+"-"+date.getMonth()+"-"+date.getDay());
                     selectedDate = sdf.format(selectDate)+"";
+                    SimpleDateFormat _sdf = new SimpleDateFormat("yyyy-MM-dd (E)");
+                    String _selectedDate = _sdf.format(selectDate)+"";
+                    tv_reservationDateInfo.setText(_selectedDate);
+
+                    for(Button btn_time : btn_times){
+                        btn_time.setPaintFlags(0);
+                        btn_time.setTextColor(mContext.getColor(R.color.ph_main_color));
+
+                        btn_time.setTag("");
+                    }
+                    reservationApi.getReservationInfo(des_idx, selectedDate, getReservationInfoCallback);
+
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
 
-                Toast.makeText(mContext, sdf.format(selectDate), Toast.LENGTH_SHORT).show();
+
+
+
             }
         });
-        for(Button btn_time : btn_times){
-            btn_time.setPaintFlags(0);
-            btn_time.setTextColor(mContext.getColor(R.color.ph_main_color));
-        }
-        reservationApi.getReservationInfo(getReservationInfoCallback);
+
     }
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked(){
         if(selectedDate.equals("") || selectedTime.equals("")){
+            Toast.makeText(mContext, "날짜와 시간을 모두 선택해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
         ((ReservationActivity)mContext).selectedDate = selectedDate + " " + selectedTime;
         dismiss();
 
     }
+
+
     @OnClick(R.id.iv_back)
     public void iv_backClicked() {
         dismiss();
@@ -140,8 +161,36 @@ public class ReservationInfoDialog extends Dialog {
             R.id.btn_1730, R.id.btn_1800, R.id.btn_1830,
             R.id.btn_1900})
     public void btn_timesClicked(Button btn){
-        Log.e("_____", btn.getText().toString());
-        selectedTime = btn.getText()+"";
+
+        if(NullCheckUtil.String_IsNotNull(selectedDate)){
+            if(btn.getTag() != null && btn.getTag().equals("disable")){
+                Toast.makeText(mContext, "다른 시간을 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            Log.e("_____", btn.getText().toString());
+            selectedTime = btn.getText()+"";
+
+            String _selectedDate = selectedDate + " " + selectedTime;
+            SimpleDateFormat _sdf = new SimpleDateFormat("yyyy-MM-dd HH:m");
+            SimpleDateFormat sdf = new SimpleDateFormat("a HH:mm");
+            Date selectDate = null;
+            try {
+                selectDate = _sdf.parse(_selectedDate);
+                _selectedDate = sdf.format(selectDate)+"";
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            tv_reservationTimeInfo.setText(_selectedDate);
+
+
+
+        }else{
+            Toast.makeText(mContext, "날짜를 선택해 주세요.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     GetReservationInfoCallback getReservationInfoCallback = new GetReservationInfoCallback() {
@@ -155,7 +204,8 @@ public class ReservationInfoDialog extends Dialog {
                         if (_blockTimeData.getBlockTime().equals(btn_time.getText().toString())) {
                             btn_time.setPaintFlags(btn_time.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                             btn_time.setTextColor(mContext.getColor(R.color.ph_light_gray_color_01));
-                            btn_time.setEnabled(false);
+                            //btn_time.setEnabled(false);
+                            btn_time.setTag("disable");
                         }
 
                     }
@@ -169,7 +219,8 @@ public class ReservationInfoDialog extends Dialog {
                         if (_reservationData.getReservation_time().equals(btn_time.getText().toString())) {
                             btn_time.setPaintFlags(btn_time.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                             btn_time.setTextColor(mContext.getColor(R.color.ph_light_gray_color_01));
-                            btn_time.setEnabled(false);
+                            //btn_time.setEnabled(false);
+                            btn_time.setTag("disable");
                         }
 
                     }

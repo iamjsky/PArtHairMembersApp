@@ -44,6 +44,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -895,8 +898,28 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onSuccess(int code, String msg, @Nullable List<MyReservation.MyReservationData> data) {
 
+            assert data != null;
+            if(data.size() > 0){
                 layout_userReservationContainer.setVisibility(View.VISIBLE);
                 layout_userReservationEmpty.setVisibility(View.GONE);
+
+                    tv_userReservationDate.setText(data.get(0).getReservationDate()+"");
+                    tv_userReservationTime.setText(data.get(0).getReservation_time()+"");
+                    tv_userReservationStyle.setText(data.get(0).getHairStyle()+"");
+                    tv_userReservationDesigner.setText(data.get(0).getDesigner()+"");
+
+
+
+            }else{
+                layout_userReservationContainer.setVisibility(View.GONE);
+                layout_userReservationEmpty.setVisibility(View.VISIBLE);
+                tv_userReservationMsg.setText(msg);
+            }
+
+
+
+
+
 
 
         }

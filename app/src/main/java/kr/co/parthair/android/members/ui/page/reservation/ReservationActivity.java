@@ -34,6 +34,7 @@ import kr.co.parthair.android.members.net.api.callback.GetBusinessHourCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleAdapter;
+import kr.co.parthair.android.members.ui.page.reservation.dialog.DesignerInfoDialog;
 import kr.co.parthair.android.members.ui.page.reservation.dialog.ReservationInfoDialog;
 import kr.co.parthair.android.members.ui.page.reservation.dialog.SelectStyleDialog;
 
@@ -41,6 +42,8 @@ public class ReservationActivity extends BaseActivity {
 
     public List<Integer> selectedStyle = null;
     public String selectedDate = "";
+    public String selectedDesigner = "";
+    public int selectedDesIdx = -1;
     public List<MainHairStyle.HairStyleData> hairStyleDataList = new ArrayList<>();
 
 
@@ -77,6 +80,9 @@ public class ReservationActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        selectedStyle = null;
+        selectedDate = "";
+
         super.onBackPressed();
     }
 
@@ -89,10 +95,55 @@ public class ReservationActivity extends BaseActivity {
     }
     //region onClick
 
+    @OnClick(R.id.iv_back)
+    public void iv_backClicked(){
+        onBackPressed();
+    }
+
+    @OnClick(R.id.btn_confirm)
+    public void btn_confirmClicked(){
+
+    }
+
+    @OnClick(R.id.btn_designerSelect)
+    public void btn_designerSelectClicked(){
+        selectedDesigner = "";
+        selectedDesIdx = -1;
+        DesignerInfoDialog designerInfoDialog = new DesignerInfoDialog(this);
+        designerInfoDialog.show();
+
+        designerInfoDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (!selectedDesigner.equals("") && selectedDesIdx != -1) {
+
+                    tv_designerInput.setText(selectedDesigner);
+                    tv_designerInput.setBackgroundResource(R.drawable.bg_rounded_08);
+                    tv_designerInput.setTextColor(getColor(R.color.ebay_blue));
+                    tv_designer.setTextColor(getColor(R.color.ebay_blue));
+                    btn_designerSelect.setEnabled(true);
+                    btn_dateSelect.setEnabled(true);
+                    btn_styleSelect.setEnabled(true);
+
+
+                } else {
+                    tv_designerInput.setText("");
+                    tv_designerInput.setBackgroundResource(R.drawable.bg_rounded_04);
+                    tv_designerInput.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    tv_designer.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    btn_designerSelect.setEnabled(true);
+                    btn_dateSelect.setEnabled(false);
+                    btn_styleSelect.setEnabled(false);
+
+                }
+            }
+        });
+    }
+
     @OnClick(R.id.btn_dateSelect)
     public void btn_dateSelectClicked() {
         selectedDate = "";
-        ReservationInfoDialog reservationInfoDialog = new ReservationInfoDialog(this);
+        ReservationInfoDialog reservationInfoDialog = new ReservationInfoDialog(this, selectedDesIdx);
         reservationInfoDialog.show();
 
         reservationInfoDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -113,7 +164,8 @@ public class ReservationActivity extends BaseActivity {
                     tv_dateInput.setTextColor(getColor(R.color.ebay_blue));
                     tv_date.setTextColor(getColor(R.color.ebay_blue));
                     btn_designerSelect.setEnabled(true);
-                    btn_styleSelect.setEnabled(false);
+                    btn_dateSelect.setEnabled(true);
+                    btn_styleSelect.setEnabled(true);
 
 
                 } else {
@@ -121,7 +173,8 @@ public class ReservationActivity extends BaseActivity {
                     tv_dateInput.setBackgroundResource(R.drawable.bg_rounded_04);
                     tv_dateInput.setTextColor(getColor(R.color.ph_light_gray_color_06));
                     tv_date.setTextColor(getColor(R.color.ph_light_gray_color_06));
-                    btn_designerSelect.setEnabled(false);
+                    btn_designerSelect.setEnabled(true);
+                    btn_dateSelect.setEnabled(true);
                     btn_styleSelect.setEnabled(false);
 
                 }
@@ -158,11 +211,17 @@ public class ReservationActivity extends BaseActivity {
                     tv_styleInput.setBackgroundResource(R.drawable.bg_rounded_08);
                     tv_styleInput.setTextColor(getColor(R.color.ebay_blue));
                     tv_style.setTextColor(getColor(R.color.ebay_blue));
+                    btn_designerSelect.setEnabled(true);
+                    btn_dateSelect.setEnabled(true);
+                    btn_styleSelect.setEnabled(true);
                 } else {
                     tv_styleInput.setText("");
                     tv_styleInput.setBackgroundResource(R.drawable.bg_rounded_04);
                     tv_styleInput.setTextColor(getColor(R.color.ph_light_gray_color_06));
                     tv_style.setTextColor(getColor(R.color.ph_light_gray_color_06));
+                    btn_designerSelect.setEnabled(true);
+                    btn_dateSelect.setEnabled(true);
+                    btn_styleSelect.setEnabled(true);
                 }
 
             }

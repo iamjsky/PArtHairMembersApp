@@ -3,6 +3,7 @@ package kr.co.parthair.android.members.net.api;
 import kr.co.parthair.android.members.model.BusinessHour;
 import kr.co.parthair.android.members.model.CheckSignUp;
 import kr.co.parthair.android.members.model.Coupons;
+import kr.co.parthair.android.members.model.Designer;
 import kr.co.parthair.android.members.model.HaveCoupons;
 import kr.co.parthair.android.members.model.KakaoUserLogin;
 import kr.co.parthair.android.members.model.KakaoUserSignUp;
@@ -126,13 +127,27 @@ public interface ApiService {
     @GET("businessHour.php")
     Call<BusinessHour> getBusinessHour(
     );
-    @GET("reservationInfo.php")
-    Call<ReservationInfo> getReservationInfo(
+    @FormUrlEncoded
+    @POST("reservationInfo.php")
+    Call<ReservationInfo> getReservationInfo(@Field("des_idx") int des_idx,
+                                             @Field("selected_date") String selected_date
     );
-
+    @GET("designerList.php")
+    Call<Designer> getDesignerList(
+    );
     @FormUrlEncoded
     @POST("myReservation.php")
     Call<MyReservation> getMyReservation(
             @Field("user_token") String user_token
+    );
+    @FormUrlEncoded
+    @POST("reservationInfo.php")
+    Call<ReservationInfo> applyReservation(@Field("user_token") String user_token,
+                                             @Field("user_phone") String user_phone,
+                                             @Field("user_name") String user_name,
+                                             @Field("reservation_date") String reservation_date,
+                                             @Field("hs_idx") int hs_idx,
+                                             @Field("des_idx") int des_idx,
+                                             @Field("memo") String memo
     );
 }

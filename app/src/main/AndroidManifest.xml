@@ -20,11 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PArtHairMembersApp">
         <activity android:name=".ui.page.reservation.ReservationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.page.reservation.MyReservationActivity" />
         <activity android:name=".ui.page.news.NewsActivity" />
@@ -59,7 +55,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.page.common.base.BaseActivity" />
         <activity

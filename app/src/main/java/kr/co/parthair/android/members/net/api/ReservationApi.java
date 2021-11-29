@@ -4,11 +4,13 @@ import kr.co.parthair.android.members.common.HttpResponseCode;
 import kr.co.parthair.android.members.common.MyConstants;
 import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.model.BusinessHour;
+import kr.co.parthair.android.members.model.Designer;
 import kr.co.parthair.android.members.model.MyReservation;
 import kr.co.parthair.android.members.model.NewsDataModel;
 import kr.co.parthair.android.members.model.ReservationInfo;
 import kr.co.parthair.android.members.net.RetrofitGenerator;
 import kr.co.parthair.android.members.net.api.callback.GetBusinessHourCallback;
+import kr.co.parthair.android.members.net.api.callback.GetDesignerInfoCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMyReservationCallback;
 import kr.co.parthair.android.members.net.api.callback.GetNewsCallback;
 import kr.co.parthair.android.members.net.api.callback.GetReservationInfoCallback;
@@ -27,10 +29,10 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
     private ApiService apiService = retrofitGenerator.getApiService();
 
 
-    public void getReservationInfo(GetReservationInfoCallback callback) {
+    public void getReservationInfo(int des_idx, String selected_date, GetReservationInfoCallback callback) {
 
 
-        apiService.getReservationInfo().enqueue(new Callback<ReservationInfo>() {
+        apiService.getReservationInfo(des_idx, selected_date).enqueue(new Callback<ReservationInfo>() {
             @Override
             public void onResponse(Call<ReservationInfo> call, Response<ReservationInfo> response) {
                 if (response.isSuccessful()) {
@@ -39,12 +41,13 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
                     String msg = resData.getHeader().getMessage();
 
                     switch (code) {
+                        case NO_CONTENT:
                         case OK:
 
                             callback.onSuccess(code, msg, resData.getReservationDataList(), resData.getBlockTimeDataList());
 
                             break;
-                        case NO_CONTENT:
+
                         case NOT_FOUND:
                         case ERROR:
                             callback.onError(code, msg);
@@ -159,6 +162,46 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
             @Override
             public void onFailure(Call<BusinessHour> call, Throwable t) {
                 callback.onError(SERVER_ERROR, "getBusinessHour()>>" + t.toString());
+            }
+        });
+
+
+    }
+    public void getDesignerList(GetDesignerInfoCallback callback) {
+
+
+        apiService.getDesignerList().enqueue(new Callback<Designer>() {
+            @Override
+            public void onResponse(Call<Designer> call, Response<Designer> response) {
+                if (response.isSuccessful()) {
+                    Designer resData = response.body();
+                    int code = resData.getHeader().getCode();
+                    String msg = resData.getHeader().getMessage();
+
+                    switch (code) {
+                        case OK:
+
+                            callback.onSuccess(code, msg, resData.getDesignerInfo());
+
+                            break;
+                        case NO_CONTENT:
+                        case NOT_FOUND:
+                        case ERROR:
+                            callback.onError(code, msg);
+                            break;
+
+
+                    }
+
+
+                } else {
+                    callback.onError(SERVER_ERROR, "getDesignerList()>>" + "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Designer> call, Throwable t) {
+                callback.onError(SERVER_ERROR, "getDesignerList()>>" + t.toString());
             }
         });
 

@@ -99,7 +99,53 @@
                 android:paddingRight="@dimen/_20sdp"
                 android:paddingBottom="@dimen/_70sdp">
 
+                <LinearLayout
 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:id="@+id/tv_designer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:text="디자이너"
+                        android:textColor="@color/ph_light_gray_color_06" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:paddingLeft="@dimen/_14sdp"
+                            android:paddingRight="@dimen/_14sdp"
+                            android:text=""
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_designerInput"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/bg_rounded_04"
+                            android:gravity="center"
+                            />
+
+                        <Button
+                            android:enabled="true"
+                            android:background="@drawable/selector_button_rounded_01"
+                            android:id="@+id/btn_designerSelect"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:text="선택" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
                 <LinearLayout
 
                     android:layout_width="match_parent"
@@ -147,53 +193,7 @@
 
 
                 </LinearLayout>
-                <LinearLayout
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="vertical">
-
-                    <TextView
-
-                        android:id="@+id/tv_designer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="담당 디자이너"
-                        android:textColor="@color/ph_light_gray_color_06" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:paddingLeft="@dimen/_14sdp"
-                            android:paddingRight="@dimen/_14sdp"
-                            android:text=""
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_weight="1"
-                            android:id="@+id/tv_designerInput"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/bg_rounded_04"
-                            android:gravity="center"
-                     />
-
-                        <Button
-                            android:enabled="false"
-                            android:background="@drawable/selector_button_rounded_01"
-                            android:id="@+id/btn_designerSelect"
-                            android:layout_width="@dimen/_70sdp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:text="선택" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
                 <LinearLayout
 
                     android:layout_width="match_parent"
@@ -251,5 +251,39 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
+        android:layout_alignParentBottom="true"
+        android:background="@color/ph_menu_tab_color_01"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_elevation_01" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_button_rounded_01"
+                android:text="예약하기" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
