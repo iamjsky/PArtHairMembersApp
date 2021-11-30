@@ -1,5 +1,6 @@
 package kr.co.parthair.android.members.net.api;
 
+import kr.co.parthair.android.members.model.ApplyReservation;
 import kr.co.parthair.android.members.model.BusinessHour;
 import kr.co.parthair.android.members.model.CheckSignUp;
 import kr.co.parthair.android.members.model.Coupons;
@@ -142,12 +143,12 @@ public interface ApiService {
     );
     @FormUrlEncoded
     @POST("reservationInfo.php")
-    Call<ReservationInfo> applyReservation(@Field("user_token") String user_token,
-                                             @Field("user_phone") String user_phone,
-                                             @Field("user_name") String user_name,
-                                             @Field("reservation_date") String reservation_date,
-                                             @Field("hs_idx") int hs_idx,
-                                             @Field("des_idx") int des_idx,
-                                             @Field("memo") String memo
+    Call<ApplyReservation> applyReservation(@Field("user_token") String user_token,
+                                            @Field("user_phone") String user_phone,
+                                            @Field("user_name") String user_name,
+                                            @Field("reservation_date") String reservation_date,
+                                            @Field("hs_idx") int hs_idx,
+                                            @Field("des_idx") int des_idx,
+                                            @Field("memo") String memo
     );
 }

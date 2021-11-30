@@ -27,9 +27,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.model.ApplyReservation;
 import kr.co.parthair.android.members.model.BusinessHour;
 import kr.co.parthair.android.members.model.MainHairStyle;
 import kr.co.parthair.android.members.model.TagListModel;
+import kr.co.parthair.android.members.net.api.callback.ApplyReservationCallback;
 import kr.co.parthair.android.members.net.api.callback.GetBusinessHourCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
@@ -102,7 +104,9 @@ public class ReservationActivity extends BaseActivity {
 
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked(){
-
+        String selectedStyle = tv_styleInput.getText().toString() + "";
+        Toast.makeText(mContext, selectedDesIdx + "," + selectedDate + "," + selectedStyle, Toast.LENGTH_SHORT).show();
+        //reservationApi.applyReservation(applyReservationCallback);
     }
 
     @OnClick(R.id.btn_designerSelect)
@@ -254,6 +258,18 @@ public class ReservationActivity extends BaseActivity {
 
         @Override
         public void onError(int code, String msg) {
+        }
+    };
+
+    ApplyReservationCallback applyReservationCallback = new ApplyReservationCallback() {
+        @Override
+        public void onSuccess(int code, String msg, @Nullable ApplyReservation.ReservationResult data) {
+
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+
         }
     };
 
