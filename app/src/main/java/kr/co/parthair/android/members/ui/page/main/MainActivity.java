@@ -44,9 +44,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,6 +70,7 @@ import kr.co.parthair.android.members.ui.page.main.dialog.CallDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.ReservationDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.SocialLoginLinkDialog;
 import kr.co.parthair.android.members.ui.page.main.dialog.UserBarcodeDialog;
+import kr.co.parthair.android.members.ui.page.main.fragment.MainMyReservationFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsCouponsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsEventsFragment;
 import kr.co.parthair.android.members.ui.page.main.fragment.MainNewsNoticeFragment;
@@ -404,21 +402,18 @@ public class MainActivity extends BaseActivity {
     //endregion
 
     //region userReservation
+    @BindView(R.id.layout_myReservationContainer)
+    FrameLayout layout_myReservationContainer;
+    public Fragment myReservationFragmentPage;
 
-    @BindView(R.id.layout_userReservationEmpty)
-    LinearLayout layout_userReservationEmpty;
-    @BindView(R.id.layout_userReservationContainer)
-    LinearLayout layout_userReservationContainer;
-    @BindView(R.id.tv_userReservationMsg)
-    TextView tv_userReservationMsg;
-    @BindView(R.id.tv_userReservationDate)
-    TextView tv_userReservationDate;
-    @BindView(R.id.tv_userReservationTime)
-    TextView tv_userReservationTime;
-    @BindView(R.id.tv_userReservationStyle)
-    TextView tv_userReservationStyle;
-    @BindView(R.id.tv_userReservationDesigner)
-    TextView tv_userReservationDesigner;
+//    @BindView(R.id.tv_userReservationDate)
+//    TextView tv_userReservationDate;
+//    @BindView(R.id.tv_userReservationTime)
+//    TextView tv_userReservationTime;
+//    @BindView(R.id.tv_userReservationStyle)
+//    TextView tv_userReservationStyle;
+//    @BindView(R.id.tv_userReservationDesigner)
+//    TextView tv_userReservationDesigner;
 
 
     //endregion
@@ -529,6 +524,7 @@ public class MainActivity extends BaseActivity {
         refreshUserInfo();
         refreshMainNoticeImage();
         refreshMainHairStyle();
+        refreshReservation();
 
     }
 
@@ -538,9 +534,7 @@ public class MainActivity extends BaseActivity {
 
         if (!MyInfo.instance.isLogin()) {
             LOG_E("MyInfo.instance.isLogin() chchchcheck : " + MyInfo.instance.isLogin());
-            layout_userReservationContainer.setVisibility(View.GONE);
-            layout_userReservationEmpty.setVisibility(View.VISIBLE);
-            tv_userReservationMsg.setText("로그인 후 예약 내역을 확인할 수 있습니다.");
+
             layout_userLogged.setVisibility(View.GONE);
             layout_userNotLogged.setVisibility(View.VISIBLE);
 
@@ -650,18 +644,29 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void getMyReservation(){
+    public void refreshReservation(){
         LOG_E("MyInfo.instance.isLogin()!!!!" + MyInfo.instance.isLogin());
-        if(MyInfo.instance.isLogin()){
+        String tag = "";
 
-            reservationApi.getMyReservation(getMyReservationCallback);
 
-        }else{
-            layout_userReservationContainer.setVisibility(View.GONE);
-            layout_userReservationEmpty.setVisibility(View.VISIBLE);
-            tv_userReservationMsg.setText("로그인 후 예약 내역을 확인할 수 있습니다.");
+        myReservationFragmentPage = new MainMyReservationFragment();
+
+        tag = FRAGMENT_MAIN_MY_RESERVATION + "";
+
+
+
+
+
+        if (myReservationFragmentPage != null) {
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(layout_myReservationContainer.getId(), myReservationFragmentPage, tag);
+            transaction.commitAllowingStateLoss();
 
         }
+
+
+
 
 
 
@@ -835,7 +840,7 @@ public class MainActivity extends BaseActivity {
                         socialLoginLinkDialog.show();
                     }
                 }
-                getMyReservation();
+
             } else{
                 layout_userBarcode.setVisibility(View.GONE);
 
@@ -894,43 +899,7 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    GetMyReservationCallback getMyReservationCallback = new GetMyReservationCallback() {
-        @Override
-        public void onSuccess(int code, String msg, @Nullable List<MyReservation.MyReservationData> data) {
 
-            assert data != null;
-            if(data.size() > 0){
-                layout_userReservationContainer.setVisibility(View.VISIBLE);
-                layout_userReservationEmpty.setVisibility(View.GONE);
-
-                    tv_userReservationDate.setText(data.get(0).getReservationDate()+"");
-                    tv_userReservationTime.setText(data.get(0).getReservation_time()+"");
-                    tv_userReservationStyle.setText(data.get(0).getHairStyle()+"");
-                    tv_userReservationDesigner.setText(data.get(0).getDesigner()+"");
-
-
-
-            }else{
-                layout_userReservationContainer.setVisibility(View.GONE);
-                layout_userReservationEmpty.setVisibility(View.VISIBLE);
-                tv_userReservationMsg.setText(msg);
-            }
-
-
-
-
-
-
-
-        }
-
-        @Override
-        public void onError(int code, String msg) {
-            layout_userReservationContainer.setVisibility(View.GONE);
-            layout_userReservationEmpty.setVisibility(View.VISIBLE);
-            tv_userReservationMsg.setText(msg);
-        }
-    };
 
 
 //    GetUserInfoCallback getUserInfoCallback = new GetUserInfoCallback() {

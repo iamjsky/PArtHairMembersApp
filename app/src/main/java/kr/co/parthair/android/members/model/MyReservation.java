@@ -74,10 +74,10 @@ public class MyReservation {
         @SerializedName("designer")
         @Expose
         public String designer;
-        @SerializedName("hair_style")
-        @Expose
-        public String hairStyle;
 
+        @SerializedName("hs_list")
+        @Expose
+        public String hs_list;
     }
 
 }

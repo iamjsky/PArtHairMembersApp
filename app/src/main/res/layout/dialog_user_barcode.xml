@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/_44sdp">
 
     <LinearLayout
+        android:gravity="center"
         android:padding="@dimen/_20sdp"
         android:background="@drawable/bg_rounded_01"
         android:orientation="vertical"

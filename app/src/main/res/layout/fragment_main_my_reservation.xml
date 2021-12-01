@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:clipToPadding="false"
+        android:id="@+id/recv_body"
+        tools:listitem="@layout/item_main_my_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:visibility="visible"
+        android:padding="@dimen/_20sdp"
+        android:textColor="@color/ph_light_gray_color_01"
+        android:id="@+id/tv_emptyMyReservationList"
+        android:text="예약 내역이 없습니다."
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"/>
+    <ImageView
+        android:id="@+id/iv_leftArrow"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ico_left_arrow_01"
+        android:layout_width="@dimen/_10sdp"
+        android:layout_height="@dimen/_20sdp"/>
+    <ImageView
+        android:id="@+id/iv_rightArrow"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ico_right_arrow_01"
+        android:layout_width="@dimen/_10sdp"
+        android:layout_height="@dimen/_20sdp"/>
+</RelativeLayout>

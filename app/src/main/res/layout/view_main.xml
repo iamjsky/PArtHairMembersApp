@@ -542,7 +542,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_250sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@color/ph_page_bg_color"
                 android:orientation="vertical">
@@ -553,7 +553,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center|bottom"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_20sdp">
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_20sdp">
 
                     <TextView
 
@@ -571,177 +573,16 @@
 
 
 
-                <LinearLayout
 
-                    android:paddingRight="@dimen/_20sdp"
-                    android:paddingLeft="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_20sdp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:visibility="visible"
-                        android:id="@+id/layout_userReservationEmpty"
-                        android:orientation="vertical"
+                    <FrameLayout
+                        android:id="@+id/layout_myReservationContainer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <TextView
-                            android:textColor="@color/ph_light_gray_color_01"
-                            android:gravity="center"
-                            android:id="@+id/tv_userReservationMsg"
-                            android:text="예약 내역이 없습니다."
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:visibility="gone"
-                        android:id="@+id/layout_userReservationContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_marginBottom="@dimen/_6sdp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_marginRight="@dimen/_4sdp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ico_user_04"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"/>
-                            <TextView
-                                android:gravity="center"
-                                android:fontFamily="@font/pretendard_bold"
-                                android:text="날짜"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:id="@+id/tv_userReservationDate"
-                                android:gravity="center|right"
-                                android:text="2021-11-23 (화)"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
 
 
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_marginBottom="@dimen/_6sdp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                    </FrameLayout>
 
-                            <ImageView
-                                android:layout_marginRight="@dimen/_4sdp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ico_user_04"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"/>
-                            <TextView
-                                android:gravity="center"
-                                android:fontFamily="@font/pretendard_bold"
-                                android:text="시간"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:id="@+id/tv_userReservationTime"
-                                android:gravity="center|right"
-                                android:text="13:00"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_marginBottom="@dimen/_6sdp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_marginRight="@dimen/_4sdp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ico_user_04"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"/>
-                            <TextView
-                                android:gravity="center"
-                                android:fontFamily="@font/pretendard_bold"
-                                android:text="스타일"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:id="@+id/tv_userReservationStyle"
-                                android:gravity="center|right"
-                                android:text="남성 컷"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_marginRight="@dimen/_4sdp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ico_user_04"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"/>
-                            <TextView
-                                android:gravity="center"
-                                android:fontFamily="@font/pretendard_bold"
-                                android:text="디자이너"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:id="@+id/tv_userReservationDesigner"
-                                android:gravity="center|right"
-                                android:text="소연 원장"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <Button
-                                android:text="자세히 보기"
-                                android:textColor="@color/ph_main_color"
-                                android:background="@drawable/selector_button_rounded_02"
-                                android:layout_marginRight="@dimen/_10sdp"
-                                android:layout_weight="1"
-                                android:id="@+id/btn_userReservationMore"
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/_40sdp"/>
-                            <Button
-                                android:text="예약 변경"
-                                android:textColor="@color/ph_main_color"
-                                android:background="@drawable/selector_button_rounded_02"
-                                android:layout_weight="1"
-                                android:id="@+id/btn_userReservationModify"
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/_40sdp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
 
 
             </LinearLayout>

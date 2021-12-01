@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.parthair.android.members.R;
+import kr.co.parthair.android.members.common.MyInfo;
 import kr.co.parthair.android.members.model.ApplyReservation;
 import kr.co.parthair.android.members.model.BusinessHour;
 import kr.co.parthair.android.members.model.MainHairStyle;
@@ -36,6 +37,7 @@ import kr.co.parthair.android.members.net.api.callback.GetBusinessHourCallback;
 import kr.co.parthair.android.members.net.api.callback.GetMainHairStyleCallback;
 import kr.co.parthair.android.members.ui.page.common.base.BaseActivity;
 import kr.co.parthair.android.members.ui.page.main.adapter.MainHairStyleAdapter;
+import kr.co.parthair.android.members.ui.page.reservation.dialog.CheckReservationDialog;
 import kr.co.parthair.android.members.ui.page.reservation.dialog.DesignerInfoDialog;
 import kr.co.parthair.android.members.ui.page.reservation.dialog.ReservationInfoDialog;
 import kr.co.parthair.android.members.ui.page.reservation.dialog.SelectStyleDialog;
@@ -104,9 +106,27 @@ public class ReservationActivity extends BaseActivity {
 
     @OnClick(R.id.btn_confirm)
     public void btn_confirmClicked(){
-        String selectedStyle = tv_styleInput.getText().toString() + "";
-        Toast.makeText(mContext, selectedDesIdx + "," + selectedDate + "," + selectedStyle, Toast.LENGTH_SHORT).show();
-        //reservationApi.applyReservation(applyReservationCallback);
+        String user_name = MyInfo.instance.getUserInfo().getUserName() + "";
+        String user_phone = MyInfo.instance.getUserInfo().getUserPhone() + "";
+        SimpleDateFormat _sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd (E) a HH:mm");
+        Date selectDate = null;
+        try {
+            LOG_E("selectedDate : " + selectedDate);
+            selectDate = sdf.parse(selectedDate);
+            selectedDate = _sdf.format(selectDate)+"";
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String reservation_date = selectedDate + "";
+        String hs_list = tv_styleInput.getText().toString() + "";
+        int des_idx = selectedDesIdx;
+        String memo = "memo";
+
+        //Toast.makeText(mContext, des_idx + "," + reservation_date + "," + hs_list, Toast.LENGTH_SHORT).show();
+        CheckReservationDialog checkReservationDialog = new CheckReservationDialog(this, reservation_date, hs_list, selectedDesigner, des_idx, memo);
+        checkReservationDialog.show();
+
     }
 
     @OnClick(R.id.btn_designerSelect)
@@ -261,17 +281,7 @@ public class ReservationActivity extends BaseActivity {
         }
     };
 
-    ApplyReservationCallback applyReservationCallback = new ApplyReservationCallback() {
-        @Override
-        public void onSuccess(int code, String msg, @Nullable ApplyReservation.ReservationResult data) {
 
-        }
-
-        @Override
-        public void onError(int code, String msg) {
-
-        }
-    };
 
     //endregion
 

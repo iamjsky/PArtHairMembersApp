@@ -19,4 +19,6 @@ public interface FragmentPageCode {
 
     int FRAGMENT_MAIN_COUPONS = 400;
 
+    int FRAGMENT_MAIN_MY_RESERVATION = 500;
+
 }

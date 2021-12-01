@@ -142,12 +142,12 @@ public interface ApiService {
             @Field("user_token") String user_token
     );
     @FormUrlEncoded
-    @POST("reservationInfo.php")
+    @POST("reservation.php")
     Call<ApplyReservation> applyReservation(@Field("user_token") String user_token,
                                             @Field("user_phone") String user_phone,
                                             @Field("user_name") String user_name,
                                             @Field("reservation_date") String reservation_date,
-                                            @Field("hs_idx") int hs_idx,
+                                            @Field("hs_list") String hs_list,
                                             @Field("des_idx") int des_idx,
                                             @Field("memo") String memo
     );

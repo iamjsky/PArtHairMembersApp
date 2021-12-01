@@ -95,11 +95,9 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
 
 
                             if (resData.getMyReservationDataList().size() > 0) {
-                                if (resData.getMyReservationDataList().get(0).getState() == 0) {
+
                                     callback.onSuccess(code, msg, resData.getMyReservationDataList());
-                                } else {
-                                    callback.onError(code, "예약 내역이 없습니다.");
-                                }
+
 
                             } else {
                                 callback.onError(code, "예약 내역이 없습니다.");
@@ -216,7 +214,7 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
             String user_name,
             String user_phone,
             String reservation_date,
-            int hs_idx,
+            String hs_list,
             int des_idx,
             String memo,
             ApplyReservationCallback callback) {
@@ -233,7 +231,7 @@ public class ReservationApi implements MyConstants, HttpResponseCode {
                 user_name,
                 user_phone,
                 reservation_date,
-                hs_idx,
+                hs_list,
                 des_idx,
                 memo).enqueue(new Callback<ApplyReservation>() {
             @Override
